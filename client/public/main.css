@@ -1,0 +1,10 @@
+.screen-size-indicator {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 14px;
+}
