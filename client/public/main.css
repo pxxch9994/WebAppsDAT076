@@ -13,6 +13,47 @@
     width: 100%;
     height: 100%;
     object-fit: contain; /* or "fill" depending on your preference */
+}
+
+.navbar-nav .nav-item:hover {
+    background-color: #343a40; /* Change to the background color you desire */
+    border-radius: 4px;
+}
+  
+.navbar-nav .nav-item:hover a {
+    color: #ffffff; /* Change to the text color you desire */
+}
+
+.navbar-nav .nav-item:hover,
+.navbar-nav .nav-item.active {
+  background-color: #343a40; /* Change to the background color you desire */
+  border-radius: 4px;
+}
+
+.navbar-nav .nav-item:hover a,
+.navbar-nav .nav-item.active a {
+  color: #ffffff; /* Change to the text color you desire */
+}
+
+
+/* Add these styles to your existing stylesheet */
+
+@keyframes slideRight {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(10px); /* Adjust the distance as needed */
+    }
   }
   
+  /* Apply the animation to the main header when hovering */
+  .p-md-5, .firstcol, .secondcol {
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .p-md-5:hover, .firstcol:hover, .secondcol:hover {
+    animation: slideRight 0.3s ease-in-out;
+    transform: translateX(10px); /* Set the final position after the animation */
+  }
   
