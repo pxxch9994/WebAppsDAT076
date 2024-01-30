@@ -21,13 +21,13 @@
 
 .navbar-nav .nav-item:hover,
 .navbar-nav .nav-item.active {
-  background-color: #343a40; /* Change to the background color you desire */
+  background-color: #343a40; 
   border-radius: 4px;
 }
 
 .navbar-nav .nav-item:hover a,
 .navbar-nav .nav-item.active a {
-  color: #ffffff; /* Change to the text color you desire */
+  color: #ffffff; 
 }
 
 
@@ -39,7 +39,7 @@
       transform: translateX(0);
     }
     to {
-      transform: translateX(10px); /* Adjust the distance as needed */
+      transform: translateX(10px); 
     }
 }
 
@@ -49,5 +49,5 @@
 
 .p-md-5:hover, .firstcol:hover, .secondcol:hover {
     animation: slideRight 0.3s ease-in-out;
-    transform: translateX(10px); /* Set the final position after the animation */
+    transform: translateX(10px); 
 }
