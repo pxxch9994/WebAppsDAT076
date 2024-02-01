@@ -14,7 +14,15 @@
     height: 100%;
     object-fit: contain;
 }
-
+.square-image2 {
+    position:absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 75%;
+    height: 75%;
+    object-fit: cover;
+  }
 
 
 /* Nav bar hightlight on active page */
@@ -29,6 +37,7 @@
 .navbar-nav .nav-item.active a {
   color: #ffffff; 
 }
+
 
 
 
