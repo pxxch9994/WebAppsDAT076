@@ -1,4 +1,4 @@
-import {Pet, User} from "../model/user";
+import {Pet, User} from "../model/userModel";
 
 export class UserService {
     private users : User[] = [{id: 123, name:"Ebrahim"}];
