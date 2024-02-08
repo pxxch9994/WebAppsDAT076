@@ -21,6 +21,8 @@ export class UserService {
         return user;
     }
 
+    // TODO: check ownerID
+    // Helpfunction
     async addPet(name: string, date: number, type:string, breed:string, ownerId:number): Promise<Pet> {
         const pet = {
             name: name,

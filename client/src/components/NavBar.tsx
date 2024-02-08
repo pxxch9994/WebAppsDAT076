@@ -29,13 +29,13 @@ const Navbar: React.FC<NavbarProps> = ({ children }) => {
             <Link className="nav-link" to="/adopt">Adoption</Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" to="/forum">Forum</Link>
+            <Link className="nav-link" to="#">Forum</Link>
           </li>
           <li className="nav-item">
             <Link className="nav-link" to="#">Calendar</Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" to="#">My Pet Account</Link>
+            <Link className="nav-link" to="/login">My Pet Account</Link>
           </li>
         </ul>
       </div>
