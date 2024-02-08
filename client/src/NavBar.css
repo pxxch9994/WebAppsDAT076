@@ -1,0 +1,12 @@
+/* Nav bar hightlight on active page */
+
+.navbar-nav .nav-item:hover,
+.navbar-nav .nav-item.active {
+  background-color: #343a40; 
+  border-radius: 4px;
+}
+
+.navbar-nav .nav-item:hover a,
+.navbar-nav .nav-item.active a {
+  color: #ffffff; 
+}

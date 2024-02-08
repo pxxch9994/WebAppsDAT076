@@ -47,23 +47,6 @@ userRouter.post("/users/", async (
     }
 })
 
-userRouter.post("/users/", async (
-    req: Request<{ name : string }, {} >,
-    res: Response<User | string>
-) => {
-    try {
-        const name = req.body.name;
-        if (typeof(name) !== "string") {
-            res.status(400).send(`Bad PUT call to ${req.originalUrl} --- name has type ${typeof(name)}`);
-            return;
-        }
-        const newUser = await userService.addUser(name);
-        res.status(201).send(newUser);
-    } catch (e: any) {
-        res.status(500).send(e.message);
-    }
-})
-
 userRouter.post("/pets/", async (
     req: Request<{ name : string, date: number, type:string,  breed:string, ownerId:number}, {} >,
     res: Response<Pet | string>
