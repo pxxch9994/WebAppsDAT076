@@ -22,7 +22,7 @@ const LoginContainer: React.FC = () => {
         <h1>Login</h1>
         <form>
             <div className="mb-3">
-            <label htmlFor="identifier" className="form-label">Email or Username</label>
+            <label htmlFor="identifier" className="form-label">Username</label>
             <input type="text" className="form-control" id="identifier" value={identifier} onChange={(e) => setIdentifier(e.target.value)} />
             </div>
             <div className="mb-3">
@@ -38,41 +38,46 @@ const LoginContainer: React.FC = () => {
 /**
  * RegisterContainer component for handling user registration.
  */
+// Inside RegisterContainer component
 const RegisterContainer: React.FC = () => {
-  const [name, setName] = useState('');
-  const [newEmail, setNewEmail] = useState('');
-  const [newPassword, setNewPassword] = useState('');
-
-  /**
-   * Handles the register button click event.
-   */
-  const handleRegister = () => {
-    // TODO: registration logic
-    console.log('Registering with:', name, newEmail, newPassword);
+    const [name, setName] = useState('');
+    const [newPassword, setNewPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+  
+    /**
+     * Handles the register button click event.
+     */
+    const handleRegister = () => {
+      // TODO: registration logic
+      if (newPassword === confirmPassword) {
+        console.log('Registering with:', name, newPassword);
+      } else {
+        console.error('Password and Confirm Password do not match.');
+      }
+    };
+  
+    return (
+      <div>
+        <h1>Register</h1>
+        <form>
+          <div className="mb-3">
+            <label htmlFor="name" className="form-label">Username</label>
+            <input type="text" className="form-control" id="name" value={name} onChange={(e) => setName(e.target.value)} />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="newPassword" className="form-label">Password</label>
+            <input type="password" className="form-control" id="newPassword" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="confirmPassword" className="form-label">Confirm Password</label>
+            <input type="password" className="form-control" id="confirmPassword" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+          </div>
+          <button type="button" className="btn btn-primary" onClick={handleRegister}>Register</button>
+        </form>
+      </div>
+    );
   };
-
-  return (
-    <div>
-      <h1>Register</h1>
-      <form>
-        <div className="mb-3">
-          <label htmlFor="name" className="form-label">Name</label>
-          <input type="text" className="form-control" id="name" value={name} onChange={(e) => setName(e.target.value)} />
-        </div>
-        <div className="mb-3">
-          <label htmlFor="newEmail" className="form-label">Email address</label>
-          <input type="email" className="form-control" id="newEmail" value={newEmail} onChange={(e) => setNewEmail(e.target.value)} />
-        </div>
-        <div className="mb-3">
-          <label htmlFor="newPassword" className="form-label">Password</label>
-          <input type="password" className="form-control" id="newPassword" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
-        </div>
-        <button type="button" className="btn btn-primary" onClick={handleRegister}>Register</button>
-      </form>
-    </div>
-  );
-};
-
+  
 /**
  * Manages container switching.
  */
@@ -95,4 +100,3 @@ const Login: React.FC = () => {
   };
   
   export default Login;
-  

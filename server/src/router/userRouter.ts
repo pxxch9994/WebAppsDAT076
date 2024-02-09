@@ -83,3 +83,29 @@ userRouter.post("/pets/", async (
         res.status(500).send(e.message);
     }
 })
+
+// Registration route
+userRouter.post("/register", async (
+    req: Request<{ name: string, email: string, password: string }, {}>,
+    res: Response<User | string>
+) => {
+    try {
+        const { name, email, password } = req.body;
+
+        // Basic validation
+        if (!name || !email || !password) {
+            res.status(400).send('All fields are required');
+            return;
+        }
+
+
+
+        // Create a new user
+        const newUser = await userService.addUser(name, email, password);
+
+        console.log('New user registered:', newUser);
+        res.status(201).send(newUser);
+    } catch (e: any) {
+        res.status(500).send(e.message);
+    }
+});
