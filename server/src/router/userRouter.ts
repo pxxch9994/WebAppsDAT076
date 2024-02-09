@@ -6,6 +6,9 @@ const userService : UserService = new UserService();
 
 export const userRouter : Router = express.Router();
 
+/**
+ *
+ */
 userRouter.get("/users/", async (
     req : Request<{}, {} ,{}>,
     res : Response<User[] | String>
@@ -30,82 +33,72 @@ userRouter.get("/pets/", async (
     }
 });
 
+/**
+ * Register a new user.
+ */
 userRouter.post("/users/", async (
-    req: Request<{ name : string }, {} >,
+    req: Request<{ username : string, password : string }, {} >, //TODO try ro delete the second {}
     res: Response<User | string>
 ) => {
     try {
-        const name = req.body.name;
-        if (typeof(name) !== "string") {
-            res.status(400).send(`Bad PUT call to ${req.originalUrl} --- description has type ${typeof(name)}`);
+        const username = req.body.username;
+        const password = req.body.password;
+        if (typeof(username) !== "string") {
+            res.status(400).send(`Bad PUT call to ${req.originalUrl} --- username has type ${typeof(username)}`);
             return;
         }
-        const newUser = await userService.addUser(name);
-        res.status(201).send(newUser);
+        const addUser = await userService.addUser(username, password);
+        res.status(201).send(addUser);
     } catch (e: any) {
         res.status(500).send(e.message);
     }
 })
 
+/**
+ * Add a new pet to existing user.
+ */
 userRouter.post("/pets/", async (
-    req: Request<{ name : string, date: number, type:string,  breed:string, ownerId:number}, {} >,
+    req: Request<{ petName: string, username: string, image: string, kind: string, breed: string, birthday: number }, {} >,
     res: Response<Pet | string>
 ) => {
     try {
-        const name = req.body.name;
-        const date = req.body.date;
-        const type = req.body.type;
+        const petName = req.body.petName;
+        const username = req.body.username;
+        const image = req.body.image;
+        const kind = req.body.kind;
         const breed = req.body.breed;
-        const ownerId= req.body.ownerId;
-        if (typeof(name) !== "string") {
-            res.status(400).send(`Bad PUT call to ${req.originalUrl} --- name has type ${typeof(name)}`);
-            return;
+        const birthday = req.body.birthday;
+
+        switch (true) {
+            case (typeof petName !== "string"):
+                res.status(400).send(`Bad PUT call to ${req.originalUrl} --- petName has type string`);
+                return;
+            case (typeof username !== "string"):
+                res.status(400).send(`Bad PUT call to ${req.originalUrl} --- username has type string`);
+                return;
+            case (typeof image !== "string"):
+                res.status(400).send(`Bad PUT call to ${req.originalUrl} --- image has type string`);
+                return;
+            case (typeof kind !== "string"):
+                res.status(400).send(`Bad PUT call to ${req.originalUrl} --- kind has type string`);
+                return;
+            case (typeof breed !== "string"):
+                res.status(400).send(`Bad PUT call to ${req.originalUrl} --- breed has type string`);
+                return;
+            case (typeof birthday !== "number"):
+                res.status(400).send(`Bad PUT call to ${req.originalUrl} --- ownerId has type number`);
+                return;
+            default:
+            // Do nothing
         }
-        if (typeof(date) !== "number") {
-            res.status(400).send(`Bad PUT call to ${req.originalUrl} --- name has type ${typeof(date)}`);
-            return;
-        }
-        if (typeof(type) !== "string") {
-            res.status(400).send(`Bad PUT call to ${req.originalUrl} --- name has type ${typeof(type)}`);
-            return;
-        }
-        if (typeof(breed) !== "string") {
-            res.status(400).send(`Bad PUT call to ${req.originalUrl} --- name has type ${typeof(breed)}`);
-            return;
-        }
-        if (typeof(ownerId) !== "number") {
-            res.status(400).send(`Bad PUT call to ${req.originalUrl} --- name has type ${typeof(ownerId)}`);
-            return;
-        }
-        const newPet = await userService.addPet(name, date, type, breed, ownerId);
-        res.status(201).send(newPet);
+        const addPet = await userService.addPet(petName, username, image, kind, breed, birthday);
+        res.status(201).send(addPet);
     } catch (e: any) {
         res.status(500).send(e.message);
     }
 })
 
-// Registration route
-userRouter.post("/register", async (
-    req: Request<{ name: string, email: string, password: string }, {}>,
-    res: Response<User | string>
-) => {
-    try {
-        const { name, email, password } = req.body;
-
-        // Basic validation
-        if (!name || !email || !password) {
-            res.status(400).send('All fields are required');
-            return;
-        }
-
-
-
-        // Create a new user
-        const newUser = await userService.addUser(name, email, password);
-
-        console.log('New user registered:', newUser);
-        res.status(201).send(newUser);
-    } catch (e: any) {
-        res.status(500).send(e.message);
-    }
-});
+/*
+curl -X POST -H "Content-Type: application/json" -d "{ \"petName\": \"myPetName\", \"username\": \"myUsername\", \"image\": \"myImage\", \"kind\": \"myPetKind\", \"breed\": \"myPetBreed\", \"birthday\": 123456 }" -i http://localhost:8080/pets
+curl -X POST -H "Content-Type: application/json" -d "{ \"username\" : \"myUsername\",  \"password\" : \"myPassword\"}" -i localhost:8080/users
+*/

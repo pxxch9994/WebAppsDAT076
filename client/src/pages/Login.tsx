@@ -8,6 +8,7 @@ const LoginContainer: React.FC = () => {
     
     const [identifier, setIdentifier] = useState(''); // create state variables for identifier and password
     const [password, setPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
 
     /**
     * Handles the login button click event.
@@ -19,18 +20,36 @@ const LoginContainer: React.FC = () => {
 
     return (
         <div>
-        <h1>Login</h1>
-        <form>
-            <div className="mb-3">
-            <label htmlFor="identifier" className="form-label">Username</label>
-            <input type="text" className="form-control" id="identifier" value={identifier} onChange={(e) => setIdentifier(e.target.value)} />
-            </div>
-            <div className="mb-3">
-            <label htmlFor="password" className="form-label">Password</label>
-            <input type="password" className="form-control" id="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-            </div>
-            <button type="button" className="btn btn-primary" onClick={handleLogin}>Login</button>
-        </form>
+            <h1>Login</h1>
+            <form>
+
+                <div className="mb-3">
+                    <label htmlFor="identifier" className="form-label">Username</label>
+                    <input type="text" className="form-control" id="identifier" value={identifier} onChange={(e) => setIdentifier(e.target.value)} />
+                </div>
+
+                <div className="mb-3">
+                    <label htmlFor="password" className="form-label">Password</label>
+                    <div className="input-group">
+                        <input
+                            type={showPassword ? "text" : "password"}
+                            className="form-control"
+                            id="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
+                        <button
+                            type="button"
+                            className="btn btn-outline-secondary"
+                            onClick={() => setShowPassword(!showPassword)}
+                        >
+                            {showPassword ? "Hide" : "Show"}
+                        </button>
+                    </div>
+                </div>
+
+                <button type="button" className="btn btn-primary" onClick={handleLogin}>Login</button>
+            </form>
         </div>
     );
 };
@@ -42,42 +61,79 @@ const LoginContainer: React.FC = () => {
 const RegisterContainer: React.FC = () => {
     const [name, setName] = useState('');
     const [newPassword, setNewPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
-  
+    const [confirmedPassword, setConfirmedPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmedPassword, setShowConfirmedPassword] = useState(false);
+
     /**
      * Handles the register button click event.
      */
     const handleRegister = () => {
-      // TODO: registration logic
-      if (newPassword === confirmPassword) {
-        console.log('Registering with:', name, newPassword);
-      } else {
-        console.error('Password and Confirm Password do not match.');
-      }
+        // TODO: registration logic
+        if (newPassword === confirmedPassword) {
+            console.log('Registering with:', name, newPassword);
+        } else {
+            console.error('Password and Confirm Password do not match.');
+        }
     };
-  
+
     return (
-      <div>
-        <h1>Register</h1>
-        <form>
-          <div className="mb-3">
-            <label htmlFor="name" className="form-label">Username</label>
-            <input type="text" className="form-control" id="name" value={name} onChange={(e) => setName(e.target.value)} />
-          </div>
-          <div className="mb-3">
-            <label htmlFor="newPassword" className="form-label">Password</label>
-            <input type="password" className="form-control" id="newPassword" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
-          </div>
-          <div className="mb-3">
-            <label htmlFor="confirmPassword" className="form-label">Confirm Password</label>
-            <input type="password" className="form-control" id="confirmPassword" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
-          </div>
-          <button type="button" className="btn btn-primary" onClick={handleRegister}>Register</button>
-        </form>
-      </div>
+        <div>
+            <h1>Register</h1>
+            <form>
+
+                <div className="mb-3">
+                    <label htmlFor="name" className="form-label">Username</label>
+                    <input type="text" className="form-control" id="name" value={name} onChange={(e) => setName(e.target.value)} />
+                </div>
+
+                <div className="mb-3">
+                    <label htmlFor="newPassword" className="form-label">Password</label>
+                    <div className="input-group">
+                        <input
+                            type={showPassword ? "text" : "password"}
+                            className="form-control"
+                            id="newPassword"
+                            value={newPassword}
+                            onChange={(e) => setNewPassword(e.target.value)}
+                        />
+                        <button
+                            type="button"
+                            className="btn btn-outline-secondary"
+                            onClick={() => setShowPassword(!showPassword)}
+                        >
+                            {showPassword ? "Hide" : "Show"}
+                        </button>
+                    </div>
+                </div>
+
+                <div className="mb-3">
+                    <label htmlFor="confirmPassword" className="form-label">Confirm Password</label>
+                    <div className="input-group">
+                        <input
+                            type={showPassword ? "text" : "password"}
+                            className="form-control"
+                            id="confirmPassword"
+                            value={confirmedPassword}
+                            onChange={(e) => setConfirmedPassword(e.target.value)}
+                        />
+                        <button
+                            type="button"
+                            className="btn btn-outline-secondary"
+                            onClick={() => setShowConfirmedPassword(!showConfirmedPassword)}
+                        >
+                            {showConfirmedPassword ? "Hide" : "Show"}
+                        </button>
+                    </div>
+                </div>
+
+                <button type="button" className="btn btn-primary" onClick={handleRegister}>Register</button>
+
+            </form>
+        </div>
     );
-  };
-  
+};
+
 /**
  * Manages container switching.
  */
@@ -97,6 +153,6 @@ const Login: React.FC = () => {
         </div>
       </div>
     );
-  };
-  
-  export default Login;
+};
+
+export default Login;

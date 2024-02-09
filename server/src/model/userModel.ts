@@ -1,21 +1,24 @@
 export interface User {
-    id : number;
-    name : string;
-
+    username : string;
+    password : string;
 }
 
-export interface Pet{
-    name : string;
+export interface Pet {
+    petName : string;
     petId : number;
-    birthday : number;
-    type : string;
+    username : string;
+    image : string; // TODO
+    kind : string;
     breed : string;
-    ownerId : number;
+    birthday : number;
+
 }
 
-export interface Post{
+export interface Post {
     postId : number;
-    postOwnerId : number;
+    postUsername : string;
+    image : string; // TODO
     content : string;
-    type : string; // Adpot/Lost/Found/Birthday
+    page : string;
+    pet : Pet ; // TODO
 }
