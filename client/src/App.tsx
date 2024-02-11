@@ -6,6 +6,7 @@ import NavBar from './components/NavBar';
 import Home from './pages/Home';
 import Lost from './pages/Lost';
 import Login from './pages/Login';
+import MyProfile from './pages/MyProfile';
 
 function App() {
   return (
@@ -15,6 +16,10 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/lost" element={<Lost />} />
         <Route path="/login" element={<Login />} />
+
+        {/* TODO: Different Nav Bar on logged in sessions */}
+        <Route path="/myprofile" element={<MyProfile />} />
+
       </Routes>
     </Router>
 
