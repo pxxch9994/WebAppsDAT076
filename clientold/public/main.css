@@ -1,0 +1,62 @@
+.screen-size-indicator {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.square-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+.square-image2 {
+    position:absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 75%;
+    height: 75%;
+    object-fit: cover;
+  }
+
+
+/* Nav bar hightlight on active page */
+
+.navbar-nav .nav-item:hover,
+.navbar-nav .nav-item.active {
+  background-color: #343a40; 
+  border-radius: 4px;
+}
+
+.navbar-nav .nav-item:hover a,
+.navbar-nav .nav-item.active a {
+  color: #ffffff; 
+}
+
+
+
+
+/* Sliding animation when hovering containers on front page */
+
+@keyframes slideRight {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(10px); 
+    }
+}
+
+.p-md-5, .firstcol, .secondcol {
+    transition: transform 0.3s ease-in-out;
+}	  
+
+.p-md-5:hover, .firstcol:hover, .secondcol:hover {
+    animation: slideRight 0.3s ease-in-out;
+    transform: translateX(10px); 
+}

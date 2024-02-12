@@ -1,0 +1,30 @@
+.square-image2 {
+    position:absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 75%;
+    height: 75%;
+    object-fit: cover;
+}
+
+
+/* Sliding animation when hovering containers on front page */
+
+@keyframes slideRight {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(10px); 
+    }
+}
+
+.p-md-5, .firstcol, .secondcol {
+    transition: transform 0.3s ease-in-out;
+}	  
+
+.p-md-5:hover, .firstcol:hover, .secondcol:hover {
+    animation: slideRight 0.3s ease-in-out;
+    transform: translateX(10px); 
+}
