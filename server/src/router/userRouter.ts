@@ -7,7 +7,7 @@ const userService : UserService = new UserService();
 export const userRouter : Router = express.Router();
 
 /**
- *
+ * Handles GET request to retrieve all users.
  */
 userRouter.get("/users/", async (
     req : Request<{}, {} ,{}>,
@@ -21,6 +21,9 @@ userRouter.get("/users/", async (
     }
 });
 
+/**
+ * Handles GET request to retrieve all pets.
+ */
 userRouter.get("/pets/", async (
     req : Request<{}, {} ,{}>,
     res : Response<Pet[] | String>
@@ -34,7 +37,7 @@ userRouter.get("/pets/", async (
 });
 
 /**
- * Register a new user.
+ * Handles POST request to add a new user.
  */
 userRouter.post("/users/", async (
     req: Request<{ username : string, password : string }, {} >, //TODO try ro delete the second {}
@@ -55,7 +58,7 @@ userRouter.post("/users/", async (
 })
 
 /**
- * Add a new pet to existing user.
+ * Handles POST request to add a new pet.
  */
 userRouter.post("/pets/", async (
     req: Request<{ petName: string, username: string, image: string, kind: string, breed: string, birthday: number }, {} >,
@@ -98,7 +101,26 @@ userRouter.post("/pets/", async (
     }
 })
 
-/*
-curl -X POST -H "Content-Type: application/json" -d "{ \"petName\": \"myPetName\", \"username\": \"myUsername\", \"image\": \"myImage\", \"kind\": \"myPetKind\", \"breed\": \"myPetBreed\", \"birthday\": 123456 }" -i http://localhost:8080/pets
-curl -X POST -H "Content-Type: application/json" -d "{ \"username\" : \"myUsername\",  \"password\" : \"myPassword\"}" -i localhost:8080/users
-*/
+/**
+ * Handles POST request for user login.
+ */
+userRouter.post("/login", async (
+    req: Request<{ username: string, password: string }, {}>,
+    res: Response<User | string>
+) => {
+    try {
+        const username = req.body.username;
+        const password = req.body.password;
+
+        const user = await userService.getUserByUsername(username);
+
+        if (!user || user.password !== password) {
+            res.status(401).send("Invalid username or password");
+            return;
+        }
+
+        res.status(200).send(user);
+    } catch (e: any) {
+        res.status(500).send(e.message);
+    }
+});
