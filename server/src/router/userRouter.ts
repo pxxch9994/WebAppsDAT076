@@ -21,6 +21,24 @@ userRouter.get("/users/", async (
     }
 });
 
+userRouter.get("/users/:username", async (
+    req : Request<{username : string}, {} ,{}>,
+    res : Response<User[] | String>
+) => {
+    try {
+        const username = req.params.username;
+        const user = await userService.getUserByUsername(username);
+
+        if (!user) {
+            res.status(400).send("User does not exist.");
+        } else {
+            res.status(200).send(user.username);
+        }
+    } catch (e: any) {
+        res.status(500).send(e.message);
+    }
+});
+
 /**
  * Handles GET request to retrieve all pets.
  */

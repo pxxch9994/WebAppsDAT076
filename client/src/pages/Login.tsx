@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import './Pages.css';
 
+
+
+
 /**
  * LoginContainer component for handling user login.
  */
 const LoginContainer: React.FC = () => {
     
-    const [identifier, setIdentifier] = useState(''); // create state variables for identifier and password
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const [loginError, setLoginError] = useState<string | null>(null);
@@ -16,12 +19,13 @@ const LoginContainer: React.FC = () => {
     */
     const handleLogin = async () => {
         try {
+            // Checking username and password using fetch
             const response = await fetch('http://localhost:8080/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ username: identifier, password }),
+                body: JSON.stringify({ username: username, password }),
             });
 
             if (response.ok) {
@@ -46,8 +50,8 @@ const LoginContainer: React.FC = () => {
             <form>
 
                 <div className="mb-3">
-                    <label htmlFor="identifier" className="form-label">Username</label>
-                    <input type="text" className="form-control" id="identifier" value={identifier} onChange={(e) => setIdentifier(e.target.value)} />
+                    <label htmlFor="username" className="form-label">Username</label>
+                    <input type="text" className="form-control" id="username" value={username} onChange={(e) => setUsername(e.target.value)} />
                     {loginError && <span className="text-danger">{loginError}</span>} {/* Display error message */}
                 </div>
 
@@ -82,7 +86,7 @@ const LoginContainer: React.FC = () => {
  */
 // Inside RegisterContainer component
 const RegisterContainer: React.FC = () => {
-    const [newUsername, setnewUsername] = useState('');
+    const [newUsername, setNewUsername] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [confirmedPassword, setConfirmedPassword] = useState('');
     const [usernameExists, setUsernameExists] = useState(false);
@@ -119,41 +123,42 @@ const RegisterContainer: React.FC = () => {
      */
     const handleRegister = async () => {
         try {
-            if (newPassword !== confirmedPassword) {
-              console.error('Password and Confirm Password do not match.');
-              return;
-            }
-      
-            // Check if the username already exists before attempting registration
+
             await handleCheckUsername();
-      
-            if (usernameExists) {
-              console.error('Username already exists. Choose a different username.');
-              
-            } else {
-                // Continue with registration logic
+
+            if (!usernameExists) {
+
+                if (newPassword !== confirmedPassword) {
+                    console.error('Password and Confirm Password do not match.');
+                    return;
+                }
+
                 const response = await fetch('http://localhost:8080/users/', {
                     method: 'POST',
                     headers: {
-                    'Content-Type': 'application/json',
-                    }, 
+                        'Content-Type': 'application/json',
+                    },
                     body: JSON.stringify({ username: newUsername, password: newPassword }),
                 });
 
                 if (response.ok) {
                     const newUser = await response.json();
+
                     // TODO: Handle successful registration
+
                     console.log('Registration successful:', newUser);
-                  } else {
+                } else {
                     console.error('Registration failed:', response.statusText);
-                  }
-                } 
-            } catch (error) {
-                console.error('Error during registration:', error);
-              }
-      
-            
-            };
+                }
+            }else{
+                console.error('Username already exists. Choose a different username.');
+            }
+
+        } catch (error) {
+            console.error('Error during registration:', error);
+        }
+
+    };
   
   
     return (
@@ -163,7 +168,7 @@ const RegisterContainer: React.FC = () => {
 
                 <div className="mb-3">
                     <label htmlFor="name" className="form-label">Username</label>
-                    <input type="text" className="form-control" id="name" value={newUsername} onChange={(e) => setnewUsername(e.target.value)} />
+                    <input type="text" className="form-control" id="name" value={newUsername} onChange={(e) => setNewUsername(e.target.value)} />
                 </div>
 
                 <div className="mb-3">
