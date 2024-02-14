@@ -77,9 +77,7 @@ userRouter.patch("/:username", async (
 });
 
 userRouter.get('/profile', (req, res) => {
-    if (req.session && req.session.username) {
-        // Assuming you have a method to get user details by username
-        // This is just an example; your actual implementation may vary
+    if (req.session.username && req.session) {
         const userData = userService.getUserByUsername(req.session.username);
         if (userData) {
             console.log(userData.username + "name: " + userData.name)
