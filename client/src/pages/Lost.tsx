@@ -1,5 +1,7 @@
 import React from 'react';
-import './Pages.css';
+import '../style/Pages.css';
+import LostAndFound from "../components/LostAndFound";
+
 
 const Lost: React.FC = () => {
   return (

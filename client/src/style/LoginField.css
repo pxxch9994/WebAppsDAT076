@@ -1,0 +1,165 @@
+* {
+}
+
+
+.login-bg {
+    /* Ensures the background image covers the entire area of the element */
+    background-size: cover;
+
+    /* Ensures the background image is centered */
+    background-position: center center;
+
+    /* Keeps the background image fixed during scroll */
+    background-attachment: fixed;
+
+    /* Sets the background color that will be visible while the image is loading or if it fails to load */
+    background-color: #000; /* You can change this color as needed */
+
+    /* Ensure the element spans the whole screen */
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    /* If you are using this for the body or html element and want to make sure it covers the whole page, add: */
+    height: 100%;
+    width: 100%;
+    background-image: url("../images/background.jpg");
+}
+
+@media (width >= 500px) {
+    body {
+        padding: 0;
+    }
+}
+
+.login {
+    position: fixed;
+    z-index: 3;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    width: 90%;
+    padding: 70px 30px 44px;
+    border-radius: 22px;
+    background: #161616;
+    text-align: center;
+}
+
+@media (width >= 450px) {
+    .login {
+        width: 380px;
+    }
+}
+
+.login > h2 {
+    font-size: 36px;
+    font-weight: 500;
+    margin: 0 0 4px;
+}
+
+.login > h3 {
+    color: rgba(255, 255, 255, 0.38);
+    margin: 0 0 30px;
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.login-form {
+    display: grid;
+    gap: 16px;
+    place-items: center;
+    width: 100%;
+    margin: 0;
+}
+
+.textbox {
+    width: 100%;
+    position: relative;
+}
+
+.textbox span {
+    position: absolute;
+    top: 50%;
+    left: 16px;
+    translate: 0 -50%;
+    color: rgba(255, 255, 255, 0.38);
+}
+
+.login-form input,
+.login-form-button {
+    width: 100%;
+    height: 60px;
+    outline: none;
+    padding: 0;
+    font-family: inherit;
+    font-size: 16px;
+    border-radius: 8px;
+}
+
+.login-form input {
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    font-size: 18px;
+    padding: 0 20px 0 50px;
+    color: inherit;
+}
+
+.login-form input:focus {
+    border-color: #157ae1;
+}
+
+.login-form input:focus ~ span {
+    color: #157ae1;
+}
+
+.login-form-button {
+    cursor: pointer;
+    background: #157ae1;
+    color: #f9f9f9;
+    border: 0;
+    font-weight: 600;
+    letter-spacing: 2px;
+}
+
+.login-form a {
+    color: #157ae1;
+    font-size: 16px;
+    text-align: left;
+    text-decoration: none;
+}
+
+.toggle-hidden {
+    position: absolute;
+    top: 50%;
+    right: 16px;
+    translate: 0 -50%;
+    width: 30px;
+    height: 30px;
+    opacity: 10%;
+    background-image: url("../images/show.svg");
+    background-size: 85%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.toggle-hidden.showing {
+    background-image: url("../images/hide.svg");
+}
+
+.control {
+    border: 0;
+    outline: none;
+    width: 100%;
+    height: 56px;
+    padding: 0 56px 0 16px;
+    border-radius: 6px;
+    background: #f4f5f7;
+    color: #5a4f79;
+    font-family: inherit;
+    font-size: 18px;
+    transition: 0.4s;
+}
+
+

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../components/AuthContext';
-import './Pages.css';
+import '../style/Pages.css';
 
 /**
  * LoginContainer component for handling user login.
@@ -229,10 +229,10 @@ const ContainerSwitching: React.FC = () => {
                     <button type="button" className={`btn ${activeContainer === 'register' ? 'btn-primary' : 'btn-secondary'}`} onClick={() => setActiveContainer('register')}>Register</button>
                 </div>
 
-                {activeContainer === 'login' ? <LoginContainer /> : <RegisterContainer />}
+            {activeContainer === 'login' ? <LoginContainer/> : <RegisterContainer/>}
 
-            </div>
         </div>
+    </div>
     );
 };
 

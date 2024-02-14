@@ -1,8 +1,9 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './Pages.css';
+import '../style/Pages.css';
 import Forum from "./Forum";
 import PostNoImage from "../components/PostNoImage";
+import LostAndFound from "../components/LostAndFound";
 
 const Home: React.FC = () => {
   return (
@@ -10,29 +11,7 @@ const Home: React.FC = () => {
 
 {/* Main header */}
 
-<br />
-
-  <div className="container mx-auto p-md-5 text-white bg-dark rounded">
-  <div className="row">
-
-    {/* Col 1: text */}
-    
-    <div className="col-md-8">
-      <h1 className="display-4 fst-italic">Latest Lost & Found!</h1>
-      <p className="lead my-3">Bob the Berner Sennen was lost at 2 PM in Gothenburg, Lindholmen.</p>
-      <p className="lead mb-0"><a href="lost.html" className="text-white fw-bold">View more information...</a></p>
-    </div>
-
-    {/* Col 2: Image */}
-
-    <div className="col-md-4 col-auto d-none d-lg-block">
-      <img src="images/berner-sennen.png" alt="" className="img-fluid square-image-main-header" />
-    </div>
-
-  </div>
-  </div>
-
-  <br />
+  <br /><LostAndFound /><br />
 
       {/* Featured posts */}
   <div className="container mx-auto">
@@ -107,7 +86,7 @@ const Home: React.FC = () => {
 
   </div>
   </div>
-    </>
+      </>
   );
 }
 

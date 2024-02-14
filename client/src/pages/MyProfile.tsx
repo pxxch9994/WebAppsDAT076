@@ -1,6 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './Pages.css';
+import '../style/Pages.css';
 
 const MyProfile: React.FC = () => {
   const profilePic = '/images/profilepic.jpg';
