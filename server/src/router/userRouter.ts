@@ -1,3 +1,4 @@
+/**
 import express, { Request, Response, Router } from "express";
 import { User, Pet } from "../model/post";
 import { UserService } from "../service/userService";
@@ -9,6 +10,7 @@ export const userRouter : Router = express.Router();
 /**
  * Handles GET request to retrieve all users.
  */
+/**
 userRouter.get("/users/", async (
     req : Request<{}, {} ,{}>,
     res : Response<User[] | String>
@@ -42,6 +44,7 @@ userRouter.get("/users/:username", async (
 /**
  * Handles GET request to retrieve all pets.
  */
+/**
 userRouter.get("/pets/", async (
     req : Request<{}, {} ,{}>,
     res : Response<Pet[] | String>
@@ -57,6 +60,7 @@ userRouter.get("/pets/", async (
 /**
  * Handles POST request to add a new user.
  */
+/**
 userRouter.post("/users/", async (
     req: Request<{ username : string, password : string }, {} >, //TODO try ro delete the second {}
     res: Response<User | string>
@@ -78,6 +82,7 @@ userRouter.post("/users/", async (
 /**
  * Handles POST request to add a new pet.
  */
+/**
 userRouter.post("/pets/", async (
     req: Request<{ petName: string, username: string, image: string, kind: string, breed: string, birthday: number }, {} >,
     res: Response<Pet | string>
@@ -122,6 +127,7 @@ userRouter.post("/pets/", async (
 /**
  * Handles POST request for user login.
  */
+/**
 userRouter.post("/login", async (
     req: Request<{ username: string, password: string }, {}>,
     res: Response<User | string>
