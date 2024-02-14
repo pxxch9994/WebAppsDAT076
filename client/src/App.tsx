@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { AuthProvider } from './components/AuthContext';
 import NavBar from './components/NavBar';
 import Home from './pages/Home';
 import Lost from './pages/Lost';
@@ -11,37 +12,16 @@ import MyProfile from './pages/MyProfile';
 function App() {
   return (
     <Router>
-      <NavBar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/lost" element={<Lost />} />
-        <Route path="/login" element={<Login />} />
-
-        {/* TODO: Different Nav Bar on logged in sessions */}
-        <Route path="/myprofile" element={<MyProfile />} />
-
-      </Routes>
+      <AuthProvider>
+        <NavBar />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/lost" element={<Lost />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/myprofile" element={<MyProfile />} />
+          </Routes>
+      </AuthProvider>
     </Router>
-
-
-  /*
-  <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  */
   );
 }
 
