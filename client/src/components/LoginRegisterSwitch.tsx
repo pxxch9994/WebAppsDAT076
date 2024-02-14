@@ -31,9 +31,11 @@ const LoginRegisterSwitch: React.FC = () => {
     }
 
     return (
-        <div>
+        <div className="center-container">
+            <div className="align-content-center">
             {showLogin ? <LoginButton /> : <RegisterButton />}
             {showComponentA ? <LoginField /> : <RegisterField />}
+            </div>
         </div>
     );
 };

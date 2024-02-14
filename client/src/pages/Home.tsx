@@ -5,6 +5,7 @@ import Forum from "./Forum";
 import PostNoImage from "../components/PostNoImage";
 import LostAndFound from "../components/LostAndFound";
 import NavBar from "../components/NavBar";
+import Adoption from "../pages/Adoption";
 
 const Home: React.FC = () => {
   return (
@@ -35,7 +36,7 @@ const Home: React.FC = () => {
       </div>
 
       <div className="col-auto d-none d-xl-block">
-        <img src="images/persian-cat.png" alt="" className="square-image" />
+        <img src="../images/persian-cat.png" alt="" className="square-image" />
       </div>
 
     </div>
@@ -54,7 +55,7 @@ const Home: React.FC = () => {
           <div className="mb-3 text-muted">Jan 26</div>
           <strong className="mb-2">Lily</strong>
           <div className="square-image2">
-            <img src="images/Lily.jpeg" alt="" className="square-image2" />
+            <img src="../images/Lily.jpeg" alt="" className="square-image2" />
           </div>
           <div className="mb-2 text-muted">Age: 3 yo</div>
           <div className="mb-2 text-muted">Breed: Persian</div>
@@ -73,7 +74,7 @@ const Home: React.FC = () => {
           <div className="mb-3 text-muted">Jan 26</div>
           <strong className="mb-2">Simon</strong>
           <div className="square-image2">
-            <img src="images/simon.jpeg" alt="" className="square-image2" />
+            <img src="../images/simon.jpeg" alt="" className="square-image2" />
           </div>
           <div className="mb-2 text-muted">Age: 14 yo</div>
           <div className="mb-2 text-muted">Breed: Persian</div>

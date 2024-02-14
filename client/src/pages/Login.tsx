@@ -9,7 +9,7 @@ const Login: React.FC = () => {
     return (
         <>
             <NavBar />
-            <h1>Lost & Found Page</h1>
+
             <LoginRegisterSwitch />
 
         </>

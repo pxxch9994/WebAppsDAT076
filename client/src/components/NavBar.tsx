@@ -27,7 +27,7 @@ const Navbar: React.FC<NavbarProps> = ({ children }) => {
                   <Link className="nav-link" to="/lost">Lost & Found</Link>
               </li>
               <li className="nav-item">
-                  <Link className="nav-link" to="/adopt">Adoption</Link>
+                  <Link className="nav-link" to="../Adoption">Adoption</Link>
               </li>
               <li className="nav-item">
                   <Link className="nav-link" to="/forum">Forum</Link>

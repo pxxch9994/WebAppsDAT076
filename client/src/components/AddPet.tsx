@@ -21,9 +21,13 @@ function AddPet() {
 
     return (
         <>
+            <div className="center-container">
+            <div className="center-content">
             <Button variant="primary" onClick={handleShow}>
                 Add Pet
             </Button>
+            </div>
+                </div>
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title>Add a pet</Modal.Title>

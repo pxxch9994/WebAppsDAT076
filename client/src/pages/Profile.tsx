@@ -4,7 +4,7 @@ import '../style/Pages.css';
 import NavBar from "../components/NavBar";
 
 const Profile: React.FC = () => {
-  const profilePic = '/images/profilepic.jpg';
+  const profilePic = '../images/profilepic.jpg';
 
   const username = "Guest"; // TODO: Fetch username.
 

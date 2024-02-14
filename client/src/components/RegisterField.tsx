@@ -11,6 +11,7 @@ const RegisterField: React.FC<LoginProps> = () => {
     // State variables to store username and password
     const [username, setUsername] = useState<string>('');
     const [password, setPassword] = useState<string>('');
+    const [coPassword, setCoPassword] = useState<string>('');
     const [error, setError] = useState<string>('');
 
     const navigate = useNavigate(); // This uses the navigate function from React Router v6
@@ -44,6 +45,18 @@ const RegisterField: React.FC<LoginProps> = () => {
         }
     };
 
+    const toggleCoPassword: React.MouseEventHandler<HTMLButtonElement> = (event) => {
+        const button = event.currentTarget; // CurrentTarget is the button that triggered the event
+        button.classList.toggle("showing");
+        console.log("hello");
+        const input = document.getElementById("coPassword") as HTMLInputElement;
+        if (input) {
+            input.type = input.type === "password" ? "text" : "password"; // Corrected comparison
+            console.log("hello");
+            input.focus();
+        }
+    };
+
     function MyButtons() {
         return (
             <div>
@@ -68,7 +81,8 @@ const RegisterField: React.FC<LoginProps> = () => {
 
                 <form className="login-form" onSubmit={handleSubmit}>
                     <div className="textbox">
-                        <input type="text" placeholder="Username" value={username}  onChange={(e) => setUsername(e.target.value)} />
+                        <input type="text" placeholder="Username" value={username}
+                               onChange={(e) => setUsername(e.target.value)}/>
                         <span className="material-symbols-outlined"> account_circle </span>
                     </div>
                     <div className="textbox">
@@ -81,13 +95,24 @@ const RegisterField: React.FC<LoginProps> = () => {
                             onClick={togglePassword}
                         ></button>
                     </div>
-                    <button type="submit" className="login-form-button">LOGIN</button>
+                    <div className="textbox">
+                        <input type="password" id="coPassword" className="control" placeholder="CoPassword"
+                               value={coPassword}
+                               onChange={(e) => setCoPassword(e.target.value)}/>
+                        <span className="material-symbols-outlined"> lock </span>
+                        <button
+                            className="toggle-hidden"
+                            type="button"
+                            onClick={toggleCoPassword}
+                        ></button>
+                    </div>
+                    <button type="submit" className="login-form-button">REGISTER</button>
                     {error && <p className="error">{error}</p>}
                 </form>
                 <a href="">Forgot your credentials?</a>
             </div>
-            </>
-            );
-            }
+        </>
+    );
+}
 
-            export default RegisterField;
+export default RegisterField;

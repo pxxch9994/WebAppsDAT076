@@ -7,6 +7,7 @@ import LostAndFound from "../components/LostAndFound";
 import Card from "../components/Card";
 import LoginField from "../components/LoginField";
 import AddPet from "../components/AddPet";
+import Navbar from "../components/NavBar"
 
 
 const Forum: React.FC = () => {
@@ -17,6 +18,7 @@ const Forum: React.FC = () => {
     return(
         <>
             <NavBar />
+
             <AddPet />
         </>
     );
