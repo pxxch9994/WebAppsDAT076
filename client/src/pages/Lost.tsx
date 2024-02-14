@@ -1,6 +1,7 @@
 import React from 'react';
 import '../style/Pages.css';
 import LostAndFound from "../components/LostAndFound";
+import Login from "./Login";
 
 
 const Lost: React.FC = () => {
@@ -8,7 +9,7 @@ const Lost: React.FC = () => {
     <>
 
     <h1>Lost & Found Page</h1>
-      <LostAndFound />
+      <Login />
 
     </>
   );

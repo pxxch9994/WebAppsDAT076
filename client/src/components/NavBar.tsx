@@ -1,6 +1,7 @@
 import React, { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import '../style/NavBar.css';
+import Logout from "./Logout";
 
 interface NavbarProps {
   children?: ReactNode;
@@ -21,25 +22,28 @@ const Navbar: React.FC<NavbarProps> = ({ children }) => {
         <span className="navbar-toggler-icon"></span>
       </button>
       <div className="collapse navbar-collapse" id="navbarNav">
-        <ul className="navbar-nav">
-          <li className="nav-item">
-            <Link className="nav-link" to="/lost">Lost & Found</Link>
-          </li>
-          <li className="nav-item">
-            <Link className="nav-link" to="/adopt">Adoption</Link>
-          </li>
-          <li className="nav-item">
-            <Link className="nav-link" to="/forum">Forum</Link>
-          </li>
-          <li className="nav-item">
-            <Link className="nav-link" to="#">Calendar</Link>
-          </li>
-          <li className="nav-item">
-            <Link className="nav-link" to="/login">My Pet Account</Link>
-          </li>
-        </ul>
+          <ul className="navbar-nav">
+              <li className="nav-item">
+                  <Link className="nav-link" to="/lost">Lost & Found</Link>
+              </li>
+              <li className="nav-item">
+                  <Link className="nav-link" to="/adopt">Adoption</Link>
+              </li>
+              <li className="nav-item">
+                  <Link className="nav-link" to="/forum">Forum</Link>
+              </li>
+              <li className="nav-item">
+                  <Link className="nav-link" to="#">Calendar</Link>
+              </li>
+              <li className="nav-item">
+                  <Link className="nav-link" to="/login">My Pet Account</Link>
+              </li>
+              <li className="nav-item">
+                  <Logout />
+              </li>
+          </ul>
       </div>
-      
+
     </nav>
   );
 };

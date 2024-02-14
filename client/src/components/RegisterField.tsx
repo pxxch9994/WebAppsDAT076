@@ -7,7 +7,7 @@ interface LoginProps {
     // Define props here if any
 }
 
-const LoginField: React.FC<LoginProps> = () => {
+const RegisterField: React.FC<LoginProps> = () => {
     // State variables to store username and password
     const [username, setUsername] = useState<string>('');
     const [password, setPassword] = useState<string>('');
@@ -63,7 +63,7 @@ const LoginField: React.FC<LoginProps> = () => {
 
             </head>
             <div className="login">
-                <h2>Login</h2>
+                <h2>Register</h2>
                 <h3>Welcome to PetCom</h3>
 
                 <form className="login-form" onSubmit={handleSubmit}>
@@ -90,4 +90,4 @@ const LoginField: React.FC<LoginProps> = () => {
             );
             }
 
-            export default LoginField;
+            export default RegisterField;

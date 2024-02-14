@@ -2,7 +2,7 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../style/Pages.css';
 
-const MyProfile: React.FC = () => {
+const Profile: React.FC = () => {
   const profilePic = '/images/profilepic.jpg';
 
   const username = "Guest"; // TODO: Fetch username.
@@ -51,4 +51,4 @@ const MyProfile: React.FC = () => {
 
 }
 
-export default MyProfile;
+export default Profile;
