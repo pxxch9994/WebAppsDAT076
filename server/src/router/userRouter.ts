@@ -1,5 +1,5 @@
 import express, { Request, Response, Router } from "express";
-import { User, Pet } from "../model/userModel";
+import { User, Pet } from "../model/post";
 import { UserService } from "../service/userService";
 
 const userService : UserService = new UserService();

@@ -1,3 +1,4 @@
+/*
 export interface User {
     username : string;
     password : string;
@@ -22,3 +23,5 @@ export interface Post {
     page : string;
     pet : Pet ; // TODO
 }
+
+ */
