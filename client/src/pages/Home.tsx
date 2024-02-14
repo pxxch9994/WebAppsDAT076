@@ -4,10 +4,12 @@ import '../style/Pages.css';
 import Forum from "./Forum";
 import PostNoImage from "../components/PostNoImage";
 import LostAndFound from "../components/LostAndFound";
+import NavBar from "../components/NavBar";
 
 const Home: React.FC = () => {
   return (
     <>
+      <NavBar />
 
 {/* Main header */}
 

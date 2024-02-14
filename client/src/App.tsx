@@ -12,7 +12,6 @@ import Login from "./pages/Login";
 function App() {
   return (
     <Router>
-        <NavBar />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/lost" element={<Lost />} />
