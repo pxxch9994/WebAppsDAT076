@@ -222,12 +222,28 @@ const ContainerSwitching: React.FC = () => {
     }, [isLoggedIn, navigate]);
 
     return (
-        <div className="d-flex justify-content-center align-items-center" style={{ marginTop: '20px' }}>
-            <div style={{ maxWidth: '500px', width: '100%', border: '1px solid #ccc', padding: '20px', borderRadius: '8px' }}>
-                <div className="btn-group mb-3" role="group" aria-label="Login/Register Switch">
-                    <button type="button" className={`btn ${activeContainer === 'login' ? 'btn-primary' : 'btn-secondary'}`} onClick={() => setActiveContainer('login')}>Login</button>
-                    <button type="button" className={`btn ${activeContainer === 'register' ? 'btn-primary' : 'btn-secondary'}`} onClick={() => setActiveContainer('register')}>Register</button>
-                </div>
+
+
+    <div className="d-flex justify-content-center align-items-center" style={{marginTop: '20px'}}>
+        <div style={{maxWidth: '500px', width: '100%', border: '1px solid #ccc', padding: '20px', borderRadius: '8px'}}>
+            <div className="btn-group mb-3" role="group" aria-label="Login/Register Switch">
+                <button type="button" className={`btn ${activeContainer === 'login' ? 'btn-primary' : 'btn-secondary'}`}
+                        onClick={() => setActiveContainer('login')}>Login
+                </button>
+                <button type="button"
+                        className={`btn ${activeContainer === 'register' ? 'btn-primary' : 'btn-secondary'}`}
+                        onClick={() => setActiveContainer('register')}>Register
+                </button>
+            </div>
+            <div className="btn-group mb-3" role="group" aria-label="Login/Register Switch">
+                <button type="button" className={`btn ${activeContainer === 'login' ? 'btn-primary' : 'btn-secondary'}`}
+                        onClick={() => setActiveContainer('login')}>Login
+                </button>
+                <button type="button"
+                        className={`btn ${activeContainer === 'register' ? 'btn-primary' : 'btn-secondary'}`}
+                        onClick={() => setActiveContainer('register')}>Register
+                </button>
+            </div>
 
             {activeContainer === 'login' ? <LoginContainer/> : <RegisterContainer/>}
 

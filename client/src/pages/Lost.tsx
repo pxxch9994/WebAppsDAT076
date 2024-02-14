@@ -8,6 +8,7 @@ const Lost: React.FC = () => {
     <>
 
     <h1>Lost & Found Page</h1>
+      <LostAndFound />
 
     </>
   );
