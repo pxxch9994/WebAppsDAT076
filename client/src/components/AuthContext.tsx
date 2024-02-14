@@ -7,10 +7,10 @@ interface AuthContextProps {
   logout: () => void;
 }
 
-const AuthContext = createContext<AuthContextProps | undefined>(undefined);
+      const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 
-export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+      export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
+          const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   
   const login = async (username: string, password: string) => {

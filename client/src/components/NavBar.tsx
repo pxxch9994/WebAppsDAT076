@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
-import './NavBar.css';
+import '../style/NavBar.css';
 
 interface NavbarProps {
   children?: ReactNode;
@@ -29,7 +29,7 @@ const Navbar: React.FC<NavbarProps> = ({ children }) => {
             <Link className="nav-link" to="/adopt">Adoption</Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" to="#">Forum</Link>
+            <Link className="nav-link" to="/forum">Forum</Link>
           </li>
           <li className="nav-item">
             <Link className="nav-link" to="#">Calendar</Link>
