@@ -13,7 +13,7 @@ export class UserService {
 
     async getPets(): Promise<Pet[]> {
         return this.pets;
-    }
+    }*/
     
     /**
      * Adds a new user to the list of users.
@@ -22,14 +22,14 @@ export class UserService {
      * @param {string} password - The password of the new user.
      * @returns {Promise<User>} A promise that resolves to the newly added user.
      */
-    async addUser(username: string, password : string): Promise<User> {
+   /* async addUser(username: string, password : string): Promise<User> {
         const user = {
             username: username,
             password: password
          }
         this.users.push(user);
         return user;
-    }
+    }*/
 
     /**
      * Adds a new pet to the list of pets associated with a user.
@@ -42,7 +42,7 @@ export class UserService {
      * @param {number} birthday - The birthday or birthdate of the pet.
      * @returns {Promise<Pet>} A promise that resolves to the added pet.
      */
-    async addPet( petName: string, username: string, image: string, kind:string, breed: string, birthday: number ): Promise<Pet> {
+    /*async addPet( petName: string, username: string, image: string, kind:string, breed: string, birthday: number ): Promise<Pet> {
         const pet = {
             petName: petName,
             petId: Date.now(),
@@ -54,7 +54,7 @@ export class UserService {
         }
         this.pets.push(pet);
         return pet;
-    }
+    }*/
 
     /**
      * Retrieves a user by their username from the list of users.
@@ -62,9 +62,9 @@ export class UserService {
      * @param {string} username - The username of the user to retrieve.
      * @returns {Promise<User | undefined>} A promise that resolves to the user if found, or undefined if not found.
      */
-    async getUserByUsername(username: string): Promise<User | undefined> {
+    /*async getUserByUsername(username: string): Promise<User | undefined> {
         return this.users.find((user) => user.username === username);
     }
 
 
-}
+}*/

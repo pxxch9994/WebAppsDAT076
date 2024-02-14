@@ -147,4 +147,4 @@ userRouter.post("/login", async (
     } catch (e: any) {
         res.status(500).send(e.message);
     }
-});
+});*/
