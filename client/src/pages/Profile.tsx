@@ -3,6 +3,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../style/Pages.css';
 import NavBar from "../components/NavBar";
 import {useNavigate} from "react-router-dom";
+import axios from "axios";
+import {response} from "express";
 
 interface User {
     username: string;
@@ -24,22 +26,27 @@ const Profile: React.FC = () => {
     const navigate = useNavigate(); // Get the navigate function
 
     useEffect(() => {
-        // Include credentials in the fetch request to ensure cookies are sent
-        fetch('http://localhost:8080/user/profile', { // Ensure the URL matches your server's configuration
-            credentials: 'include' // This is crucial for sessions to work across different origins
-        })
-            .then(response => {
-                if (response.ok) {
-                    return response.json();
+        const fetchData = async () => {
+            try {
+                // Check with backend if user has a session
+                const response = await axios.get('http://localhost:8080/user/session', { withCredentials: true });
+                console.log('Congratulations we are logged in', response.data);
+                if (response.data && response.data.username && response.data.name) {
+                    setUser(response.data);
+                } else {
+                    setError("User not found");
+                    throw new Error('User not found');
                 }
-                throw new Error('Failed to fetch user profile.');
-            })
-            .then((data: User) => setUser(data))
-            .catch((error: Error) => setError(error.message || 'Please login to view this page!'));
+            } catch (error) {
+                navigate("/login");
+            }
+        };
+
+        fetchData();
     }, []);
 
     if (error) {
-        // Redirect to /login
+        // Redirect to Login page
         navigate('/login');
     }
 
@@ -47,7 +54,8 @@ const Profile: React.FC = () => {
         return <div>Loading...</div>;
     }
 
-  return (
+
+    return (
       <><NavBar/>
           <div className="container mt-5">
               <h1 className="mb-4"> {username} </h1>

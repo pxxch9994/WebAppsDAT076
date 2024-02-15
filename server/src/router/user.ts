@@ -76,17 +76,17 @@ userRouter.patch("/:username", async (
     }
 });
 
-userRouter.get('/profile', (req, res) => {
+userRouter.get('/session', (req, res) => {
     if (req.session.username && req.session) {
         const userData = userService.getUserByUsername(req.session.username);
         if (userData) {
             console.log(userData.username + "name: " + userData.name)
             res.json({ username: userData.username, name: userData.name });
         } else {
-            res.status(404).send('User not found');
+            res.status(404).send('Userdata not found');
         }
     } else {
-        res.status(401).json({ error: 'Please login to view this page!' });
+        res.status(401).json({ error: 'No user is logged in!' });
     }
 });
 

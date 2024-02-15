@@ -16,15 +16,15 @@
       transform: translateX(0);
     }
     to {
-      transform: translateX(10px); 
+      transform: translateX(10px);
     }
 }
 
 .p-md-5, .firstcol, .secondcol {
     transition: transform 0.3s ease-in-out;
-}	  
+}
 
 .p-md-5:hover, .firstcol:hover, .secondcol:hover {
     animation: slideRight 0.3s ease-in-out;
-    transform: translateX(10px); 
+    transform: translateX(10px);
 }
