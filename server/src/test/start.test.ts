@@ -1,7 +1,7 @@
 import * as SuperTest from "supertest";
 import { app } from "../start";
-import { User } from "../model/userModel";
-import { userRouter } from "../router/userRouter";
+import { User } from "../model/user";
+
 
 const request = SuperTest.default(app);
 
