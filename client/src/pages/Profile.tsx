@@ -1,7 +1,13 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../style/Pages.css';
 import NavBar from "../components/NavBar";
+import {useNavigate} from "react-router-dom";
+
+interface User {
+    username: string;
+    name: string;
+}
 
 const Profile: React.FC = () => {
   const profilePic = '../images/profilepic.jpg';
@@ -12,6 +18,34 @@ const Profile: React.FC = () => {
     { name: 'Fluffy', species: 'Cat' },
     { name: 'Buddy', species: 'Dog' },
   ];
+    const [user, setUser] = useState<User | null>(null);
+    const [error, setError] = useState<string>('');
+
+    const navigate = useNavigate(); // Get the navigate function
+
+    useEffect(() => {
+        // Include credentials in the fetch request to ensure cookies are sent
+        fetch('http://localhost:8080/user/profile', { // Ensure the URL matches your server's configuration
+            credentials: 'include' // This is crucial for sessions to work across different origins
+        })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                }
+                throw new Error('Failed to fetch user profile.');
+            })
+            .then((data: User) => setUser(data))
+            .catch((error: Error) => setError(error.message || 'Please login to view this page!'));
+    }, []);
+
+    if (error) {
+        // Redirect to /login
+        navigate('/login');
+    }
+
+    if (!user) {
+        return <div>Loading...</div>;
+    }
 
   return (
       <><NavBar/>
@@ -23,6 +57,7 @@ const Profile: React.FC = () => {
                   <div className="col-md-4">
                       <div className="profile-picture">
                           <img src={profilePic} alt="Profile" className="img-fluid rounded-circle"/>
+                          <h1>Welcome to your profile, {user.username}!</h1>
                       </div>
                   </div>
 

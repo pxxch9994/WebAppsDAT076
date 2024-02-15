@@ -36,10 +36,13 @@ const Navbar: React.FC<NavbarProps> = ({ children }) => {
                   <Link className="nav-link" to="#">Calendar</Link>
               </li>
               <li className="nav-item">
-                  <Link className="nav-link" to="/login">My Pet Account</Link>
+                  <Link className="nav-link" to="/profile">My Pet Account</Link>
               </li>
               <li className="nav-item">
-                  <Logout />
+                  <Link className="nav-link" to="/devtest">DevTest</Link>
+              </li>
+              <li className="nav-item">
+                  <Logout/>
               </li>
           </ul>
       </div>

@@ -10,20 +10,24 @@ interface LoginProps {
 const RegisterField: React.FC<LoginProps> = () => {
     // State variables to store username and password
     const [username, setUsername] = useState<string>('');
+    const [name, setName] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [coPassword, setCoPassword] = useState<string>('');
     const [error, setError] = useState<string>('');
+
+    const [passwordVisibility, setPasswordVisibility] = useState(false);
+    const [coPasswordVisibility, setCoPasswordVisibility] = useState(false);
 
     const navigate = useNavigate(); // This uses the navigate function from React Router v6
 
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault(); // Prevent the default form submission behavior
         try {
-            const response = await axios.post('http://localhost:8080/user/login', { username, password }, { withCredentials: true });
+            const response  = await axios.post(`http://localhost:8080/user/`, {username, name, password});
             console.log('Login successful:', response.data);
             // Reset any error upon successful login
             setError('');
-            navigate('/profile'); // Navigate to home page on success
+            navigate('/login'); // Navigate to home page on success
         } catch (error: any) {
             console.error('Login failed:', error.response ? error.response.data : 'Login failed');
             // Update error state to display the error message
@@ -39,6 +43,7 @@ const RegisterField: React.FC<LoginProps> = () => {
         console.log("hello");
         const input = document.getElementById("password") as HTMLInputElement;
         if (input) {
+            setPasswordVisibility(!passwordVisibility);
             input.type = input.type === "password" ? "text" : "password";
             console.log("hello");
             input.focus();
@@ -51,19 +56,47 @@ const RegisterField: React.FC<LoginProps> = () => {
         console.log("hello");
         const input = document.getElementById("coPassword") as HTMLInputElement;
         if (input) {
+            setCoPasswordVisibility(!coPasswordVisibility);
             input.type = input.type === "password" ? "text" : "password"; // Corrected comparison
             console.log("hello");
             input.focus();
         }
     };
 
-    function MyButtons() {
-        return (
-            <div>
-                <button className="bn16">Login</button>
-                <button className="bn16">Register</button>
-            </div>
-        );
+    function ToggleVisibilityIcon() {
+            if (passwordVisibility) {
+                return (
+                    <div>
+                        <span className="material-symbols-outlined toggle-hidden"
+                              onClick={togglePassword}> visibility_off </span>
+                    </div>
+                );
+            } else {
+                return (
+                    <div>
+                        <span className="material-symbols-outlined toggle-hidden"
+                              onClick={togglePassword}> visibility </span>
+                    </div>
+                );
+            }
+    }
+
+    function ToggleCoVisibilityIcon() {
+        if (coPasswordVisibility) {
+            return (
+                <div>
+                        <span className="material-symbols-outlined toggle-hidden"
+                              onClick={toggleCoPassword}> visibility_off </span>
+                </div>
+            );
+        } else {
+            return (
+                <div>
+                        <span className="material-symbols-outlined toggle-hidden"
+                              onClick={toggleCoPassword}> visibility </span>
+                </div>
+            );
+        }
     }
 
 
@@ -83,28 +116,25 @@ const RegisterField: React.FC<LoginProps> = () => {
                     <div className="textbox">
                         <input type="text" placeholder="Username" value={username}
                                onChange={(e) => setUsername(e.target.value)}/>
-                        <span className="material-symbols-outlined"> account_circle </span>
+                        <span className="material-symbols-outlined textboxIcons"> account_circle </span>
+                    </div>
+                    <div className="textbox">
+                        <input type="text" placeholder="Name" value={name}
+                               onChange={(e) => setName(e.target.value)}/>
+                        <span className="material-symbols-outlined textboxIcons"> account_circle </span>
                     </div>
                     <div className="textbox">
                         <input type="password" id="password" className="control" placeholder="Password" value={password}
                                onChange={(e) => setPassword(e.target.value)}/>
-                        <span className="material-symbols-outlined"> lock </span>
-                        <button
-                            className="toggle-hidden"
-                            type="button"
-                            onClick={togglePassword}
-                        ></button>
+                        <span className="material-symbols-outlined textboxIcons"> lock </span>
+                        <ToggleVisibilityIcon />
                     </div>
                     <div className="textbox">
                         <input type="password" id="coPassword" className="control" placeholder="CoPassword"
                                value={coPassword}
                                onChange={(e) => setCoPassword(e.target.value)}/>
-                        <span className="material-symbols-outlined"> lock </span>
-                        <button
-                            className="toggle-hidden"
-                            type="button"
-                            onClick={toggleCoPassword}
-                        ></button>
+                        <span className="material-symbols-outlined textboxIcons"> lock </span>
+                        <ToggleCoVisibilityIcon />
                     </div>
                     <button type="submit" className="login-form-button">REGISTER</button>
                     {error && <p className="error">{error}</p>}

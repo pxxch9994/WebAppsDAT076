@@ -8,6 +8,7 @@ import Lost from './pages/Lost';
 import Profile from './pages/Profile';
 import Forum from "./pages/Forum";
 import Login from "./pages/Login";
+import DevTest from "./pages/DevTest";
 
 function App() {
   return (
@@ -16,8 +17,9 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/lost" element={<Lost />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/myprofile" element={<Profile />} />
+            <Route path="/profile" element={<Profile />} />
             <Route path="/forum" element={<Forum />} />
+            <Route path="/devtest" element={<DevTest />} />
           </Routes>
     </Router>
   );

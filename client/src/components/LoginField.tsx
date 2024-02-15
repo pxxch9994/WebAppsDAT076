@@ -13,6 +13,8 @@ const LoginField: React.FC<LoginProps> = () => {
     const [password, setPassword] = useState<string>('');
     const [error, setError] = useState<string>('');
 
+    const [passwordVisibility, setPasswordVisibility] = useState(false);
+
     const navigate = useNavigate(); // This uses the navigate function from React Router v6
 
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -27,7 +29,6 @@ const LoginField: React.FC<LoginProps> = () => {
             console.error('Login failed:', error.response ? error.response.data : 'Login failed');
             // Update error state to display the error message
             setError('Login failed. Please check your username and password.');
-            // Optionally, keep the user on the login page or navigate to a specific error page
         }
     };
 
@@ -44,13 +45,22 @@ const LoginField: React.FC<LoginProps> = () => {
         }
     };
 
-    function MyButtons() {
-        return (
-            <div>
-                <button className="bn16">Login</button>
-                <button className="bn16">Register</button>
-            </div>
-        );
+    function ToggleVisibilityIcon() {
+        if (passwordVisibility) {
+            return (
+                <div>
+                        <span className="material-symbols-outlined toggle-hidden"
+                              onClick={togglePassword}> visibility_off </span>
+                </div>
+            );
+        } else {
+            return (
+                <div>
+                        <span className="material-symbols-outlined toggle-hidden"
+                              onClick={togglePassword}> visibility </span>
+                </div>
+            );
+        }
     }
 
 
@@ -69,17 +79,13 @@ const LoginField: React.FC<LoginProps> = () => {
                 <form className="login-form" onSubmit={handleSubmit}>
                     <div className="textbox">
                         <input type="text" placeholder="Username" value={username}  onChange={(e) => setUsername(e.target.value)} />
-                        <span className="material-symbols-outlined"> account_circle </span>
+                        <span className="material-symbols-outlined textboxIcons"> account_circle </span>
                     </div>
                     <div className="textbox">
                         <input type="password" id="password" className="control" placeholder="Password" value={password}
                                onChange={(e) => setPassword(e.target.value)}/>
-                        <span className="material-symbols-outlined"> lock </span>
-                        <button
-                            className="toggle-hidden"
-                            type="button"
-                            onClick={togglePassword}
-                        ></button>
+                        <span className="material-symbols-outlined textboxIcons"> lock </span>
+                        <ToggleVisibilityIcon />
                     </div>
                     <button type="submit" className="login-form-button">LOGIN</button>
                     {error && <p className="error">{error}</p>}

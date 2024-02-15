@@ -36,7 +36,7 @@
 
 .login {
     position: fixed;
-    z-index: 3;
+    z-index: 0;
     top: 50%;
     left: 50%;
     translate: -50% -50%;
@@ -79,7 +79,7 @@
     position: relative;
 }
 
-.textbox span {
+.textboxIcons {
     position: absolute;
     top: 50%;
     left: 16px;
@@ -137,15 +137,7 @@
     translate: 0 -50%;
     width: 30px;
     height: 30px;
-    opacity: 10%;
-    background-image: url("../images/show.svg");
-    background-size: 85%;
-    background-position: center;
-    background-repeat: no-repeat;
-}
-
-.toggle-hidden.showing {
-    background-image: url("../images/hide.svg");
+    color: rgba(255, 255, 255, 0.38);
 }
 
 .control {
@@ -177,6 +169,7 @@
     margin-right: 5px; /* Small gap to the right of each button */
     display: inline-block; /* Display buttons inline */
     text-align: center; /* Center text inside the button */
+    z-index: 1;
 }
 
 .bn16:last-child {
