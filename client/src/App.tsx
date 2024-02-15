@@ -9,6 +9,7 @@ import Profile from './pages/Profile';
 import Forum from "./pages/Forum";
 import Login from "./pages/Login";
 import DevTest from "./pages/DevTest";
+import Adoption from "./pages/Adoption";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/lost" element={<Lost />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/adoption" element={<Adoption />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/forum" element={<Forum />} />
             <Route path="/devtest" element={<DevTest />} />
