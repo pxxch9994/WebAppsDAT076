@@ -6,4 +6,6 @@ export interface Pet {
     kind : string;
     breed : string;
     birthday : number;
+    status: string;
+    description: string;
 }

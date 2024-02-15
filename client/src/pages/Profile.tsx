@@ -57,7 +57,7 @@ const Profile: React.FC = () => {
                   <div className="col-md-4">
                       <div className="profile-picture">
                           <img src={profilePic} alt="Profile" className="img-fluid rounded-circle"/>
-                          <h1>Welcome to your profile, {user.username}!</h1>
+                          <h1>Welcome to your profile, {user.name}!</h1>
                       </div>
                   </div>
 

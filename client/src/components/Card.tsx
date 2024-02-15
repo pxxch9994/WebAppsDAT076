@@ -6,6 +6,7 @@ import "../style/Pages.css"
 import Lily from "../images/Lily.jpeg"
 
 //TODO fix image text input
+
 const Card: React.FC = () => {
     return (
         <>

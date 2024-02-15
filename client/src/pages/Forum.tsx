@@ -18,8 +18,8 @@ const Forum: React.FC = () => {
     return(
         <>
             <NavBar />
-
             <AddPet />
+            <Card />
         </>
     );
 }
