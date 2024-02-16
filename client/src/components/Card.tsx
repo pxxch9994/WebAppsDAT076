@@ -1,7 +1,7 @@
 import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Link} from "react-router-dom";
-import "../style/Card.css";
+import "../style/CardPetList.css";
 import "../style/Pages.css"
 import Lily from "../images/Lily.jpeg"
 

@@ -4,7 +4,9 @@ import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import axios from "axios";
 
-function AddPet() {
+function  AddPet() {
+
+
     const [show, setShow] = useState(false);
     const [owner, setOwner] = useState("");
     const [name, setName] = useState("");
@@ -16,7 +18,17 @@ function AddPet() {
     const handleShow = () => setShow(true);
 
     const add = async () => {
-        const res  = await axios.post(`http://localhost:8080/pet/`, {owner, name, kind, breed, birthday});
+        const response = await axios.get('http://localhost:8080/user/session', { withCredentials: true });
+    if(response.data) {
+        const res = await axios.post(`http://localhost:8080/pet/`, {
+            owner: response.data.username,
+            name,
+            kind,
+            breed,
+            birthday
+        });
+    }
+
     };
 
     return (
@@ -34,15 +46,7 @@ function AddPet() {
                 </Modal.Header>
                 <Modal.Body>
                     <Form>
-                        <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                            <Form.Label>Owner</Form.Label>
-                            <Form.Control
-                                type="text"
-                                placeholder="username"
-                                onChange={(e) => setOwner(e.target.value)}
-                                autoFocus
-                            />
-                        </Form.Group>
+
                         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                             <Form.Label>Pet name</Form.Label>
                             <Form.Control

@@ -1,11 +1,15 @@
 import React, {useEffect, useState} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../style/Pages.css';
+import '../style/CardPetList.css'
 import NavBar from "../components/NavBar";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
 import {response} from "express";
 import PetList from "../components/PetList";
+import Logout from "../components/Logout";
+import AddPet from "../components/AddPet";
+
 
 interface User {
     username: string;
@@ -15,7 +19,7 @@ interface User {
 const Profile: React.FC = () => {
   const profilePic = '../images/profilepic.jpg';
 
-  const username = "Guest"; // TODO: Fetch username.
+  const username = "Guest";
 
   const addedPets = [       // TODO: Feth pets.
     { name: 'Fluffy', species: 'Cat' },
@@ -57,43 +61,36 @@ const Profile: React.FC = () => {
 
 
     return (
-      <><NavBar/>
-          <PetList/>    //TODO
-          <div className="container mt-5">
-              <h1 className="mb-4"> {username} </h1>
-              <div className="row">
+        <>
+            <NavBar />
 
-
-                  <div className="col-md-4">
-                      <div className="profile-picture">
-                          <img src={profilePic} alt="Profile" className="img-fluid rounded-circle"/>
-                          <h1>Welcome to your profile, {user.name}!</h1>
-                      </div>
-                  </div>
-
-
-                  <div className="col-md-8">
-                      <div className="added-pets">
-
-                          <h2>My Pets</h2>
-
-                          {addedPets.map((pet, index) => (
-                              <div key={index} className="card mb-3">
-                                  <div className="card-body">
-                                      <p className="card-text">Name: {pet.name}</p>
-                                      <p className="card-text">Species: {pet.species}</p>
-                                  </div>
-                              </div>
-                          ))}
-
-                      </div>
-                  </div>
-
-              </div>
-          </div>
-      </>
-
-  );
+            <div className="container mt-5">
+                <h1 className="mb-4"> {user.username}</h1>
+                <div className="row">
+                    <div className="col-md-4">
+                        <div className="profile-picture">
+                            <img src={profilePic} alt="Profile" className="img-fluid rounded-circle" />
+                            <h1>Welcome to your profile, {user.name}!</h1>
+                        </div>
+                        <div className="d-flex justify-content-start align-items-center flex-wrap profile-buttons">
+                            <div className="p-md-5 profile-buttons">
+                                <AddPet />
+                            </div>
+                            <div className="p-md-5 profile-buttons">
+                                <Logout />
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col-md-8">
+                        <div className="added-pets">
+                            <h2>My Pets</h2>
+                            <PetList />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </>
+    );
 
 
 }

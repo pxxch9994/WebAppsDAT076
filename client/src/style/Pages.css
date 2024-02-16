@@ -28,3 +28,11 @@
     animation: slideRight 0.3s ease-in-out;
     transform: translateX(10px);
 }
+
+.profile-buttons {
+    margin-top: 0.5cm; /* Adjust the margin-top value as needed */
+}
+
+.profile-buttons > div {
+    margin-left: 1cm;
+}
