@@ -1,60 +1,61 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Link} from "react-router-dom";
+import axios from "axios";
 import "../style/Card.css";
-import "../style/Pages.css"
-import Lily from "../images/Lily.jpeg"
+import "../style/Pages.css";
 
-//TODO fix image text input
-
-const Card: React.FC = () => {
-    return (
-        <>
-            <head>
-                <meta charSet="UTF-8"/>
-                <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-                <title>Card 4</title>
-                <link
-                    rel="stylesheet"
-                    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
-                />
-                <link rel="preconnect" href="https://fonts.googleapis.com"/>
-                <link rel="preconnect" href="https://fonts.gstatic.com" />
-                <link
-                    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap"
-                    rel="stylesheet"
-                />
-            </head>
-            <div className="cards">
-
-                <label id="summary">
-                    <input type="checkbox"/>
-                    <article>
-                        <div className="front">
-                            <header>
-                                <h2>Summary</h2>
-                                <span className="material-symbols-outlined"> more_vert </span>
-                            </header>
-                            <div className="col pe-auto d-flex flex-column position-static">
-
-                                <img src={Lily} alt={"hello"}/>
-
-                            </div>
-                            <h4>Completed: 13</h4>
-                        </div>
-                        <div className="back">
-                        <header>
-                                <h2>Summary</h2>
-                                <span className="material-symbols-outlined"> close </span>
-                            </header>
-                            <p>Lily</p>
-                        </div>
-
-                    </article>
-                </label>
-            </div>
-        </>
-    );
+interface CardProps {
+  endpoint: string;
+  name: string;
+  image: string;
+  description: string;
+  breed: string;
+  status: string;
 }
+
+
+const Card: React.FC<CardProps> = ({ endpoint, name, image, description, breed, status }) => { // Constant endpoint?
+  const [petData, setPetData] = useState<any>({
+    name,
+    image,
+    breed,
+    status,
+    description,
+  });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(endpoint);
+        setPetData(response.data);
+      } catch (error) {
+        console.error("Error fetching pet data:", error);
+      }
+    };
+
+    fetchData();
+  }, [endpoint]); // Run when endpoint prop changes
+
+  return (
+    <div className="card-container">
+      
+        <label id="summary">
+        <input type="checkbox"/> {/* TODO */}
+          <article className="card-frame">
+            <header>
+              <h3>{petData.name}</h3>
+            </header>
+            <div >
+              <img src={petData.image} alt={petData.name} />
+            </div>
+            <h4>Status: {petData.status}</h4>
+            <h4>Breed: {petData.breed}</h4>
+            <p>Description: {petData.description}</p>
+          </article>
+        </label>
+      
+    </div>
+  );
+};
 
 export default Card;
