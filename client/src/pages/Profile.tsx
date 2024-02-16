@@ -5,6 +5,7 @@ import NavBar from "../components/NavBar";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
 import {response} from "express";
+import PetList from "../components/PetList";
 
 interface User {
     username: string;
@@ -57,6 +58,7 @@ const Profile: React.FC = () => {
 
     return (
       <><NavBar/>
+          <PetList/>    //TODO
           <div className="container mt-5">
               <h1 className="mb-4"> {username} </h1>
               <div className="row">
