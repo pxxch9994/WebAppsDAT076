@@ -1,25 +1,50 @@
-import React, {useState} from "react";
-import NavBar from "../components/NavBar";
-import PostNoImage from "../components/PostNoImage";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import "../style/Forum.css"
-import LostAndFound from "../components/LostAndFound";
-import Card from "../components/Card";
-import LoginField from "../components/LoginField";
+import React, {useEffect, useState} from 'react';
+import '../style/Pages.css';
+import NavBar from "../components/CustomNavbar";
+import ImageCard from "../components/ImageCard";
+import {Col, Container, Row} from 'react-bootstrap';
+import axios from "axios";
 import AddPet from "../components/AddPet";
-import Navbar from "../components/NavBar"
-
 
 const Forum: React.FC = () => {
-    const [bool, setBool] = useState(false);
-    const [string, setString] = useState("");
-    const [num, setNum] = useState(0);
+    const [data, setData] = useState([]);
 
-    return(
+    const getData = async () => {
+        const {data} = await axios.get('http://localhost:8080/pet/');
+        setData(data);
+    };
+
+
+    useEffect(() => {
+        getData();
+    }, []);
+
+    interface Item {
+        id : number;
+        owner : string;
+        name : string;
+        image : string;
+        kind : string;
+        breed : string;
+        birthday : number;
+        status: string;
+        description: string;
+    }
+
+    return (
         <>
             <NavBar />
             <AddPet />
-            <Card />
+            <Container>
+                <Row className="justify-content-center">
+                    {data.map((item: Item, index: number) => (
+                        <Col lg={2} md={4} sm={12} className="mb-4" key={index}>
+                            <ImageCard status={item.status} name={item.name} image={item.image} description={item.description} owner={item.owner}/>
+                        </Col>
+                    ))}
+
+                </Row>
+            </Container>
         </>
     );
 }

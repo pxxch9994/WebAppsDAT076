@@ -1,13 +1,13 @@
-import React, { useState, ChangeEvent, FormEvent } from 'react';
+import React, { useState, FormEvent } from 'react';
 import "../style/LoginField.css";
 import axios from 'axios';
-import {NavigateFunction, useNavigate} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 
 interface LoginProps {
-    // Define props here if any
+    toggleRegister: () => void;
 }
 
-const LoginField: React.FC<LoginProps> = () => {
+const LoginField: React.FC<LoginProps> = ({toggleRegister}) => {
     // State variables to store username and password
     const [username, setUsername] = useState<string>('');
     const [password, setPassword] = useState<string>('');
@@ -24,14 +24,13 @@ const LoginField: React.FC<LoginProps> = () => {
             console.log('Login successful:', response.data);
             // Reset any error upon successful login
             setError('');
-            navigate('/profile'); // Navigate to home page on success
+            navigate('/profile'); // Navigate to the profile page on success
         } catch (error: any) {
             console.error('Login failed:', error.response ? error.response.data : 'Login failed');
             // Update error state to display the error message
             setError('Login failed. Please check your username and password.');
         }
     };
-
 
     const togglePassword: React.MouseEventHandler<HTMLButtonElement> = (event) => {
         const button = event.currentTarget; // CurrentTarget is the button that triggered the event
@@ -88,6 +87,7 @@ const LoginField: React.FC<LoginProps> = () => {
                         <ToggleVisibilityIcon />
                     </div>
                     <button type="submit" className="login-form-button">LOGIN</button>
+                    <button className="bn16" onClick={toggleRegister}>REGISTER</button>
                     {error && <p className="error">{error}</p>}
                 </form>
                 <a href="">Forgot your credentials?</a>

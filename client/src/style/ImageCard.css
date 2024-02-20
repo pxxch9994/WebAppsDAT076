@@ -1,0 +1,81 @@
+/* The flip card container - set the width and height to whatever you want. We have added the border property to demonstrate that the flip itself goes out of the box on hover (remove perspective if you don't want the 3D effect */
+.flip-card {
+    background-color: transparent;
+    width: 190px;
+    height: 200px;
+    perspective: 1000px;
+}
+.flip-card-checkbox {
+    position: absolute;
+    scale: 0;
+}
+
+/* This container is needed to position the front and back side */
+.flip-card-inner {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+    -webkit-backface-visibility: hidden; /* Safari */
+    backface-visibility: hidden;
+}
+
+.flip-animation2 {
+    transform: rotateY(0);
+}
+
+.flip-animation {
+    transition: transform 0.5s ease;
+    transform: rotateY(-180deg);
+}
+
+/* Position the front and back side */
+.flip-card-front, .flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden; /* Safari */
+    backface-visibility: hidden;
+}
+
+
+/* Style the back side */
+.flip-card-back {
+    position: relative;
+    transform: rotateY(180deg);
+}
+
+.missing-cat-container {
+    width: 190px;
+    height: 200px;
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa; /* Example background color */
+    overflow: hidden; /* Hides overflow, but no scrolling */
+    padding: 5px; /* Adjust padding to fit content */
+    box-sizing: border-box; /* Includes padding in the element's total width and height */
+}
+
+.cat-name {
+    font-size: 16px; /* Adjust font size to fit */
+    margin-bottom: 5px; /* Reduce margin to save space */
+    font-weight: bold;
+    text-align: center;
+    color: #333; /* Example text color */
+}
+
+.info {
+    font-size: 12px; /* Smaller font size for the content */
+    margin-bottom: 4px; /* Tighter spacing between sections */
+}
+
+.category {
+    font-weight: bold;
+    margin-bottom: 2px; /* Even tighter spacing between category and its details */
+}
+
+/* Additional styling to further optimize space */
+.info p {
+    margin: 0; /* Removes default paragraph margins */
+    line-height: 1.2; /* Tightens line spacing */
+}

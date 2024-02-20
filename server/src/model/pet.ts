@@ -2,7 +2,7 @@ export interface Pet {
     id : number;
     owner : string;
     name : string;
-    image : string; // TODO
+    image : string;
     kind : string;
     breed : string;
     birthday : number;

@@ -4,7 +4,7 @@ import '../style/Pages.css';
 import Forum from "./Forum";
 import PostNoImage from "../components/PostNoImage";
 import LostAndFound from "../components/LostAndFound";
-import NavBar from "../components/NavBar";
+import NavBar from "../components/CustomNavbar";
 import Adoption from "../pages/Adoption";
 
 const Home: React.FC = () => {

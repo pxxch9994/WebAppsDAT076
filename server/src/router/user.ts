@@ -1,6 +1,7 @@
 import express, { Router, Request, Response } from "express";
 import { UserService } from "../service/user";
 import { User } from "../model/user";
+import {checkAuthentication} from "./userAuthentication";
 
 const userService : UserService = new UserService();
 
@@ -76,18 +77,9 @@ userRouter.patch("/:username", async (
     }
 });
 
-userRouter.get('/session', (req, res) => {
-    if (req.session.username && req.session) {
-        const userData = userService.getUserByUsername(req.session.username);
-        if (userData) {
-            console.log(userData.username + "name: " + userData.name)
-            res.json({ username: userData.username, name: userData.name });
-        } else {
-            res.status(404).send('Userdata not found');
-        }
-    } else {
-        res.status(401).json({ error: 'No user is logged in!' });
-    }
+userRouter.get('/session', checkAuthentication, (req, res) => {
+        const user = userService.getUserByUsername(req.session.username);
+        res.status(200).json({ username: user?.username, name: user?.name });
 });
 
 userRouter.post("/login", async (req: Request, res: Response) => {

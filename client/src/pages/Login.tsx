@@ -2,7 +2,7 @@ import React from 'react';
 import '../style/Pages.css';
 import LoginRegisterSwitch from "../components/LoginRegisterSwitch";
 import LoginField from "../components/LoginField";
-import NavBar from "../components/NavBar";
+import NavBar from "../components/CustomNavbar";
 
 
 const Login: React.FC = () => {

@@ -16,7 +16,7 @@ export class UserService {
     private saltRounds = 10;
 
 
-    public getUserByUsername(username: string): User | undefined {
+    public getUserByUsername(username: string | undefined): User | undefined {
         return this.users.find(user => user.username === username);
     }
 
@@ -71,7 +71,7 @@ export class UserService {
             const match = await bcrypt.compare(password, user.password);
             if (match) {
                 // Passwords match
-                return getUserWithoutPassword(user); // For security, consider omitting password in the returned value
+                return getUserWithoutPassword(user); // For security, omitting password in the returned value
             }
         }
         // Authentication failed

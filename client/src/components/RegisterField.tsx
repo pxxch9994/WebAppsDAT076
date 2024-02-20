@@ -1,13 +1,13 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import "../style/LoginField.css";
 import axios from 'axios';
-import {NavigateFunction, useNavigate} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 
 interface LoginProps {
-    // Define props here if any
+    toggleLogin: () => void;
 }
 
-const RegisterField: React.FC<LoginProps> = () => {
+const RegisterField: React.FC<LoginProps> = ({toggleLogin}) => {
     // State variables to store username and password
     const [username, setUsername] = useState<string>('');
     const [name, setName] = useState<string>('');
@@ -24,15 +24,14 @@ const RegisterField: React.FC<LoginProps> = () => {
         event.preventDefault(); // Prevent the default form submission behavior
         try {
             const response  = await axios.post(`http://localhost:8080/user/`, {username, name, password});
-            console.log('Login successful:', response.data);
+            console.log('Register successful:', response.data);
             // Reset any error upon successful login
             setError('');
-            navigate('/login'); // Navigate to home page on success
+            toggleLogin();
         } catch (error: any) {
             console.error('Login failed:', error.response ? error.response.data : 'Login failed');
             // Update error state to display the error message
             setError('Login failed. Please check your username and password.');
-            // Optionally, keep the user on the login page or navigate to a specific error page
         }
     };
 
@@ -137,9 +136,9 @@ const RegisterField: React.FC<LoginProps> = () => {
                         <ToggleCoVisibilityIcon />
                     </div>
                     <button type="submit" className="login-form-button">REGISTER</button>
+                    <button className="bn16" onClick={toggleLogin}>LOGIN</button>
                     {error && <p className="error">{error}</p>}
                 </form>
-                <a href="">Forgot your credentials?</a>
             </div>
         </>
     );

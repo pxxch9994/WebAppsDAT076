@@ -1,6 +1,7 @@
 import express, { Router, Request, Response } from "express";
 import { PetService } from "../service/pet";
 import { Pet } from "../model/pet";
+import {checkAuthentication} from "./userAuthentication";
 
 const petService : PetService = new PetService();
 
@@ -11,9 +12,13 @@ interface CreatePetRequest extends Request {
     body: {
         owner : string,
         name : string,
+        image: string,
         kind : string,
         breed : string,
-        birthday : number}
+        birthday : number,
+        status: string,
+        description: string
+    }
 }
 
 petRouter.get("/", async (
@@ -21,6 +26,14 @@ petRouter.get("/", async (
 ) => {
     const pets : Pet[] = await petService.getPets();
     res.status(200).send(pets);
+})
+
+petRouter.get("/profile", checkAuthentication, async (
+    req : Request<{},Pet[],{}>, res : Response<Pet[]>
+) => {
+    const pets : Pet[] = await petService.getPets();
+    const result = pets.filter((p) => p.owner == req.session.username);
+    res.status(200).send(result);
 })
 
 petRouter.post("/", async (
@@ -48,11 +61,14 @@ petRouter.post("/", async (
     }
     const owner : string = req.body.owner;
     const name : string = req.body.name;
+    const image : string = req.body.image;
     const kind : string = req.body.kind;
     const breed : string = req.body.breed;
     const birthday : number = req.body.birthday;
+    const status : string = req.body.status;
+    const description : string = req.body.description;
     try {
-        const newPet = await petService.createPet(owner, name, kind, breed, birthday);
+        const newPet = await petService.createPet(owner, name, image, kind, breed, birthday, status, description);
         console.log('Pet created:', newPet);
 
         res.status(201).send("Pet created");

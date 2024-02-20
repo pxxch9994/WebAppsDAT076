@@ -1,6 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "../style/Forum.css"
-import NavBar from "../components/NavBar";
+import NavBar from "../components/CustomNavbar";
 import React, {useState} from "react";
 
 

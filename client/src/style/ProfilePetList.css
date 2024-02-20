@@ -1,0 +1,29 @@
+.item-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Adjust the space between items */
+    padding: 20px;
+    background-color: #f9f9f9; /* Light grey background */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: #ffffff; /* White background for each item */
+    border: 1px solid #e1e1e1; /* Light border for each item */
+    border-radius: 5px; /* Rounded corners for each item */
+}
+
+.item-name {
+    font-weight: 500; /* Slightly bolder font for the name */
+    color: #333; /* Dark grey color for text */
+}
+
+.item-id {
+    font-size: 0.9rem; /* Smaller font size for the ID */
+    color: #666; /* Lighter grey color for the ID */
+}
