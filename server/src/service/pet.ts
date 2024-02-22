@@ -10,7 +10,7 @@ export class PetService {
 
     // Create a pet with a given attributes
     // Returns the created pet
-    async createPet(owner: string, name: string, kind: string, breed: string, birthday: number) : Promise<Pet> {
+    async createPet(owner: string, name: string, kind: string, breed: string, birthday: number, status:string,description:string) : Promise<Pet> {
 
         let newPet : Pet = {
             owner : owner,
@@ -19,12 +19,15 @@ export class PetService {
             image : "TODO", // TODO
             kind : kind,
             breed : breed,
-            birthday : birthday
+            birthday : birthday,
+            status : status,
+            description:description
         }
 
         this.pets.push(newPet);
         return JSON.parse(JSON.stringify(newPet));
     }
+
 
     async updatePetAttribute(id: number, updates: Partial<Pet>): Promise<void> {
         return new Promise<void>((resolve, reject) => {

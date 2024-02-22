@@ -1,0 +1,20 @@
+
+.card-wrapper {
+    margin-bottom: 20px; /* Add margin between each card */
+}
+
+.card {
+    border: 1px solid #ccc; /* Add border to each card */
+    border-radius: 5px; /* Add border radius for rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add box shadow for depth */
+    transition: box-shadow 0.3s ease; /* Add transition effect for box shadow */
+}
+
+.card:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Change box shadow on hover */
+}
+
+.checkbox-name {
+    font-weight: bold; /* Make the checkbox name bold */
+    margin-right: 10px; /* Add margin to separate the checkbox name from the checkbox */
+}
