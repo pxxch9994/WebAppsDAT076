@@ -1,4 +1,4 @@
-import express, { Router, Request, Response } from "express";
+/*import express, { Router, Request, Response } from "express";
 import { PostService } from "../service/post";
 import { Post } from "../model/post";
 
@@ -66,4 +66,4 @@ postRouter.patch("/:id", async (
     } catch (error : any) {
         res.status(400).send(error.message); // Handle error
     }
-});
+});*/

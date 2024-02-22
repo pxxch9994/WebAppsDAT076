@@ -1,8 +1,9 @@
+/*import { Pet } from "./pet";
+
 export interface Post {
     id : number;
     author : string;
-    image : string; // TODO
     content : string;
     page : string;
-    pet : string ; // TODO
-}
+    pet : Pet ; // TODO
+}*/
