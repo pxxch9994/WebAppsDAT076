@@ -1,6 +1,6 @@
-import { Schema, Model } from "mongoose";
+import mongoose, { Schema, Model } from "mongoose";
 import { Pet } from "../model/pet";
-import { conn } from "./conn";
+import { connectToDatabase } from "./conn";
 
 
 export const petSchema : Schema = new Schema({
@@ -44,4 +44,4 @@ export const petSchema : Schema = new Schema({
     }
 })
 
-export const petModel = conn.model<Pet>("Pet", petSchema);
+export const petModel = mongoose.model<Pet>("Pet", petSchema);

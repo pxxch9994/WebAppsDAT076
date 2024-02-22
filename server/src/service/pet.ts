@@ -10,7 +10,7 @@ export class PetService {
     async getPets() : Promise<Pet[]> {
         try {
             const pets = await petModel.find();
-            return pets.map(pet => pet.toObject());
+            return pets.map((pet: { toObject: () => any; }) => pet.toObject());
         } catch (error) {
             console.error("Failed to get all pets");
             throw error;

@@ -1,6 +1,6 @@
-import { Schema, Model } from "mongoose";
+import mongoose, { Schema, Model } from "mongoose";
 import { User } from "../model/user";
-import { conn } from "./conn";
+import { connectToDatabase } from "./conn";
 
 const userSchema : Schema = new Schema({
     username : {
@@ -22,4 +22,4 @@ const userSchema : Schema = new Schema({
     }
 })
 
-export const userModel = conn.model<User>("User", userSchema);
+export const userModel = mongoose.model<User>("User", userSchema);
