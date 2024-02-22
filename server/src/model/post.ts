@@ -1,4 +1,4 @@
-import { Pet } from "./pet";
+/*import { Pet } from "./pet";
 
 export interface Post {
     id : number;
@@ -6,4 +6,4 @@ export interface Post {
     content : string;
     page : string;
     pet : Pet ; // TODO
-}
+}*/

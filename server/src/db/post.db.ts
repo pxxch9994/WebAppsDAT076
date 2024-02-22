@@ -1,4 +1,4 @@
-import { Schema, Model } from "mongoose";
+/*import { Schema, Model } from "mongoose";
 import { Post } from "../model/post";
 import { petSchema } from "./pet.db";
 import { conn } from "./conn";
@@ -32,4 +32,4 @@ const postSchema : Schema = new Schema({
     }
 })
 
-export const postModel = conn.model<Post>("Post", postSchema);
+export const postModel = conn.model<Post>("Post", postSchema);*/

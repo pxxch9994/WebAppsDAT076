@@ -1,36 +1,36 @@
-import {Pet} from "../model/pet";
+import { Pet } from "../model/pet";
 import { petModel } from "../db/pet.db";
 import { userModel } from "../db/user.db";
-import { error } from "console";
 
 export interface PetWithoutId extends Omit<Pet, 'id'> {}
-type UpdatePetInput = Omit<Pet, 'id' | 'owner'>; // prevents from changing owner or petId
+export type UpdatePetInput = Omit<Pet, 'id' | 'owner'> & { ownerEmail?: string };
 
 export class PetService {
     // Returns the current list of pets
     async getPets() : Promise<Pet[]> {
-       try {
-        const pets = await petModel.find();
-        return pets.map(pet => pet.toObject());
-       } catch {
-        console.error("Failed to get all pets");
-        throw error;
-       }
+        try {
+            const pets = await petModel.find();
+            return pets.map(pet => pet.toObject());
+        } catch (error) {
+            console.error("Failed to get all pets");
+            throw error;
+        }
     }
 
-    // Create a pet with a given attributes
+    // Create a pet with given attributes
     // Returns the created pet
-    async createPet(owner: string, name: string, kind: string, breed: string, birthday: number) : Promise<PetWithoutId> {
+    async createPet(ownerEmail: string, name: string, kind: string, breed: string, birthday: number): Promise<PetWithoutId> {
         try {
-            //Check if owner exists
-            const exisitingOwner = await userModel.findOne({ username: owner });
-            if (!exisitingOwner){
-                throw new Error('Owner not found')
+            // Check if owner email exists
+            const existingOwner = await userModel.findOne({ email: ownerEmail });
+            if (!existingOwner) {
+                throw new Error('Owner not found');
             }
 
-            //Create new pet in database
+            // Create new pet in the database
             const newPet = await petModel.create({
-                owner,
+                owner: existingOwner.username, // Assuming username is used as owner in Pet model
+                ownerEmail, // Keep ownerEmail in the pet document
                 name,
                 kind,
                 breed,
@@ -38,20 +38,20 @@ export class PetService {
             });
 
             return newPet.toObject();
-        } catch (error){
+        } catch (error) {
             console.error("Failed creating a new pet");
             throw error; 
         }
     }
-    
+
     async updatePetAttribute(id: number, updates: UpdatePetInput): Promise<void> {
-        try{
+        try {
             const updatedPet = await petModel.findByIdAndUpdate(
-                id, 
-                {$set: updates},
-                {new: true}
-            ); 
-            
+                id,
+                { $set: updates },
+                { new: true }
+            );
+
             if (!updatedPet) {
                 throw new Error('Pet not found');
             }
@@ -65,10 +65,10 @@ export class PetService {
         try {
             const deletedPet = await petModel.findByIdAndDelete(id);
 
-            if (!deletedPet){
+            if (!deletedPet) {
                 throw new Error('Pet not found');
             }
-        } catch (error){
+        } catch (error) {
             throw error;
         }
     }

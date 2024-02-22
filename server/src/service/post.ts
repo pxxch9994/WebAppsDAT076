@@ -1,4 +1,4 @@
-import {Post} from "../model/post";
+/*import {Post} from "../model/post";
 import { postModel } from "../db/post.db";
 import { userModel } from "../db/user.db";
 import { petModel } from "../db/pet.db";
@@ -88,4 +88,4 @@ export class PostService {
             throw error;
         }
     }
-}
+}*/

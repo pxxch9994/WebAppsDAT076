@@ -14,12 +14,17 @@ export const petSchema : Schema = new Schema({
         ref : "User",  
         required : true
     }, 
+    ownerEmail : {
+        type: String, 
+        ref: "User",
+        required: true,
+    },
     name : {
         type : String, 
         required : true
     }, 
     image : {
-        type : Image
+        type : String
     },
     kind : {
         type : String,
@@ -31,6 +36,10 @@ export const petSchema : Schema = new Schema({
     }, 
     birthday : {
         type : Number,
+        required : true
+    }, 
+    status : {
+        type : String, 
         required : true
     }
 })

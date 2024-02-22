@@ -2,8 +2,9 @@ import express from "express";
 import { userRouter } from "./router/user";
 import cors from "cors";
 import {petRouter} from "./router/pet";
-import {postRouter} from "./router/post";
+//import {postRouter} from "./router/post";
 import session from "express-session";
+import { conn } from "./db/conn";
 
 export const app = express();
 
@@ -31,7 +32,15 @@ app.use(cors(corsOptions));
 app.use(express.json()); // Middleware
 app.use("/user", userRouter);
 app.use("/pet", petRouter);
-app.use("/post", postRouter);
+//app.use("/post", postRouter);
+
+conn.once('open', () => {
+    console.log('Connected to MongoDB');
+    app.listen(8080, () => {
+        console.log("Server is listening on port 8080");
+    });
+});
+
 
 /*
 // OLD start.ts
