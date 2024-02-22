@@ -8,6 +8,8 @@ import Card from "../components/Card";
 import LoginField from "../components/LoginField";
 import AddPet from "../components/AddPet";
 import Navbar from "../components/NavBar"
+import Lily from '../images/Lily.jpeg';
+import bob from '../images/berner-sennen.png';
 
 
 const Forum: React.FC = () => {
@@ -17,9 +19,26 @@ const Forum: React.FC = () => {
 
     return(
         <>
-            <NavBar />
-            <AddPet />
-            <Card />
+            <NavBar/>
+            <div className="card-container">
+                <Card
+                    endpoint="endpoint"
+                    name="Bob Berner"
+                    image= {bob}
+                    breed="Berner Sennen"
+                    status="Lost"
+                    description="Bob was lost at 2 PM in Gothenburg, Lindholmen."
+                />
+
+                <Card
+                    endpoint="endpoint"
+                    name="Lily"
+                    image = {Lily}
+                    breed="Exotic Shorthair"
+                    status="Lost"
+                    description="Lily was last seen 7 AM at Chalmers, Johanneberg."
+                />
+            </div>
         </>
     );
 }

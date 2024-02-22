@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import Lily from '../images/Lily.jpeg'; // Import your image
+import Lily from '../images/Lily.jpeg';
 import "../style/CardPetList.css";
 interface Props {
     item: {
