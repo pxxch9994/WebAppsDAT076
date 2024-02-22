@@ -35,7 +35,7 @@ test('renders navbar links', () => {
     expect(linkElement).toBeInTheDocument();
 
 });
-
+//test for Register
 test('renders Register button', () => {
     render(
         <MemoryRouter>
