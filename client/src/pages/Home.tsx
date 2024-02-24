@@ -1,11 +1,9 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../style/Pages.css';
-import Forum from "./Forum";
-import PostNoImage from "../components/PostNoImage";
-import LostAndFound from "../components/LostAndFound";
-import NavBar from "../components/CustomNavbar";
-import Adoption from "../pages/Adoption";
+import NavBar from "../components/CustomNavbar";;
+
+// TODO: Our lovely homepage has experienced some unexpected modifications during the development process. We might consider to review and potentially upgrade it
 
 const Home: React.FC = () => {
   return (
@@ -13,8 +11,6 @@ const Home: React.FC = () => {
       <NavBar />
 
 {/* Main header */}
-
-  <br /><LostAndFound /><br />
 
       {/* Featured posts */}
   <div className="container mx-auto">
@@ -44,7 +40,6 @@ const Home: React.FC = () => {
 
     {/* Row 1, Col 2 */}
 
-    <PostNoImage />
     {/* Row 2, Col 1 */}
 
     <div className="col-md-3">

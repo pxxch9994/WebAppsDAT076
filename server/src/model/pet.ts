@@ -1,6 +1,7 @@
 export interface Pet {
     id : number;
     owner : string;
+    ownerEmail: string;
     name : string;
     image : string;
     kind : string;
@@ -9,3 +10,5 @@ export interface Pet {
     status: string;
     description: string;
 }
+
+export type PetUpdate = Omit<Pet, 'id' | 'owner'>;

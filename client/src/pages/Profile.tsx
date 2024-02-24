@@ -3,14 +3,15 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../style/Pages.css';
 import NavBar from "../components/CustomNavbar";
 import {useNavigate} from "react-router-dom";
-import { I_SessionData} from "../interfaces/I_SessionData";
+import { ISessionData} from "../interfaces/ISessionData";
 import ProfilePetList from "../components/ProfilePetList";
 import axios from "axios";
+import ProfilePetCard from "../components/ProfilePetCard";
 
 
 const Profile: React.FC = () => {
 
-    const [user, setUser] = useState<I_SessionData | null>(null);
+    const [user, setUser] = useState<ISessionData | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [error, setError] = useState<string>('');
 
@@ -20,10 +21,10 @@ const Profile: React.FC = () => {
         const fetchSessionData = async () => {
             try {
                 const data = await axios.get('http://localhost:8080/user/session', {withCredentials: true});
-                const userData: I_SessionData = data.data;
+                const userData: ISessionData = data.data;
                 setUser(userData);
             } catch (error) {
-                setError('Failed to fetch user session');
+                navigate('/login');
             } finally {
                 setIsLoading(false);
             }
@@ -34,7 +35,6 @@ const Profile: React.FC = () => {
 
     if (isLoading) return <div>Loading...</div>;
     if (error) navigate('/login');
-
 
     return (
       <>

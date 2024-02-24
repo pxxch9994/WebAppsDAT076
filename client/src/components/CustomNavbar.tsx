@@ -2,26 +2,23 @@ import React, {ReactNode, useEffect, useState} from 'react';
 import {To, useNavigate} from 'react-router-dom';
 import '../style/CustomNavbar.css';
 import Logout from "./Logout";
-import {I_SessionData} from "../interfaces/I_SessionData";
+import {ISessionData} from "../interfaces/ISessionData";
 import { Navbar, Nav } from 'react-bootstrap';
 import axios from "axios";
 
-interface NavbarProps {
-  children?: ReactNode;
-}
+const CustomNavbar: React.FC = () => {
 
-const CustomNavbar: React.FC<NavbarProps> = ({ children }) => {
-
-    const [user, setUser] = useState<I_SessionData | null>(null);
+    const [user, setUser] = useState<ISessionData | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [error, setError] = useState<string>('');
 
-    const navigate = useNavigate(); // Get the navigate function
+    const navigate = useNavigate();
 
+    // Checks if there is a session, which decides if we are showing the logout or login button
     useEffect(() => {
         const fetchSessionData = async () => {
             try {
-                const data: I_SessionData = await axios.get('http://localhost:8080/user/session', {withCredentials: true});
+                const data: ISessionData = await axios.get('http://localhost:8080/user/session', {withCredentials: true});
                 setUser(data);
             } catch (error) {
                 setError('Failed to fetch user session');
@@ -40,6 +37,8 @@ const CustomNavbar: React.FC<NavbarProps> = ({ children }) => {
     };
 
 
+    // We decided to use React useNavigate instead of href or similar,
+    // since useNavigate creates a smoother navigation system and won't reload the page if we are already on it
     return (
         <Navbar bg="dark" expand="lg">
             <Navbar.Brand style={{color:"var(--bs-light)"}}>........PetCommunity</Navbar.Brand>

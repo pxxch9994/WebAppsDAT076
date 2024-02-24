@@ -1,0 +1,50 @@
+.dark-pet-card {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background: #121212;
+    color: #E0E0E0;
+    padding: 15px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    width: auto;
+    gap: 70px;
+}
+
+.dark-profile-picture img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid #545557;
+    margin-bottom: 10px;
+}
+
+.dark-profile-info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-align: center;
+    gap: 30px;
+}
+
+.dark-name {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.dark-email {
+    font-size: 14px;
+    margin-top: 10px;
+    color: #A5A5A5;
+}
+
+.profileCardDropdown {
+    float: right !important;
+    display: flex;
+}
+
+.modal-content {
+    background: none;
+    border: none;
+}

@@ -8,9 +8,9 @@ import NavBar from "../components/CustomNavbar";
 const Login: React.FC = () => {
     return (
         <>
-            <NavBar />
+            <NavBar/>
 
-            <LoginRegisterSwitch />
+            <LoginRegisterSwitch/>
 
         </>
     );

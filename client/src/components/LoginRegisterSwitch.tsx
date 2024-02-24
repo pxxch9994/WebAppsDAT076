@@ -18,11 +18,14 @@ const LoginRegisterSwitch: React.FC = () => {
 
 
     return (
-        <div className="center-container">
-            <div className="align-content-center">
-            {showComponentA ? <LoginField toggleRegister={toggleRegister}/> : <RegisterField toggleLogin={toggleLogin}/>}
+        <>
+            <div className="center-container">
+                <div className="align-content-center">
+                    {showComponentA ? <LoginField toggleRegister={toggleRegister}/> :
+                        <RegisterField toggleLogin={toggleLogin}/>}
+                </div>
             </div>
-        </div>
+        </>
     );
 };
 

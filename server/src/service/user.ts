@@ -1,93 +1,75 @@
-import {User} from "../model/user";
+import { User, UserWithoutPassword } from "../model/user";
 import bcrypt from 'bcrypt';
+import { UserModel } from "../../db/conn";
+import { DeleteResult } from "mongodb";
+import { I_UserService } from "./I_UserService";
 
 
-// Use the Omit utility type to create a type without the password
-type UserWithoutPassword = Omit<User, 'password'>;
 
+// TODO see what we can do to fix _doc is error marked. OBS it works anyway
 function getUserWithoutPassword(user: User): UserWithoutPassword {
     const { password, ...userWithoutPassword } = user;
-    return userWithoutPassword;
+        return userWithoutPassword._doc;
 }
 
-
-export class UserService {
-    private users : User[] = [];
+export class UserService implements I_UserService {
     private saltRounds = 10;
 
-
-    public getUserByUsername(username: string | undefined): User | undefined {
-        return this.users.find(user => user.username === username);
+    // Improved getUsers with error handling
+    public async getUsers(): Promise<User[]> {
+        try {
+            return await UserModel.find();
+        } catch (error) {
+            console.error("Error fetching users", error);
+            throw error;
+        }
     }
 
-    // Returns the current list of users
-    async getUsers() : Promise<User[]> {
-        return JSON.parse(JSON.stringify(this.users)); //TODO fix so we don't return a user object with password here
-    }
-
-
-
-    // Create a user with a given name and add it to the user list
-    // Returns the created user
-    async createUser(username : string, name : string, password : string) : Promise<UserWithoutPassword> {
-        // Check if the username is already taken
-        if (this.users.some(user => user.username === username)) {
-            return Promise.reject(new Error('Username is already taken'));
+    // Create user with uniqueness check, error handling, and input validation
+    public createUser = async (username: string, name: string, email: string, password: string): Promise<UserWithoutPassword> => {
+        if (!username || !email || !password) {
+            throw new Error('Username, email, and password are required');
         }
 
-        // Hash the password
-        const hashedPassword = await bcrypt.hash(password, this.saltRounds);
+        try {
+            const hashedPassword = await bcrypt.hash(password, this.saltRounds);
+            console.log('Database connection is ready');
 
-        let newUser : User = {
-            username: username,
-            name: name,
-            password: hashedPassword
+            const newUser = await UserModel.create({
+                username,
+                name,
+                email,
+                password: hashedPassword,
+            });
+            return getUserWithoutPassword(newUser);
+        } catch (error) {
+            console.error("Error creating user", error);
+            throw error;
         }
+    };
 
-        this.users.push(newUser);
+    // Authentication with error handling
+    public async authenticate(username: string, password: string): Promise<UserWithoutPassword | null> {
+        try {
+            const user = await UserModel.findOne({ username });
+            if (!user) return null;
 
-        return getUserWithoutPassword(newUser); // TODO check if its okay to not make a deep copy here
-        //return JSON.parse(JSON.stringify(newUser));
-    }
-
-    async changeName(username: string, name: string): Promise<void> {
-        return new Promise<void>((resolve, reject) => {
-            const user: User | undefined = this.users.find((t: User) => t.username === username);
-            if (user === undefined) {
-                // Reject the promise with an error
-                reject(new Error('User not found'));
-            } else {
-                user.name = name;
-                // Resolve the promise when the name is successfully changed
-                resolve();
-            }
-        });
-    }
-
-    async authenticate(username: string, password: string): Promise<UserWithoutPassword | null> {
-        const user = this.users.find(user => user.username === username);
-        if (user) {
-            // Compare submitted password with the stored hashed password
             const match = await bcrypt.compare(password, user.password);
-            if (match) {
-                // Passwords match
-                return getUserWithoutPassword(user); // For security, omitting password in the returned value
-            }
+            return match ? getUserWithoutPassword(user) : null;
+        } catch (error) {
+            console.error("Error authenticating user", error);
+            throw error;
         }
-        // Authentication failed
-        return null;
     }
 
-    async deleteUser(username: string): Promise<void> {
-        return new Promise<void>((resolve, reject) => {
-            const user: User | undefined = this.users.find((t: User) => t.username === username);
-            if(user === undefined) {
-                reject(new Error('User not found'))
-            } else {
-                this.users.splice(this.users.indexOf(user), 1)
-                resolve();
-            }
-        });
+    // deleteUser with error handling
+    public async deleteUser(username: string): Promise<boolean> {
+        try {
+            const result: DeleteResult = await UserModel.deleteOne({ username });
+            return result.deletedCount === 1;
+        } catch (error) {
+            console.error("Error deleting user", error);
+            throw error;
+        }
     }
 }
-

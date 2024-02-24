@@ -1,7 +1,15 @@
-import session from 'express-session';
+// custom-types.d.ts
+import 'express';
 
-declare module 'express-session' {
-    export interface SessionData {
-        username?: string; // Making username optional
+declare module 'express-serve-static-core' {
+    // Fix some type errors for type safety
+    interface SessionData {
+        username?: string;
+        name?: string;
+        email?: string;
+    }
+
+    interface Request {
+        session?: Session & SessionData;
     }
 }

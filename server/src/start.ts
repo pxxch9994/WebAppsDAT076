@@ -1,34 +1,32 @@
-import express from "express";
-import { userRouter } from "./router/user";
-import cors from "cors";
-import {petRouter} from "./router/pet";
-import {postRouter} from "./router/post";
-import session from "express-session";
+import express from 'express';
+import { userRouter } from './router/user';
+import { petRouter } from './router/pet';
+import session from 'express-session';
+import cors from 'cors';
 
+// Express app initialization
 export const app = express();
 
-// Your session configuration
+// CORS middleware configuration
+app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
+
+// Session middleware configuration
+// TODO exchange the secret key for security reasons
+
+// TODO comment what resave and saveUninitialized does
 const sessionConfig: session.SessionOptions = {
     secret: 'yourSecretKey',
     resave: false,
     saveUninitialized: true,
     cookie: {
-        secure: false, // For HTTP only. Set to true if using HTTPS
+        secure: false, // For HTTP only
         httpOnly: true,
-        maxAge: 1000 * 60 * 60 * 24,
+        maxAge: 1000 * 60 * 60 * 24
     }
 };
 
-// Apply the session middleware to the app
+// Middlewares
 app.use(session(sessionConfig));
-
-const corsOptions = {
-    origin: 'http://localhost:3000', // Frontend
-    credentials: true, // Allows cookies to be sent
-};
-
-app.use(cors(corsOptions));
-app.use(express.json()); // Middleware
-app.use("/user", userRouter);
-app.use("/pet", petRouter);
-app.use("/post", postRouter);
+app.use(express.json());
+app.use('/user', userRouter);
+app.use('/pet', petRouter);

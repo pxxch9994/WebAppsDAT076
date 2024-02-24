@@ -1,56 +1,75 @@
-import {Pet} from "../model/pet";
+import {Pet, PetUpdate} from "../model/pet";
+import {ITaskService} from "./I_PetService";
+import {PetModel, UserModel} from "../../db/conn";
+import {DeleteResult} from "mongodb";
 
-export class PetService {
+export class PetService implements ITaskService {
+
     private pets : Pet[] = [];
 
     // Returns the current list of pets
     async getPets() : Promise<Pet[]> {
-        return JSON.parse(JSON.stringify(this.pets));
+        try {
+            return await PetModel.find();
+        } catch (error) {
+            console.error("Error fetching pets", error);
+            throw error;
+        }
+    }
+
+    // Returns the current list of pets
+    async getProfilePets(owner: string) : Promise<Pet[]> {
+        try {
+            return PetModel.find({owner});
+        } catch (error) {
+            console.error("Error fetching users", error);
+            throw error;
+        }
     }
 
     // Create a pet with a given attributes
     // Returns the created pet
-    async createPet(owner: string, name: string, image: string, kind: string, breed: string, birthday: number, status: string, description: string) : Promise<Pet> {
-
-        let newPet : Pet = {
-            owner : owner,
-            name : name,
-            id : Date.now(),
-            image : image,
-            kind : kind,
-            breed : breed,
-            birthday : birthday,
-            status: status,
-            description
+    async createPet(owner: string, ownerEmail: string, name: string, image: string, kind: string, breed: string, birthday: number, status: string, description: string) : Promise<Pet> {
+        try {
+            return await PetModel.create({
+                owner: owner,
+                ownerEmail: ownerEmail,
+                name: name,
+                id: Date.now().valueOf(),
+                image: image,
+                kind: kind,
+                breed: breed,
+                birthday: birthday,
+                status: status,
+                description: description
+            });
+        } catch (error) {
+            console.error("Error creating pet pet", error);
+            throw error;
         }
-
-        this.pets.push(newPet);
-        return JSON.parse(JSON.stringify(newPet));
     }
 
-    async updatePetAttribute(id: number, updates: Partial<Pet>): Promise<void> {
-        return new Promise<void>((resolve, reject) => {
-            const pet: Pet | undefined = this.pets.find((t: Pet) => t.id === id);
-            if (pet === undefined) {
-                // Reject the promise with an error
-                reject(new Error('Pet not found'));
-            } else {
-                Object.assign(pet, updates);
-                // Resolve the promise when the name is successfully changed
-                resolve();
+    async updatePetAttribute(id: number, updates: Partial<PetUpdate>): Promise<boolean> {
+        try {
+            const result = await PetModel.updateOne(
+                {id: id},
+                {$set: updates}
+            );
+            return (result.matchedCount == 1);
+        } catch (error) {
+                console.error("Error creating pet pet", error);
+                throw error;
             }
-        });
     }
-
-    async deletePet(id: number): Promise<void> {
-        return new Promise<void>((resolve, reject) => {
-            const pet: Pet | undefined = this.pets.find((t: Pet) => t.id === id);
-            if(pet === undefined) {
-                reject(new Error('Pet not found'))
-            } else {
-                this.pets.splice(this.pets.indexOf(pet), 1)
-                resolve();
-            }
-        });
+    async delete(id: number): Promise<boolean> {
+        try {
+            const result: DeleteResult = await PetModel.deleteOne(
+                {id: id},
+            );
+            return (result.deletedCount == 1);
+        } catch (error) {
+            console.error("Error creating pet pet", error);
+            throw error;
+        }
     }
 }

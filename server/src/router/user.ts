@@ -1,98 +1,49 @@
-import express, { Router, Request, Response } from "express";
+import express, { Router, Request, Response, NextFunction } from "express";
 import { UserService } from "../service/user";
 import { User } from "../model/user";
-import {checkAuthentication} from "./userAuthentication";
+import { checkAuthentication } from "./userAuthentication";
 
-const userService : UserService = new UserService();
+const userService = new UserService();
+export const userRouter = express.Router();
 
-export const userRouter : Router = express.Router();
 
 interface CreateUserRequest extends Request {
     params: {},
-    body: { username: string, name: string, password: string }
+    body: { username: string, name: string, email: string, password: string }
 }
 
-userRouter.get("/", async (
-    req : Request<{},User[],{}>, res : Response<User[]>
-) => {
-    const users : User[] = await userService.getUsers();
-    res.status(200).send(users);
-})
 
-userRouter.post("/", async (
-    req: CreateUserRequest , res : Response<string>
-) => {
-    if (typeof(req.body.username) !== "string") {
-        res.status(400).send(`Bad POST call to ${req.originalUrl} --- username has type ${typeof(req.body.username)}`);
-        return;
+// Middleware for validating request body
+const validateUserFields = (req: Request, res: Response, next: NextFunction) => {
+    const { username, name, email, password } = req.body;
+    if (typeof username !== "string" || typeof name !== "string" || typeof email !== "string" || typeof password !== "string") {
+        return res.status(400).send("Bad request: Invalid input types");
     }
-    if (typeof(req.body.name) !== "string") {
-        res.status(400).send(`Bad POST call to ${req.originalUrl} --- name has type ${typeof(req.body.name)}`);
-        return;
-    }
-    if (typeof(req.body.password) !== "string") {
-        res.status(400).send(`Bad POST call to ${req.originalUrl} --- password has type ${typeof(req.body.password)}`);
-        return;
-    }
-    const username : string = req.body.username;
-    const name : string = req.body.name;
-    const password : string = req.body.password;
+    next();
+};
+
+userRouter.get("/", async (req, res) => {
     try {
-        const newUser = await userService.createUser(username, name, password);
-        console.log('User created:', newUser);
-
-        res.status(201).send("User created");
-    } catch (error : any) {
-        console.error('Error creating user:', error.message);
-
-        res.status(401).send("User already exist");
+        const users = await userService.getUsers();
+        res.status(200).json(users);
+    } catch (error: any) {
+        console.error('Error fetching users:', error.message);
+        res.status(500).send("Internal server error");
     }
-})
-
-userRouter.delete("/:username", async (
-    req: Request<{username: string}, {}, {}>,
-    res: Response<string>
-) => {
-    const username: string = req.params.username;
-    try {
-        await userService.deleteUser(username);
-        res.status(200).send("User is deleted");
-    } catch (error : any) {
-        res.status(400).send(error.message); // Handle error
-    }
-});
-
-
-userRouter.patch("/:username", async (
-    req: Request<{ username: string }, {}, { name: string }>, // Corrected type definition
-    res: Response<string>
-) => {
-    const username: string = req.params.username;
-    const name: string = req.body.name; // Get name from request body
-    try {
-        await userService.changeName(username, name);
-        res.status(200).send("User changed name");
-    } catch (error : any) {
-        res.status(400).send(error.message); // Handle error
-    }
-});
-
-userRouter.get('/session', checkAuthentication, (req, res) => {
-        const user = userService.getUserByUsername(req.session.username);
-        res.status(200).json({ username: user?.username, name: user?.name });
 });
 
 userRouter.post("/login", async (req: Request, res: Response) => {
     const { username, password } = req.body;
     try {
         const user = await userService.authenticate(username, password);
+
         if (user) {
-            // Store user information in session
-            if (req.session) {
-                req.session.username = user.username;
-            }
-            console.log("Authentication success");
-            res.status(200).json(user);
+            req.session.username = user.username;
+            req.session.name = user.name;
+            req.session.email = user.email;
+
+            console.log("Authentication success" + JSON.stringify(req.session));
+            res.status(200).json(req.session);
         } else {
             console.log("Authentication failed");
             res.status(401).send("Authentication failed");
@@ -102,21 +53,52 @@ userRouter.post("/login", async (req: Request, res: Response) => {
     }
 });
 
-userRouter.get('/logout', (req, res) => {
-    if (req.session) {
-        // Destroy the session
-        req.session.destroy(err => {
-            if (err) {
-                return res.status(500).send('Error logging out');
-            }
-            // Clear the session cookie
-            res.clearCookie('connect.sid'); // Adjust the cookie name if different
-            return res.send('Logout successful');
-        });
-    } else {
-        return res.status(200).send('No active session to logout');
+
+userRouter.get('/session', checkAuthentication, (req, res) => {
+    res.status(200).send(req.session);
+});
+
+userRouter.post("/", validateUserFields, async (req: CreateUserRequest, res: Response) => {
+    const { username, name, email, password } = req.body;
+    try {
+        const newUser = await userService.createUser(username, name, email, password);
+        console.log('User created:', newUser);
+        res.status(201).send("User created");
+    } catch (error: any) {
+        console.error('Error creating user:', error.message);
+        res.status(error.code === 11000 ? 409 : 500).send(error.code === 11000 ? "User already exists" : "Internal server error");
     }
 });
 
+userRouter.delete("/:username", async (req, res) => {
+    try {
+        const success = await userService.deleteUser(req.params.username);
+        if (success) {
+            res.status(200).send("User deleted");
+        } else {
+            res.status(404).send("User not found");
+        }
+    } catch (error: any) {
+        console.error('Error deleting user:', error.message);
+        res.status(500).send("Internal server error");
+    }
+});
+
+
+userRouter.get('/logout', (req, res) => {
+    if (req.session) {
+        req.session.destroy((err: any) => {
+            if (err) {
+                console.error("Error logging out", err);
+                res.status(500).send('Error logging out');
+            } else {
+                res.clearCookie('connect.sid');
+                res.send('Logout successful');
+            }
+        });
+    } else {
+        res.status(200).send('No active session to logout');
+    }
+});
 
 

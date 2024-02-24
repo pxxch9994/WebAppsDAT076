@@ -14,7 +14,7 @@ function Logout() {
         try {
             const res  = await axios.get(`http://localhost:8080/user/logout`, { withCredentials: true });
             console.log('Logout successful', res.data);
-            navigate('/login'); // Using useNavigate from React Router for redirection
+            navigate('/login');
         } catch (error: any) {
             console.error('Logout failed', error.response?.data || error.message);
         }

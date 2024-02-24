@@ -6,11 +6,10 @@ import UserList from "../components/UserList";
 import PetList from "../components/PetList";
 
 
+
+// TODO This page should be removed after the development phase
 const DevTest: React.FC= () => {
 
-    const [bool, setBool] = useState(false);
-    const [string, setString] = useState("");
-    const [num, setNum] = useState(0);
     return(
         <>
             <NavBar />

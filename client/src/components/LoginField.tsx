@@ -15,16 +15,15 @@ const LoginField: React.FC<LoginProps> = ({toggleRegister}) => {
 
     const [passwordVisibility, setPasswordVisibility] = useState(false);
 
-    const navigate = useNavigate(); // This uses the navigate function from React Router v6
+    const navigate = useNavigate();
 
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-        event.preventDefault(); // Prevent the default form submission behavior
+        event.preventDefault();
         try {
             const response = await axios.post('http://localhost:8080/user/login', { username, password }, { withCredentials: true });
             console.log('Login successful:', response.data);
-            // Reset any error upon successful login
             setError('');
-            navigate('/profile'); // Navigate to the profile page on success
+            navigate('/'); // Navigate to the profile page on success
         } catch (error: any) {
             console.error('Login failed:', error.response ? error.response.data : 'Login failed');
             // Update error state to display the error message
@@ -65,12 +64,6 @@ const LoginField: React.FC<LoginProps> = ({toggleRegister}) => {
 
     return (
         <>
-            <head>
-                <link rel="stylesheet"
-                      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,600,0,0"/>
-                <title>Login</title>
-
-            </head>
             <div className="login">
                 <h2>Login</h2>
                 <h3>Welcome to PetCom</h3>
@@ -92,8 +85,7 @@ const LoginField: React.FC<LoginProps> = ({toggleRegister}) => {
                 </form>
                 <a href="">Forgot your credentials?</a>
             </div>
-            </>
-            );
-            }
+        </>
+    )};
 
-            export default LoginField;
+export default LoginField;

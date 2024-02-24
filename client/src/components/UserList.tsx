@@ -2,6 +2,9 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import React from 'react';
 
+
+// TODO This class is for development purpose could be removed in the future
+// this class only purpose is to display all users stored in the database for development purpose
 function UserList() {
     const [data, setData] = useState([]);
 

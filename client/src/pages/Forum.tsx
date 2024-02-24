@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import '../style/Pages.css';
 import NavBar from "../components/CustomNavbar";
-import ImageCard from "../components/ImageCard";
+import ForumPetCard from "../components/ForumPetCard";
 import {Col, Container, Row} from 'react-bootstrap';
 import axios from "axios";
 import AddPet from "../components/AddPet";
+import {IPet} from "../interfaces/IPet";
 
 const Forum: React.FC = () => {
     const [data, setData] = useState([]);
@@ -19,27 +20,16 @@ const Forum: React.FC = () => {
         getData();
     }, []);
 
-    interface Item {
-        id : number;
-        owner : string;
-        name : string;
-        image : string;
-        kind : string;
-        breed : string;
-        birthday : number;
-        status: string;
-        description: string;
-    }
-
     return (
         <>
             <NavBar />
             <AddPet />
             <Container>
                 <Row className="justify-content-center">
-                    {data.map((item: Item, index: number) => (
+                    {data.map((pet: IPet, index: number) => (
+                        // 6 cards large screen, 3 cards medium screen and 1 card small screen
                         <Col lg={2} md={4} sm={12} className="mb-4" key={index}>
-                            <ImageCard status={item.status} name={item.name} image={item.image} description={item.description} owner={item.owner}/>
+                            <ForumPetCard pet={pet}/>
                         </Col>
                     ))}
 

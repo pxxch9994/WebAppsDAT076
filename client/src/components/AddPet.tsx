@@ -6,7 +6,6 @@ import axios from "axios";
 
 function AddPet() {
     const [show, setShow] = useState(false);
-    const [owner, setOwner] = useState("");
     const [name, setName] = useState("");
     const [image, setImage] = useState("");
     const [kind, setKind] = useState("");
@@ -15,16 +14,39 @@ function AddPet() {
     const [status, setStatus] = useState("");
     const [description, setDescription] = useState("");
 
+
+   // Functions to handle show and hide operations for the add pet modal
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
+    // Add function that retrieves the username and email of the current session and creates a pet with collected form data
     const add = async () => {
-        const res  = await axios.post(`http://localhost:8080/pet/`, {owner, name, image, kind, breed, birthday, status, description});
+        try {
+            const response = await axios.get('http://localhost:8080/user/session', {withCredentials: true});
+
+            const res = await axios.post('http://localhost:8080/pet/', {
+                owner: response.data.username,
+                ownerEmail: response.data.email,
+                name,
+                image,
+                kind,
+                breed,
+                birthday,
+                status,
+                description
+            }, {withCredentials: true});
+
+            return res.data;
+        } catch (error) {
+            console.error('An error occurred:', error);
+            throw error;
+        }
     };
 
+    // TODO The browser should automatically refresh and display the new data after submission(add pet)
+    // Graphics form modal
     return (
         <>
-
             <div className="center-content">
             <Button variant="primary" onClick={handleShow}>
                 Add Pet
@@ -37,15 +59,6 @@ function AddPet() {
                 </Modal.Header>
                 <Modal.Body>
                     <Form>
-                        <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                            <Form.Label>Owner</Form.Label>
-                            <Form.Control
-                                type="text"
-                                placeholder="username"
-                                onChange={(e) => setOwner(e.target.value)}
-                                autoFocus
-                            />
-                        </Form.Group>
                         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                             <Form.Label>Pet name</Form.Label>
                             <Form.Control
