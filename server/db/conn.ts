@@ -1,6 +1,6 @@
 import mongoose, { Document, Schema, Model, model } from 'mongoose';
 
-const url = 'mongodb://localhost:27017/petcomdb';
+const url = "mongodb+srv://dev_user:kyUb62C6mSYoVyEn@cluster0.fgaca4g.mongodb.net/";
 
 // TODO: Refactor by breaking down this code into separate files
 
