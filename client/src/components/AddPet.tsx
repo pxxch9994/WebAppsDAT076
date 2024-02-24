@@ -3,6 +3,16 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import axios from "axios";
+import "./RandomPet"
+import {
+    getBreed,
+    getImage,
+    getKind,
+    getRandomPetBirthday,
+    getRandomPetDescription,
+    getRandomPetName,
+    getRandomPetStatus
+} from "./RandomPet";
 
 function AddPet() {
     const [show, setShow] = useState(false);
@@ -34,6 +44,31 @@ function AddPet() {
                 birthday,
                 status,
                 description
+            }, {withCredentials: true});
+
+            return res.data;
+        } catch (error) {
+            console.error('An error occurred:', error);
+            throw error;
+        }
+    };
+
+    // Add function that retrieves the username and email of the current session and creates a pet with collected form data
+    const addRandomPet = async () => {
+        try {
+            const response = await axios.get('http://localhost:8080/user/session', {withCredentials: true});
+            const randomIndex = Math.floor(Math.random() * 6);
+
+            const res = await axios.post('http://localhost:8080/pet/', {
+                owner: response.data.username,
+                ownerEmail: response.data.email,
+                name: getRandomPetName(),
+                image: getImage(randomIndex),
+                kind: getKind(randomIndex),
+                breed: getBreed(randomIndex),
+                birthday: getRandomPetBirthday(),
+                status: getRandomPetStatus(),
+                description: getRandomPetDescription()
             }, {withCredentials: true});
 
             return res.data;
@@ -143,6 +178,9 @@ function AddPet() {
                     </Button>
                     <Button variant="primary" onClick={add}>
                         Add Pet
+                    </Button>
+                    <Button variant="primary" onClick={addRandomPet}>
+                        Add Random Pet
                     </Button>
                 </Modal.Footer>
             </Modal>
