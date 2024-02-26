@@ -53,6 +53,7 @@ const CustomNavbar: React.FC = () => {
                         <Nav.Link onClick={() => handleNavigate("/login")}>Login</Nav.Link>
                     }
 
+                    // TODO FIX Logout button is for unknown reason always visible.
                     {user &&
                         <Logout />
                     }
