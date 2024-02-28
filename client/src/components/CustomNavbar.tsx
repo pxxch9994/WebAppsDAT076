@@ -8,7 +8,8 @@ import axios from "axios";
 
 const CustomNavbar: React.FC = () => {
 
-    const [user, setUser] = useState<ISessionData | null>(null);
+    const [user, setUser] = useState<ISessionData | null>();
+    const [loggedIn, setLoggedIn] = useState<boolean>(false);
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [error, setError] = useState<string>('');
 
@@ -19,9 +20,13 @@ const CustomNavbar: React.FC = () => {
         const fetchSessionData = async () => {
             try {
                 const data: ISessionData = await axios.get('http://localhost:8080/user/session', {withCredentials: true});
+                console.log(data);
                 setUser(data);
+                setLoggedIn(true);
             } catch (error) {
                 setError('Failed to fetch user session');
+                setLoggedIn(false);
+                setUser(null);
             } finally {
                 setIsLoading(false);
             }
@@ -36,12 +41,12 @@ const CustomNavbar: React.FC = () => {
         navigate(path);
     };
 
-
+    // TODO FIX Logout button is for unknown reason always visible.
     // We decided to use React useNavigate instead of href or similar,
     // since useNavigate creates a smoother navigation system and won't reload the page if we are already on it
     return (
         <Navbar bg="dark" expand="lg">
-            <Navbar.Brand style={{color:"var(--bs-light)"}}>........PetCommunity</Navbar.Brand>
+            <Navbar.Brand style={{color:"var(--bs-light)"}}>...PetCommunity</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto">
@@ -52,8 +57,6 @@ const CustomNavbar: React.FC = () => {
                     {!user &&
                         <Nav.Link onClick={() => handleNavigate("/login")}>Login</Nav.Link>
                     }
-
-                    // TODO FIX Logout button is for unknown reason always visible.
                     {user &&
                         <Logout />
                     }

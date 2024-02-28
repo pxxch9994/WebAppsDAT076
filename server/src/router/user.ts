@@ -86,7 +86,7 @@ userRouter.delete("/:username", async (req, res) => {
 
 
 userRouter.get('/logout', (req, res) => {
-    if (req.session) {
+    if (req.session && req.session.username) {
         req.session.destroy((err: any) => {
             if (err) {
                 console.error("Error logging out", err);
@@ -97,6 +97,7 @@ userRouter.get('/logout', (req, res) => {
             }
         });
     } else {
+        console.log("no active")
         res.status(200).send('No active session to logout');
     }
 });

@@ -15,7 +15,7 @@ app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
 
 // TODO comment what resave and saveUninitialized does
 const sessionConfig: session.SessionOptions = {
-    secret: 'yourSecretKey',
+    secret: 'ba7343a11c4dbfe0511d39e40df6449cc5f3912e5cf055bc8362d013ff6a325f',
     resave: false,
     saveUninitialized: true,
     cookie: {
