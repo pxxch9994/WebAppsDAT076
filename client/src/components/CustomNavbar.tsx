@@ -54,9 +54,6 @@ const CustomNavbar: React.FC = () => {
                     <Nav.Link style={{color:"var(--bs-light)"}} onClick={() => handleNavigate("/forum")}>Pet Forum</Nav.Link>
                     <Nav.Link style={{color:"var(--bs-light)"}} onClick={() => handleNavigate("/profile")}>Profile</Nav.Link>
                     <Nav.Link style={{color:"var(--bs-light)"}} onClick={() => handleNavigate("/devtest")}>DevTest</Nav.Link>
-                    {!user &&
-                        <Nav.Link onClick={() => handleNavigate("/login")}>Login</Nav.Link>
-                    }
                     {user &&
                         <Logout />
                     }

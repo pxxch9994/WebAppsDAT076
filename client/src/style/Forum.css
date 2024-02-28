@@ -1,0 +1,48 @@
+.dropdown2 {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-2toggle {
+    background-color: #317cb0; /* Green background */
+    color: white; /* White text */
+    padding: 8px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+
+.dropdown-2toggle:hover {
+    background-color: #2398bb; /* Darker green background on hover */
+}
+
+.dropdown-2menu {
+    display: none; /* Initially hidden */
+    position: absolute;
+    background-color: #f9f9f9; /* Light grey background */
+    min-width: 160px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2); /* Drop shadow for depth */
+    z-index: 1;
+    border-radius: 5px; /* Rounded corners for the dropdown */
+    overflow: hidden; /* Ensures child rounded corners are respected */
+}
+
+/* Show the dropdown menu on toggle */
+.dropdown2:hover .dropdown-2menu {
+    display: block; /* Show the dropdown */
+}
+
+/* Individual dropdown items */
+.dropdown-2item {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    transition: background-color 0.2s ease-in-out; /* Smooth transition for hover effect */
+}
+
+
+.dropdown-2item:hover {
+    background-color: #f1f1f1; /* Light grey background on hover */
+}

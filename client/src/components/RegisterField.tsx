@@ -22,15 +22,19 @@ const RegisterField: React.FC<LoginProps> = ({toggleLogin}) => {
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault(); // Prevent the default form submission behavior
         try {
-            const response = await axios.post(`http://localhost:8080/user/`, {
-                username, name, email, password
-            }, {
-                withCredentials: true
-            });
-            console.log('Register successful:', response.data);
-            // Reset any error upon successful login
-            setError('');
-            toggleLogin();
+            if(password == coPassword) {
+                const response = await axios.post(`http://localhost:8080/user/`, {
+                    username, name, email, password
+                }, {
+                    withCredentials: true
+                });
+                console.log('Register successful:', response.data);
+                // Reset any error upon successful login
+                setError('');
+                toggleLogin();
+            }else {
+                setError('Confirm password does not match');
+            }
         } catch (error: any) {
             console.error('Register failed:', error.response ? error.response.data : 'Register failed');
             // Update error state to display the error message
@@ -139,7 +143,7 @@ const RegisterField: React.FC<LoginProps> = ({toggleLogin}) => {
                     </div>
                     <button type="submit" className="login-form-button">REGISTER</button>
                     <button className="bn16" onClick={toggleLogin}>LOGIN</button>
-                    {error && <p className="error">{error}</p>}
+                    {error && <p className="login-error">{error}</p>}
                 </form>
             </div>
         </>

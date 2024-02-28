@@ -1,6 +1,7 @@
 import {Pet, PetUpdate} from "../model/pet";
 import {ITaskService} from "./I_PetService";
-import {PetModel, UserModel} from "../../db/conn";
+import {UserModel} from "../../db/user.db";
+import {PetModel} from "../../db/pet.db";
 import {DeleteResult} from "mongodb";
 
 export class PetService implements ITaskService {

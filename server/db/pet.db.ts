@@ -1,7 +1,5 @@
 import mongoose, { Document, Schema, Model, model } from 'mongoose';
 
-const url = 'mongodb://localhost:27017/yourDatabaseName';
-
 // Interface for the Pet model
 interface IPet extends Document {
     id: number;
@@ -16,7 +14,7 @@ interface IPet extends Document {
     description: string;
 }
 
-// Define the Pet schema
+// Definition of the Pet schema
 const petSchema = new Schema<IPet>({
     id: { type: Number, required: true, unique: true },
     owner: { type: String, required: true },
@@ -32,18 +30,8 @@ const petSchema = new Schema<IPet>({
     timestamps: true,
 });
 
-// Create the Pet model from the schema
-const PetModel = mongoose.model<IPet>('Pet', petSchema);
 
-// Connects to MongoDB
-export async function connectToDatabase() {
-    try {
-        await mongoose.connect(url);
-        console.log('Successfully connected to MongoDB using Mongoose');
-    } catch (error) {
-        console.error('Could not connect to MongoDB', error);
-        throw new Error('Failed to connect to MongoDB');
-    }
-}
+
+const PetModel = mongoose.model<IPet>('Pet', petSchema);
 
 export { PetModel };

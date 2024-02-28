@@ -81,7 +81,7 @@ const LoginField: React.FC<LoginProps> = ({toggleRegister}) => {
                     </div>
                     <button type="submit" className="login-form-button">LOGIN</button>
                     <button className="bn16" onClick={toggleRegister}>REGISTER</button>
-                    {error && <p className="error">{error}</p>}
+                    {error && <p className="login-error">{error}</p>}
                 </form>
                 <a href="">Forgot your credentials?</a>
             </div>
