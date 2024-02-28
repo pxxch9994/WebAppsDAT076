@@ -9,7 +9,8 @@ import { I_UserService } from "./I_UserService";
 // TODO see what we can do to fix _doc is error marked. OBS it works anyway
 function getUserWithoutPassword(user: User): UserWithoutPassword {
     const { password, ...userWithoutPassword } = user;
-        return userWithoutPassword._doc;
+        // @ts-ignore
+    return userWithoutPassword._doc;
 }
 
 export class UserService implements I_UserService {
