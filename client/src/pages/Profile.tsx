@@ -7,6 +7,7 @@ import { ISessionData} from "../interfaces/ISessionData";
 import ProfilePetList from "../components/ProfilePetList";
 import axios from "axios";
 import ProfilePetCard from "../components/ProfilePetCard";
+import UserSettings from "../components/UserSettings";
 
 
 const Profile: React.FC = () => {
@@ -43,7 +44,11 @@ const Profile: React.FC = () => {
               <div className="row">
                   <h1>
                       Welcome, {user?.name}!
+
                   </h1>
+                      <div>
+                          <UserSettings />
+                      </div>
 
                   <div className="col-md-8">
                       <div className="added-pets">

@@ -175,4 +175,7 @@
     margin-right: 0; /* Removes the right margin from the last button */
 }
 
+.login-error{
+    color: red;
+}
 

@@ -94,3 +94,16 @@ petRouter.delete("/:id", checkAuthentication, async (
         res.status(400).send(error.message);
     }
 });
+
+petRouter.delete("/all/:owner", checkAuthentication, async (
+    req: Request<{owner: string}, {}, {}>,
+    res: Response<string>
+) => {
+    const owner : string = req.params.owner;
+    try {
+        await petService.deleteByOwner(owner);
+        res.status(200).send("All pets are deleted");
+    } catch (error : any) {
+        res.status(400).send(error.message);
+    }
+});

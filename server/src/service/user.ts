@@ -1,6 +1,6 @@
 import { User, UserWithoutPassword } from "../model/user";
 import bcrypt from 'bcrypt';
-import { UserModel } from "../../db/conn";
+import { UserModel } from "../../db/user.db";
 import { DeleteResult } from "mongodb";
 import { I_UserService } from "./I_UserService";
 

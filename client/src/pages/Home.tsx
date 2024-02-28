@@ -1,7 +1,8 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../style/Pages.css';
-import NavBar from "../components/CustomNavbar";;
+import NavBar from "../components/CustomNavbar";
+import Lily from "../images/Lily.jpeg";
 
 // TODO: Our lovely homepage has experienced some unexpected modifications during the development process. We might consider to review and potentially upgrade it
 
@@ -50,7 +51,7 @@ const Home: React.FC = () => {
           <div className="mb-3 text-muted">Jan 26</div>
           <strong className="mb-2">Lily</strong>
           <div className="square-image2">
-            <img src="../images/Lily.jpeg" alt="" className="square-image2" />
+            <img src= {Lily} alt="" className="square-image2" />
           </div>
           <div className="mb-2 text-muted">Age: 3 yo</div>
           <div className="mb-2 text-muted">Breed: Persian</div>

@@ -73,4 +73,17 @@ export class PetService implements ITaskService {
             throw error;
         }
     }
+
+    async deleteByOwner(owner : string): Promise<boolean> {
+        try {
+            const result: DeleteResult = await PetModel.deleteMany(
+                {owner : owner},
+            );
+            return (result.deletedCount > 0);
+        } catch (error) {
+            console.error("Error creating pet pet", error);
+            throw error;
+        }
+    }
+
 }
