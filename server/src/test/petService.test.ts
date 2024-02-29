@@ -1,70 +1,79 @@
 import { PetService } from "../service/pet";
+import { PetModel } from "../../db/pet.db";
 
-describe("PetService", () => {
+const PetModelMock = PetModel as any;
+
+jest.mock('../../db/pet.db');
+
+describe('PetService', () => {
   let petService: PetService;
 
   beforeEach(() => {
-    // Initialize a new instance of PetService before each test
     petService = new PetService();
   });
 
-  it("should return an empty array when no pets are added", async () => {
+  it('should return an empty array when no pets are added', async () => {
+    PetModelMock.find.mockResolvedValue([]);
+
     const pets = await petService.getPets();
     expect(pets).toEqual([]);
   });
 
-  it("should create a new pet and return the created pet", async () => {
-    const newPet = await petService.createPet("John", "Buddy", "Dog", "Golden Retriever", 1672531200000); // Assuming a specific birthday timestamp
+  it('should return an array of pets for a given owner', async () => {
+    const owner = 'John';
+    PetModelMock.find.mockResolvedValue([{ owner: 'John', name: 'Buddy' }]);
 
-    // Check if the created pet has the correct attributes
-    expect(newPet.owner).toBe("John");
-    expect(newPet.name).toBe("Buddy");
-    expect(newPet.kind).toBe("Dog");
-    expect(newPet.breed).toBe("Golden Retriever");
-
-    // Check if the pet is added to the list
-    const pets = await petService.getPets();
-    expect(pets).toHaveLength(1);
-    expect(pets[0]).toEqual(newPet);
+    const ownerPets = await petService.getProfilePets(owner);
+    expect(ownerPets).toEqual([{ owner: 'John', name: 'Buddy' }]);
   });
 
-  it("should update the attributes of an existing pet", async () => {
-    const newPet = await petService.createPet("Jane", "Fluffy", "Cat", "Persian", 1672531200000);
-    const petId = newPet.id;
+  it('should create a new pet and return the created pet', async () => {
+    const newPetData = {
+      owner: 'John',
+      ownerEmail: 'john@example.com',
+      name: 'Buddy',
+      image: 'img.jpg',
+      kind: 'Dog',
+      breed: 'Golden Retriever',
+      birthday: 230101,
+      status: 'missing',
+      description: 'hej',
+    };
+    PetModelMock.create.mockResolvedValue(newPetData);
 
-    // Update the pet's name
-    await petService.updatePetAttribute(petId, { name: "Whiskers" });
+    const newPet = await petService.createPet(
+      newPetData.owner,
+      newPetData.ownerEmail,
+      newPetData.name,
+      newPetData.image,
+      newPetData.kind,
+      newPetData.breed,
+      newPetData.birthday,
+      newPetData.status,
+      newPetData.description,
+    );
 
-    // Retrieve the updated pet
-    const updatedPet = (await petService.getPets())[0];
-
-    // Check if the name is updated
-    expect(updatedPet.name).toBe("Whiskers");
+    expect(newPet).toEqual(newPetData);
   });
 
-  it("should delete an existing pet", async () => {
-    const newPet = await petService.createPet("Bob", "Fido", "Dog", "Labrador", 1672531200000);
-    const petId = newPet.id;
+  it('should update the attributes of an existing pet', async () => {
+    const existingPetId = 123;
+    const updates = { name: 'Whiskers' };
+    PetModelMock.updateOne.mockResolvedValue({ matchedCount: 1 });
 
-    // Delete the pet
-    await petService.deletePet(petId);
-
-    // Check if the pet is removed from the list
-    const pets = await petService.getPets();
-    expect(pets).toEqual([]);
+    const result = await petService.updatePetAttribute(existingPetId, updates);
+    expect(result).toBe(true);
   });
 
-  it("should reject updating a non-existing pet", async () => {
-    const nonExistingPetId = 12345;
+  it('should delete an existing pet', async () => {
+    const existingPetId = 123;
+    PetModelMock.deleteOne.mockResolvedValue({ deletedCount: 1 });
 
-    // Attempt to update a non-existing pet
-    await expect(petService.updatePetAttribute(nonExistingPetId, { name: "NewName" })).rejects.toThrowError("Pet not found");
+    const result = await petService.delete(existingPetId);
+    expect(result).toBe(true);
   });
 
-  it("should reject deleting a non-existing pet", async () => {
-    const nonExistingPetId = 12345;
-
-    // Attempt to delete a non-existing pet
-    await expect(petService.deletePet(nonExistingPetId)).rejects.toThrowError("Pet not found");
+  afterEach(() => {
+    jest.clearAllMocks();
   });
 });
