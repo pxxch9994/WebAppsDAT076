@@ -1,6 +1,5 @@
 import {Pet, PetUpdate} from "../model/pet";
 import {ITaskService} from "./I_PetService";
-import {UserModel} from "../../db/user.db";
 import {PetModel} from "../../db/pet.db";
 import {DeleteResult} from "mongodb";
 
@@ -28,6 +27,16 @@ export class PetService implements ITaskService {
         }
     }
 
+    async getPet(id: number) : Promise<Pet> {
+        try {
+            return PetModel.findOne({id}).orFail();
+        } catch (error) {
+            console.error("Error fetching users", error);
+            throw error;
+        }
+    }
+
+
     // Create a pet with a given attributes
     // Returns the created pet
     async createPet(owner: string, ownerEmail: string, name: string, image: string, kind: string, breed: string, birthday: number, status: string, description: string) : Promise<Pet> {
@@ -52,13 +61,13 @@ export class PetService implements ITaskService {
 
     async updatePetAttribute(id: number, updates: Partial<PetUpdate>): Promise<boolean> {
         try {
-            const result = await PetModel.updateOne(
+            const result = await PetModel.updateMany(
                 {id: id},
                 {$set: updates}
             );
-            return (result.matchedCount == 1);
+            return (result.matchedCount > 0);
         } catch (error) {
-                console.error("Error creating pet pet", error);
+                console.error("Error updating pet", error);
                 throw error;
             }
     }

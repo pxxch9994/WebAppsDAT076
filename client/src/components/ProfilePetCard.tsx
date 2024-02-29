@@ -5,8 +5,9 @@ import ListGroup from "react-bootstrap/ListGroup";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import ForumPetCard from "./ForumPetCard";
-import {IPet} from "../interfaces/IPet";
+import {IPet, IPetUpdate} from "../interfaces/IPet";
 import axios from "axios";
+import PetModal from "../components/PetModal"
 
 
 // TODO much repetitive code here. Fix one function to rule them all
@@ -55,13 +56,14 @@ const setPrivate = async (id: number) => {
     }
 };
 
-
 // ProfilePetCard a pet card. One for each owned pet located on the Profile page
 // It takes an IPet interface and uses its attributes to display the pet-information
 const ProfilePetCard: React.FC<{ pet: IPet }> = ({ pet}) => {
     const [petStatus, setPetStatus] = useState("Status");
     const [showModal, setShowModal] = useState(false);
     const [dropdown, setDropdown] = useState(false);
+    const [petId, setPetId] = useState(0);
+    const [show, setShow] = useState(false);
 
 
     const handleClose = () => setShowModal(false);
@@ -71,9 +73,20 @@ const ProfilePetCard: React.FC<{ pet: IPet }> = ({ pet}) => {
         setDropdown(!dropdown);
     };
 
+    const openUpdateModal = (petId: number) => {
+        setPetId(petId);
+        setShow(true);
+
+    }
+
+    const handleCloseModal = () => {
+        setShow(false);
+    };
+
     // TODO The browser should automatically refresh and display the new data when petStatus is changed
     return (
         <>
+            <PetModal update={true} petId={petId} showProp={show} handleCloseModal={handleCloseModal} />
             <Modal show={showModal} onHide={handleClose} style={{backgroundColor:"none"}}>
                     <Form>
                         <ForumPetCard pet={pet}></ForumPetCard>
@@ -105,7 +118,7 @@ const ProfilePetCard: React.FC<{ pet: IPet }> = ({ pet}) => {
                                     <Dropdown.Divider/>
                                     <Dropdown.Item onClick={(e) => setPrivate(pet.id)}>Private</Dropdown.Item>
                                     <Dropdown.Divider/>
-                                    <Dropdown.Item onClick={(e) => setPetStatus("")}>Edit</Dropdown.Item>
+                                    <Dropdown.Item onClick={(e) => openUpdateModal(pet.id)}>Edit</Dropdown.Item>
                                     <Dropdown.Item onClick={(e) => deletePet(pet.id)}>Delete</Dropdown.Item>
                                 </Dropdown.Menu>
                             </Dropdown>

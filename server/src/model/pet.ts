@@ -11,4 +11,4 @@ export interface Pet {
     description: string;
 }
 
-export type PetUpdate = Omit<Pet, 'id' | 'owner'>;
+export type PetUpdate = Omit<Pet, 'id' | 'owner' | 'ownerEmail'>;

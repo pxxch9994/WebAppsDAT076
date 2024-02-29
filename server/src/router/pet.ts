@@ -2,6 +2,7 @@ import express, {Router, Request, Response, NextFunction} from "express";
 import { PetService } from "../service/pet";
 import {Pet, PetUpdate} from "../model/pet";
 import {checkAuthentication} from "./userAuthentication";
+import session from "express-session";
 
 const petService : PetService = new PetService();
 
@@ -74,9 +75,13 @@ petRouter.patch("/:id", checkAuthentication, async (
 ) => {
     const id: number = parseInt(req.params.id, 10);
     const updates: Partial<PetUpdate> = req.body;
+    const pet = await petService.getPet(id);
+    let owner = pet.owner;
     try {
-        await petService.updatePetAttribute(id, updates);
-        res.status(200).send("Pet changed one or more attributes");
+        if (req.session.username == owner) {
+            await petService.updatePetAttribute(id, updates);
+            res.status(200).send("Pet changed one or more attributes");
+        }
     } catch (error : any) {
         res.status(400).send(error.message);
     }
@@ -87,9 +92,13 @@ petRouter.delete("/:id", checkAuthentication, async (
     res: Response<string>
 ) => {
     const id: number = parseInt(req.params.id, 10);
+    const pet = await petService.getPet(id);
+    let owner = pet.owner;
     try {
-        await petService.delete(id);
-        res.status(200).send("Pet is deleted");
+        if (req.session.username == owner) {
+            await petService.delete(id);
+            res.status(200).send("Pet is deleted");
+        }
     } catch (error : any) {
         res.status(400).send(error.message);
     }
