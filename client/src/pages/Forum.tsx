@@ -7,7 +7,7 @@ import axios, {all} from "axios";
 import AddPet from "../components/AddPet";
 import {IPet} from "../interfaces/IPet";
 import Button from "react-bootstrap/Button";
-import {CustomDropdown} from "../components/ForumFilter"
+import {ForumFilter} from "../components/ForumFilter"
 
 const Forum: React.FC = () => {
 
@@ -17,7 +17,7 @@ const Forum: React.FC = () => {
             <NavBar />
             <AddPet />
 
-                <CustomDropdown />
+                <ForumFilter />
 
         </>
     );

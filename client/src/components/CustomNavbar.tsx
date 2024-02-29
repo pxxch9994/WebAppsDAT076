@@ -46,7 +46,7 @@ const CustomNavbar: React.FC = () => {
     // since useNavigate creates a smoother navigation system and won't reload the page if we are already on it
     return (
         <Navbar bg="dark" expand="lg">
-            <Navbar.Brand style={{color:"var(--bs-light)"}}>...PetCommunity</Navbar.Brand>
+            <Navbar.Brand style={{color:"var(--bs-light)"}}>PetCommunity</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto">

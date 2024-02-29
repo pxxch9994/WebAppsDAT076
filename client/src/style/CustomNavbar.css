@@ -10,3 +10,15 @@
 .navbar-nav .nav-item.active a {
   color: #ffffff; 
 }
+
+.navbar-toggler {
+  background: none;
+}
+.navbar-toggler-icon {
+  background-color: #494747; /* Change to a color that contrasts with the Navbar background */
+  border-radius: 5px;
+}
+
+.navbar-brand {
+  margin-left: 50px;
+}

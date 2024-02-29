@@ -1,4 +1,3 @@
-
 import React, {useEffect, useState} from 'react';
 import '../style/Forum.css';
 import ForumPetCard from "../components/ForumPetCard";
@@ -6,7 +5,7 @@ import {Col, Container, Dropdown, DropdownButton, Row} from 'react-bootstrap';
 import axios, {all} from "axios";
 import {IPet} from "../interfaces/IPet";
 
-export function CustomDropdown()   {
+export function ForumFilter()   {
     const [data, setData] = useState<IPet[]>([]);
     const [isOpen, setIsOpen] = useState(false);
     const [filteredData, setFilteredData] = useState<IPet[]>([]);
