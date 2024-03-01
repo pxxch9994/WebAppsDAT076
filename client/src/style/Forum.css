@@ -1,6 +1,7 @@
 .dropdown2 {
     position: relative;
     display: inline-block;
+    margin-left: 20px
 }
 
 .dropdown-2toggle {

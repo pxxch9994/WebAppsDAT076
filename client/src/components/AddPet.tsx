@@ -82,12 +82,11 @@ function AddPet() {
     // Graphics form modal
     return (
         <>
-            <div className="center-content">
-            <Button variant="primary" onClick={handleShow}>
-                Add Pet
-            </Button>
-
-                </div>
+            <div className="text-center mt-3 mb-3"> 
+                <Button variant="primary" onClick={handleShow}>
+                    Add Pet
+                </Button>
+            </div>
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title>Add a pet</Modal.Title>
