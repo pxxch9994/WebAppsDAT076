@@ -20,11 +20,11 @@
     }
 }
 
-.p-md-5, .firstcol, .secondcol {
+.p-md-5, .firstcol, .secondcol, .animate-header, .col-md-3 {
     transition: transform 0.3s ease-in-out;
 }
 
-.p-md-5:hover, .firstcol:hover, .secondcol:hover {
+.p-md-5:hover, .firstcol:hover, .secondcol:hover, .animate-header:hover, .col-md-3:hover {
     animation: slideRight 0.3s ease-in-out;
     transform: translateX(10px);
 }
