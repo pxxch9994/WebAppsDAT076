@@ -1,9 +1,11 @@
-import { useState } from 'react';
+import {useEffect, useState} from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import axios from "axios";
 import "./RandomPet"
+
+//import {user} from "./CustomNavbar";
 import {
     getBreed,
     getImage,
@@ -13,6 +15,11 @@ import {
     getRandomPetName,
     getRandomPetStatus
 } from "./RandomPet";
+import {ISessionData} from "../interfaces/ISessionData";
+import {FetchSession} from "./FetchSession";
+import {useNavigate} from "react-router-dom";
+import {LogoutUser} from "./Logout";
+import {ForumFilter} from "./ForumFilter";
 
 function AddPet() {
     const [show, setShow] = useState(false);
@@ -28,6 +35,33 @@ function AddPet() {
    // Functions to handle show and hide operations for the add pet modal
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
+    const [user, setUser] = useState<ISessionData | null>();
+    const [loggedIn, setLoggedIn] = useState<boolean>(false);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
+    const [error, setError] = useState<string>('');
+
+    const navigate = useNavigate();
+
+    // Checks if there is a session, which decides if we are showing the logout or login button
+    useEffect(() => {
+        const fetchSessionData = async () => {
+            try {
+                const data: ISessionData = await axios.get('http://localhost:8080/user/session', {withCredentials: true});
+                console.log(data);
+                setUser(data);
+                setLoggedIn(true);
+            } catch (error) {
+                setError('Failed to fetch user session');
+                setLoggedIn(false);
+                setUser(null);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        fetchSessionData();
+    }, []);
 
     // Add function that retrieves the username and email of the current session and creates a pet with collected form data
     const add = async () => {
@@ -45,6 +79,8 @@ function AddPet() {
                 status,
                 description
             }, {withCredentials: true});
+
+            window.location.reload()
 
             return res.data;
         } catch (error) {
@@ -71,6 +107,8 @@ function AddPet() {
                 description: getRandomPetDescription()
             }, {withCredentials: true});
 
+            window.location.reload()
+
             return res.data;
 
         } catch (error) {
@@ -83,10 +121,12 @@ function AddPet() {
     // Graphics form modal
     return (
         <>
-            <div className="text-center mt-3 mb-3"> 
-                <Button variant="primary" onClick={handleShow}>
-                    Add Pet
-                </Button>
+            <div className="text-center mt-3 mb-3">
+                {user &&
+                    <Button variant="primary" onClick={handleShow}>
+                        Add Pet
+                    </Button>
+                }
             </div>
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>

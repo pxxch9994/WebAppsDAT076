@@ -10,13 +10,19 @@ export function ForumFilter()   {
     const [isOpen, setIsOpen] = useState(false);
     const [filteredData, setFilteredData] = useState<IPet[]>([]);
 
+
     useEffect(() => {
-        getData();
+        update();
     }, []);
+
+    async function update() {
+        setFilteredData(await getData());
+    }
 
     const getData = async () => {
         const {data} = await axios.get('http://localhost:8080/pet/');
         setData(data);
+        return data
     };
 
 
