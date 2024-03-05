@@ -72,6 +72,7 @@ function AddPet() {
             }, {withCredentials: true});
 
             return res.data;
+
         } catch (error) {
             console.error('An error occurred:', error);
             throw error;
@@ -177,6 +178,7 @@ function AddPet() {
                     </Button>
                     <Button variant="primary" onClick={add}>
                         Add Pet
+
                     </Button>
                     <Button variant="primary" onClick={addRandomPet}>
                         Add Random Pet

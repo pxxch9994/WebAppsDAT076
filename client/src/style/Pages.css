@@ -28,3 +28,9 @@
     animation: slideRight 0.3s ease-in-out;
     transform: translateX(10px);
 }
+.square-image {
+    height: 100%;
+}
+.square-image2 {
+    height: 100%;
+}

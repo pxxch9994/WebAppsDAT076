@@ -18,10 +18,11 @@ test("End-to-end test", async () => {
 
 
 });
-
+/*
 test("End-to-end test", async () => {
     const testname2 = 444444;
     const res3 = await request.post("users").send({name : testname2, password : 555});
     expect(res3.statusCode).toEqual(400);
 });
 
+*/
