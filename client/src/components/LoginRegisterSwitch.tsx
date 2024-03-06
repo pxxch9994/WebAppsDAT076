@@ -3,11 +3,14 @@ import LoginField from './LoginField';
 import RegisterField from "./RegisterField";
 import "../style/LoginRegisterSwitch.css";
 
+/**
+ * React component for toggling between the login and registration forms.
+ *
+ * @returns {JSX.Element} The JSX representation of the LoginRegisterSwitch component.
+ */
 const LoginRegisterSwitch: React.FC = () => {
-    // State to track which component to show
-    const [showComponentA, setShowComponentA] = useState(true);
 
-    // Function to toggle between components
+    const [showComponentA, setShowComponentA] = useState(true); // State to track which component to show
 
     const toggleLogin = () => {
         setShowComponentA(true);
@@ -15,7 +18,6 @@ const LoginRegisterSwitch: React.FC = () => {
     const toggleRegister = () => {
         setShowComponentA(false);
     };
-
 
     return (
         <>

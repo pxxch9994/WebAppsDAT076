@@ -6,6 +6,11 @@ import {ISessionData} from "../interfaces/ISessionData";
 import { Navbar, Nav } from 'react-bootstrap';
 import axios from "axios";
 
+/**
+ * Navbar component.
+ * Displays navigation links and handles user session data to show appropriate buttons.
+ * Uses React Router for navigation and axios for making API requests.
+ */
 const CustomNavbar: React.FC = () => {
 
     const [user, setUser] = useState<ISessionData | null>();
@@ -15,7 +20,11 @@ const CustomNavbar: React.FC = () => {
 
     const navigate = useNavigate();
 
-    // Checks if there is a session, which decides if we are showing the logout or login button
+    /**
+     * Fetches user session data on component mount to determine login status.
+     * Sets the user state based on the fetched data.
+     * Decides if we are showing the logout or login button.
+     */
     useEffect(() => {
         const fetchSessionData = async () => {
             try {
@@ -37,12 +46,21 @@ const CustomNavbar: React.FC = () => {
 
     if (isLoading) return <div>Loading...</div>;
 
+    /**
+     * Navigates to the specified path using React Router's useNavigate hook.
+     *
+     * @param {To} path - The path to navigate to.
+     */
     const handleNavigate = (path: To) => {
         navigate(path);
     };
 
-    // We decided to use React useNavigate instead of href or similar,
-    // since useNavigate creates a smoother navigation system and won't reload the page if we are already on it
+    /**
+     * We decided to use React useNavigate instead of href or similar,
+     * since useNavigate creates a smoother navigation system and won't reload the page if we are already on it.
+     *
+     * @returns {JSX.Element} The JSX representation of the Navbar component.
+     */
     return (
         <Navbar bg="dark" expand="lg">
             <Navbar.Brand style={{color:"var(--bs-light)"}}>PetCommunity</Navbar.Brand>

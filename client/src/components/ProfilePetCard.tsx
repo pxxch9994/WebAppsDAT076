@@ -9,8 +9,15 @@ import {IPet, IPetUpdate} from "../interfaces/IPet";
 import axios from "axios";
 import PetModal from "../components/PetModal"
 
-
 // TODO much repetitive code here. Fix one function to rule them all
+
+/**
+ * Deletes a pet with the specified ID.
+ *
+ * @param {number} id - The ID of the pet to be deleted.
+ * @returns {Promise<any>} - A promise that resolves when the deletion is successful.
+ * @throws {Error} - If an error occurs during the deletion process.
+ */
 const deletePet = async (id: number) => {
     try {
         return await axios.delete(`http://localhost:8080/pet/${id}`, {withCredentials: true});
@@ -20,6 +27,13 @@ const deletePet = async (id: number) => {
     }
 };
 
+/**
+ * Sets the status of a pet to "missing".
+ *
+ * @param {number} id - The ID of the pet whose status is being set to "missing".
+ * @returns {Promise<any>} - A promise that resolves when the status is successfully updated.
+ * @throws {Error} - If an error occurs during the update process.
+ */
 const setMissing = async (id: number) => {
     try {
         return await axios.patch(`http://localhost:8080/pet/${id}`, {status:"missing"}, {withCredentials: true});
@@ -29,6 +43,13 @@ const setMissing = async (id: number) => {
     }
 };
 
+/**
+ * Sets the status of a pet to "adopt".
+ *
+ * @param {number} id - The ID of the pet whose status is being set to "adopt".
+ * @returns {Promise<any>} - A promise that resolves when the status is successfully updated.
+ * @throws {Error} - If an error occurs during the update process.
+ */
 const setAdoption = async (id: number) => {
     try {
         return await axios.patch(`http://localhost:8080/pet/${id}`, {status:"adopt"}, {withCredentials: true});
@@ -38,6 +59,13 @@ const setAdoption = async (id: number) => {
     }
 };
 
+/**
+ * Sets the status of a pet to "found".
+ *
+ * @param {number} id - The ID of the pet whose status is being set to "found".
+ * @returns {Promise<any>} - A promise that resolves when the status is successfully updated.
+ * @throws {Error} - If an error occurs during the update process.
+ */
 const setFound = async (id: number) => {
     try {
         return await axios.patch(`http://localhost:8080/pet/${id}`, {status:"found"}, {withCredentials: true});
@@ -47,6 +75,13 @@ const setFound = async (id: number) => {
     }
 };
 
+/**
+ * Sets the status of a pet to "private".
+ *
+ * @param {number} id - The ID of the pet whose status is being set to "private".
+ * @returns {Promise<any>} - A promise that resolves when the status is successfully updated.
+ * @throws {Error} - If an error occurs during the update process.
+ */
 const setPrivate = async (id: number) => {
     try {
         return await axios.patch(`http://localhost:8080/pet/${id}`, {status:"private"}, {withCredentials: true});
@@ -56,8 +91,13 @@ const setPrivate = async (id: number) => {
     }
 };
 
-// ProfilePetCard a pet card. One for each owned pet located on the Profile page
-// It takes an IPet interface and uses its attributes to display the pet-information
+/**
+ * ProfilePetCard component displays a pet card for each owned pet on the Profile page.
+ * It utilizes the IPet interface attributes to showcase pet information.
+ *
+ * @param {Object} props - Component properties
+ * @param {IPet} props.pet - Pet data to be displayed
+ */
 const ProfilePetCard: React.FC<{ pet: IPet }> = ({ pet}) => {
     const [petStatus, setPetStatus] = useState("Status");
     const [showModal, setShowModal] = useState(false);
@@ -65,25 +105,43 @@ const ProfilePetCard: React.FC<{ pet: IPet }> = ({ pet}) => {
     const [petId, setPetId] = useState(0);
     const [show, setShow] = useState(false);
 
-
+    /**
+     * Closes the modal.
+     */
     const handleClose = () => setShowModal(false);
+
+    /**
+     * Shows the modal.
+     */
     const handleShow = () => setShowModal(true);
 
+    /**
+     * Toggles the dropdown visibility.
+     */
     const handleToggle = () => {
         setDropdown(!dropdown);
     };
 
+    /**
+     * Opens the update modal for a specific pet.
+     *
+     * @param {number} petId - The ID of the pet to be updated
+     */
     const openUpdateModal = (petId: number) => {
         setPetId(petId);
         setShow(true);
 
     }
 
+    /**
+     * Closes the update modal.
+     */
     const handleCloseModal = () => {
         setShow(false);
     };
 
     // TODO The browser should automatically refresh and display the new data when petStatus is changed
+
     return (
         <>
             <PetModal update={true} petId={petId} showProp={show} handleCloseModal={handleCloseModal} />

@@ -10,7 +10,8 @@ describe('User End-to-End Tests', () => {
             password: 'testpassword',
           },
         }).then((response) => {
-          // Validate the response status and body as needed
+
+          // check if user created successfully
           expect(response.status).to.eq(200);
         });
       });

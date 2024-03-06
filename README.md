@@ -10,7 +10,7 @@ To run this application use the following command.
 
 **Frontend**:
 
-In the *client* directory
+In the *client* directory:
 ```
 npm start
 ```
@@ -23,13 +23,22 @@ npm run dev
 ```
 
 
-Add a user:
+### Testing
+
+**Backend / Frontend test:**
+
+In the *client* (backend test) or *server* (frontend test) directory:
 ```
-curl -X POST -H "Content-Type: application/json" -d "{ \"username\" : \"myUsername\",  \"password\" : \"myPassword\"}" -i localhost:8080/users
+npm run test
+```
+or
+```
+npm test name_of_test_file
 ```
 
+**Cypress (End-to-end test)**:
 
-Add a pet:
+In the *client* directory:
 ```
-curl -X POST -H "Content-Type: application/json" -d "{ \"petName\": \"myPetName\", \"username\": \"myUsername\", \"image\": \"myImage\", \"kind\": \"myPetKind\", \"breed\": \"myPetBreed\", \"birthday\": 123456 }" -i http://localhost:8080/pets
+npx cypress open
 ```

@@ -13,8 +13,17 @@ import {
     getRandomPetName,
     getRandomPetStatus
 } from "./RandomPet";
-import {LogoutUser} from "./Logout";
 
+/**
+ * React component for the pet modal.
+ *
+ * @param {Object} props - React component props.
+ * @param {boolean} props.update - Flag indicating whether the modal is used for updating an existing pet.
+ * @param {number} props.petId - The ID of the pet (for update mode).
+ * @param {boolean} props.showProp - Flag to control the visibility of the modal.
+ * @param {() => void} props.handleCloseModal - Callback function to handle modal closure.
+ * @returns {JSX.Element} The JSX representation of the PetModal component.
+ */
 interface ModalProps {
     update: boolean;
     petId: number;
@@ -22,6 +31,9 @@ interface ModalProps {
     handleCloseModal: ()=>void;
 }
 
+/**
+ * Handles the closing of the modal.
+ */
 const PetModal: React.FC<ModalProps> = ({ update,  petId, showProp, handleCloseModal}) => {
     const [name, setName] = useState("");
     const [image, setImage] = useState("");
@@ -31,16 +43,20 @@ const PetModal: React.FC<ModalProps> = ({ update,  petId, showProp, handleCloseM
     const [status, setStatus] = useState("");
     const [description, setDescription] = useState("");
 
-// Functions to handle show and hide operations for the add pet modal
+    /**
+     * Functions to handle show and hide operations for the add pet modal.
+     */
     const handleClose = () => {
         handleCloseModal();
     }
 
-
+    /**
+     * Updates an existing pet with the collected form data.
+     */
     const updatePet = async () => {
         try {
-            // Initialize an empty object for the request payload
-            let payload: { [key: string]: any } = {};
+
+            let payload: { [key: string]: any } = {}; // Initialize an empty object for the request payload
 
             // Add parameters to the payload if they are not null or empty
             if (name) payload.name = name;
@@ -51,9 +67,6 @@ const PetModal: React.FC<ModalProps> = ({ update,  petId, showProp, handleCloseM
             if (status) payload.status = status;
             if (description) payload.description = description;
 
-
-
-
             // Make the second request only if the payload is not empty
             if (Object.keys(payload).length > 0) {
                 await axios.patch(`http://localhost:8080/pet/${petId}`, payload, { withCredentials: true });
@@ -61,16 +74,15 @@ const PetModal: React.FC<ModalProps> = ({ update,  petId, showProp, handleCloseM
 
             }
 
-
         } catch (error) {
             console.error('An error occurred:', error);
             throw error;
         }
     };
 
-
-
-    // Add function that retrieves the username and email of the current session and creates a pet with collected form data
+    /**
+     * Add function that retrieves the username and email of the current session and creates a pet with collected form data
+     */
     const add = async () => {
         try {
             const response = await axios.get('http://localhost:8080/user/session', {withCredentials: true});
@@ -94,34 +106,9 @@ const PetModal: React.FC<ModalProps> = ({ update,  petId, showProp, handleCloseM
         }
     };
 
-
-    /*
-    const updatePet = async (id: number, updates: Partial<PetUpdate>) => {
-    try {
-        // Initialize an empty object for the request payload
-        let payload: { [key: string]: string } = {};
-
-        // Add parameters to the payload if they are not null or empty
-        const { name, image, kind, breed, birthday, status, description } = updates;
-
-        if (name) payload.name = name;
-        if (image) payload.image = image;
-        if (kind) payload.kind = kind;
-        if (breed) payload.breed = breed;
-        if (birthday) payload.birthday = birthday;
-        if (status) payload.status = status;
-        if (description) payload.description = description;
-
-        // Make the request to update the pet by ID
-        await axios.patch(`http://localhost:8080/pet/${id}`, payload, { withCredentials: true });
-
-    } catch (error) {
-        console.error('An error occurred:', error);
-        throw error;
-    }
-};
+    /**
+     * Adds a new pet with the collected form data.
      */
-    // Add function that retrieves the username and email of the current session and creates a pet with collected form data
     const addRandomPet = async () => {
         try {
             const response = await axios.get('http://localhost:8080/user/session', {withCredentials: true});
@@ -147,7 +134,7 @@ const PetModal: React.FC<ModalProps> = ({ update,  petId, showProp, handleCloseM
     };
 
     // TODO The browser should automatically refresh and display the new data after submission(add pet)
-    // Graphics form modal
+
     return (
         <>
             <div className="center-content">

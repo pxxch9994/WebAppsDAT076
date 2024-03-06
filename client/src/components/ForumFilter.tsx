@@ -5,11 +5,15 @@ import {Col, Container, Dropdown, DropdownButton, Row} from 'react-bootstrap';
 import axios, {all} from "axios";
 import {IPet} from "../interfaces/IPet";
 
+/**
+ * React component for filtering and displaying pets in the forum.
+ *
+ * @returns {JSX.Element} The JSX representation of the ForumFilter component.
+ */
 export function ForumFilter()   {
     const [data, setData] = useState<IPet[]>([]);
     const [isOpen, setIsOpen] = useState(false);
     const [filteredData, setFilteredData] = useState<IPet[]>([]);
-
 
     useEffect(() => {
         update();
@@ -25,10 +29,18 @@ export function ForumFilter()   {
         return data
     };
 
-
+    /**
+     * Toggles the visibility of the filter dropdown menu.
+     *
+     * @name toggleDropdown
+     */
     const toggleDropdown = () => setIsOpen(!isOpen);
 
-
+    /**
+     * Filters pets based on the provided status and updates the displayed data accordingly.
+     *
+     * @param {('missing' | 'adopt' | 'found' | 'all')} filterD - The status by which to filter pets.
+     */
     const filter  = async(filterD: 'missing' | 'adopt' | 'found' | 'all' )  => {
         if (filterD === "all") {
             setFilteredData(data);

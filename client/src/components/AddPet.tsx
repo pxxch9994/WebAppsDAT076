@@ -4,8 +4,6 @@ import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import axios from "axios";
 import "./RandomPet"
-
-//import {user} from "./CustomNavbar";
 import {
     getBreed,
     getImage,
@@ -16,11 +14,11 @@ import {
     getRandomPetStatus
 } from "./RandomPet";
 import {ISessionData} from "../interfaces/ISessionData";
-import {FetchSession} from "./FetchSession";
 import {useNavigate} from "react-router-dom";
-import {LogoutUser} from "./Logout";
-import {ForumFilter} from "./ForumFilter";
 
+/**
+ * React component for adding a new pet.
+ */
 function AddPet() {
     const [show, setShow] = useState(false);
     const [name, setName] = useState("");
@@ -32,8 +30,14 @@ function AddPet() {
     const [description, setDescription] = useState("");
 
 
-   // Functions to handle show and hide operations for the add pet modal
+    /**
+     * Closes the modal for adding a new pet.
+     */
     const handleClose = () => setShow(false);
+
+    /**
+     * Opens the modal for adding a new pet.
+     */
     const handleShow = () => setShow(true);
 
     const [user, setUser] = useState<ISessionData | null>();
@@ -41,9 +45,9 @@ function AddPet() {
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [error, setError] = useState<string>('');
 
-    const navigate = useNavigate();
-
-    // Checks if there is a session, which decides if we are showing the logout or login button
+    /**
+     * Fetches user session data and sets the state accordingly.Fecides if we are showing the logout or login button
+     */
     useEffect(() => {
         const fetchSessionData = async () => {
             try {
@@ -63,7 +67,9 @@ function AddPet() {
         fetchSessionData();
     }, []);
 
-    // Add function that retrieves the username and email of the current session and creates a pet with collected form data
+    /**
+     * Retrieves the username and email of the current session and creates a pet with collected form data
+     */
     const add = async () => {
         try {
             const response = await axios.get('http://localhost:8080/user/session', {withCredentials: true});
@@ -89,7 +95,10 @@ function AddPet() {
         }
     };
 
-    // Add function that retrieves the username and email of the current session and creates a pet with collected form data
+    /**
+     * Adds a new pet with random data.
+     * Refreshes the page after the operation is completed.
+     */
     const addRandomPet = async () => {
         try {
             const response = await axios.get('http://localhost:8080/user/session', {withCredentials: true});
@@ -117,7 +126,9 @@ function AddPet() {
         }
     };
 
-    // Graphics form modal
+    /**
+     * Graphics form modal
+     */
     return (
         <>
             <div className="text-center mt-3 mb-3">

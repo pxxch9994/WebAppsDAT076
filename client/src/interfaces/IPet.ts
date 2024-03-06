@@ -1,6 +1,8 @@
-
-/* We use interfaces to guarantee Type Safety and to provide a clear expectation of the format between front- and backend
-    This is the pet interface which includes all attributes from the pet model in backend. */
+/**
+ * Interface representing the attributes of a pet, ensuring Type Safety and defining the expected format
+ * between the front-end and back-end.
+ * This is the pet interface which includes all attributes from the pet model in backend.
+ */
 export interface IPet {
     id: number;
     owner: string;

@@ -3,6 +3,13 @@ import "../style/LoginField.css";
 import axios from 'axios';
 import {useNavigate} from 'react-router-dom';
 
+/**
+ * React component for the login form.
+ *
+ * @param {Object} props - React component props.
+ * @param {Function} props.toggleRegister - Callback function to toggle to the registration view.
+ * @returns {JSX.Element} The JSX representation of the LoginField component.
+ */
 interface LoginProps {
     toggleRegister: () => void;
 }
@@ -17,6 +24,12 @@ const LoginField: React.FC<LoginProps> = ({toggleRegister}) => {
 
     const navigate = useNavigate();
 
+    /**
+     * Handles the form submission by making a login request to the server.
+     *
+     * @name handleSubmit
+     * @param {FormEvent<HTMLFormElement>} event - The form submission event.
+     */
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         try {
@@ -31,6 +44,11 @@ const LoginField: React.FC<LoginProps> = ({toggleRegister}) => {
         }
     };
 
+    /**
+     * Toggles the visibility of the password input field.
+     *
+     * @param {React.MouseEvent<HTMLButtonElement>} event - The click event on the password visibility icon.
+     */
     const togglePassword: React.MouseEventHandler<HTMLButtonElement> = (event) => {
         const button = event.currentTarget; // CurrentTarget is the button that triggered the event
         button.classList.toggle("showing");
@@ -43,6 +61,12 @@ const LoginField: React.FC<LoginProps> = ({toggleRegister}) => {
         }
     };
 
+    /**
+     * Renders the visibility icon based on the password visibility state.
+     *
+     * @name ToggleVisibilityIcon
+     * @returns {JSX.Element} The JSX representation of the visibility icon.
+     */
     function ToggleVisibilityIcon() {
         if (passwordVisibility) {
             return (

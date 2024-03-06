@@ -2,8 +2,15 @@ import React, {useState} from 'react';
 import "../style/ImageCard.css"
 import {IPet} from "../interfaces/IPet";
 
-// ForumPetCard containing pet information on front and back of the card located on the Forum page
-// It takes an IPet interface and uses its attributes to display the pet-information
+/**
+ * React component for displaying a pet card on the Forum page.
+ * ForumPetCard containing pet information on front and back of the card located on the Forum page.
+ * It takes an IPet interface and uses its attributes to display the pet-information.
+ *
+ * @param {Object} props - React component props.
+ * @param {IPet} props.pet - The pet data to be displayed on the card.
+ * @returns {JSX.Element} The JSX representation of the ForumPetCard component.
+ */
 const ForumPetCard: React.FC<{ pet: IPet }> = ({ pet }) => {
     const [isFlipped, setIsFlipped] = useState(false);
 
@@ -20,6 +27,11 @@ const ForumPetCard: React.FC<{ pet: IPet }> = ({ pet }) => {
 
     }
 
+    /**
+     * Toggles the flip state of the card when clicked.
+     *
+     * @name toggleFlipCard
+     */
     const toggleFlipCard = () => {
         setIsFlipped(!isFlipped);
     };

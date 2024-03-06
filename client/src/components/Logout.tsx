@@ -3,7 +3,12 @@ import Button from 'react-bootstrap/Button';
 import axios from "axios";
 import {NavigateFunction, useNavigate} from "react-router-dom";
 
-// Define LogoutUser outside of the Logout component
+/**
+ * Asynchronous function to log out the user by making a request to the server.
+ *
+ * @param {NavigateFunction} navigate - The navigate function from React Router v6 for redirection.
+ * @returns {Promise<void>} A Promise that resolves after the logout operation completes.
+ */
 export const LogoutUser = async (navigate: NavigateFunction) => {
     try {
         const res  = await axios.get(`http://localhost:8080/user/logout`, { withCredentials: true });
@@ -14,6 +19,11 @@ export const LogoutUser = async (navigate: NavigateFunction) => {
     }
 };
 
+/**
+ * Handles user logout.
+ *
+ * @returns {JSX.Element} The JSX representation of the Logout component.
+ */
 function Logout() {
     const navigate = useNavigate(); // This uses the navigate function from React Router v6
 
