@@ -34,11 +34,14 @@ const LoginField: React.FC<LoginProps> = ({toggleRegister}) => {
     const togglePassword: React.MouseEventHandler<HTMLButtonElement> = (event) => {
         const button = event.currentTarget; // CurrentTarget is the button that triggered the event
         button.classList.toggle("showing");
-        console.log("hello");
         const input = document.getElementById("password") as HTMLInputElement;
         if (input) {
             input.type = input.type === "password" ? "text" : "password";
-            console.log("hello");
+            if(input.type === "password") {
+                setPasswordVisibility(false);
+            }else {
+                setPasswordVisibility(true);
+            }
             input.focus();
         }
     };
@@ -81,7 +84,9 @@ const LoginField: React.FC<LoginProps> = ({toggleRegister}) => {
                     </div>
                     <button type="submit" className="login-form-button">LOGIN</button>
                     <button className="bn16" onClick={toggleRegister}>REGISTER</button>
-                    {error && <p className="login-error">{error}</p>}
+                    {error &&
+                        <p className="login-error">{error}</p>
+                    }
                 </form>
                 <a href="">Forgot your credentials?</a>
             </div>
