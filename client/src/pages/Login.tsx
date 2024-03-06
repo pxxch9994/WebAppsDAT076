@@ -9,9 +9,7 @@ const Login: React.FC = () => {
     return (
         <>
             <NavBar/>
-
             <LoginRegisterSwitch/>
-
         </>
     );
 }
