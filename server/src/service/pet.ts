@@ -5,8 +5,6 @@ import {DeleteResult} from "mongodb";
 
 export class PetService implements ITaskService {
 
-    private pets : Pet[] = [];
-
     // Returns the current list of pets
     async getPets() : Promise<Pet[]> {
         try {
