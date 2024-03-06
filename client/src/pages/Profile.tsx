@@ -6,9 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { ISessionData } from "../interfaces/ISessionData";
 import ProfilePetList from "../components/ProfilePetList";
 import axios from "axios";
-import ProfilePetCard from "../components/ProfilePetCard";
 import UserSettings from "../components/UserSettings";
-import PetModal from "../components/PetModal";
 
 const Profile: React.FC = () => {
   const [user, setUser] = useState<ISessionData | null>(null);

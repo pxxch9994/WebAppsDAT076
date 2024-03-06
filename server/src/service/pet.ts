@@ -10,7 +10,7 @@ export class PetService implements ITaskService {
     // Returns the current list of pets
     async getPets() : Promise<Pet[]> {
         try {
-            return await PetModel.find();
+            return await PetModel.find({status: { $in: ["missing", 'found', "adopt"] } });
         } catch (error) {
             console.error("Error fetching pets", error);
             throw error;
@@ -20,7 +20,7 @@ export class PetService implements ITaskService {
     // Returns the current list of pets
     async getProfilePets(owner: string) : Promise<Pet[]> {
         try {
-            return PetModel.find({owner});
+            return PetModel.find({owner: owner});
         } catch (error) {
             console.error("Error fetching users", error);
             throw error;
@@ -29,7 +29,7 @@ export class PetService implements ITaskService {
 
     async getPet(id: number) : Promise<Pet> {
         try {
-            return PetModel.findOne({id}).orFail();
+            return PetModel.findOne({id: id}).orFail();
         } catch (error) {
             console.error("Error fetching users", error);
             throw error;

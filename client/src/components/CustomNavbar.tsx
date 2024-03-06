@@ -41,7 +41,6 @@ const CustomNavbar: React.FC = () => {
         navigate(path);
     };
 
-    // TODO FIX Logout button is for unknown reason always visible.
     // We decided to use React useNavigate instead of href or similar,
     // since useNavigate creates a smoother navigation system and won't reload the page if we are already on it
     return (

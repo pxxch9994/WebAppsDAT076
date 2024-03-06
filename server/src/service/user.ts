@@ -4,9 +4,6 @@ import { UserModel } from "../../db/user.db";
 import { DeleteResult } from "mongodb";
 import { I_UserService } from "./I_UserService";
 
-
-
-// TODO see what we can do to fix _doc is error marked. OBS it works anyway
 function getUserWithoutPassword(user: User): UserWithoutPassword {
     const { password, ...userWithoutPassword } = user;
         // @ts-ignore
@@ -37,9 +34,9 @@ export class UserService implements I_UserService {
             console.log('Database connection is ready');
 
             const newUser = await UserModel.create({
-                username,
-                name,
-                email,
+                username: username,
+                name: name,
+                email: email,
                 password: hashedPassword,
             });
             return getUserWithoutPassword(newUser);
@@ -52,7 +49,7 @@ export class UserService implements I_UserService {
     // Authentication with error handling
     public async authenticate(username: string, password: string): Promise<UserWithoutPassword | null> {
         try {
-            const user = await UserModel.findOne({ username });
+            const user = await UserModel.findOne({username: username });
             if (!user) return null;
 
             const match = await bcrypt.compare(password, user.password);
@@ -66,7 +63,7 @@ export class UserService implements I_UserService {
     // deleteUser with error handling
     public async deleteUser(username: string): Promise<boolean> {
         try {
-            const result: DeleteResult = await UserModel.deleteOne({ username });
+            const result: DeleteResult = await UserModel.deleteOne({ username: username });
             return result.deletedCount === 1;
         } catch (error) {
             console.error("Error deleting user", error);

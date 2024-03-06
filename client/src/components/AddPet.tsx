@@ -117,7 +117,6 @@ function AddPet() {
         }
     };
 
-    // TODO The browser should automatically refresh and display the new data after submission(add pet)
     // Graphics form modal
     return (
         <>
