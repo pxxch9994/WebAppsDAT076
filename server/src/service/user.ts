@@ -3,17 +3,16 @@ import bcrypt from 'bcrypt';
 import { UserModel } from "../../db/user.db";
 import { DeleteResult } from "mongodb";
 import { I_UserService } from "./I_UserService";
-
+// Function to strip password from user object
 function getUserWithoutPassword(user: User): UserWithoutPassword {
     const { password, ...userWithoutPassword } = user;
         // @ts-ignore
     return userWithoutPassword._doc;
 }
-
+// UserService class implementing I_UserService interface
 export class UserService implements I_UserService {
     private saltRounds = 10;
-
-    // Improved getUsers with error handling
+    // Method to get users with error handling
     public async getUsers(): Promise<User[]> {
         try {
             return await UserModel.find();
@@ -23,12 +22,11 @@ export class UserService implements I_UserService {
         }
     }
 
-    // Create user with uniqueness check, error handling, and input validation
+    // Method to create a user with uniqueness check, error handling, and input validation
     public createUser = async (username: string, name: string, email: string, password: string): Promise<UserWithoutPassword> => {
-        if (!username || !email || !password) {
+        if (!username || !name || !email || !password) {
             throw new Error('Username, email, and password are required');
         }
-
         try {
             const hashedPassword = await bcrypt.hash(password, this.saltRounds);
             console.log('Database connection is ready');
@@ -46,7 +44,7 @@ export class UserService implements I_UserService {
         }
     };
 
-    // Authentication with error handling
+    // Method for user authentication with error handling
     public async authenticate(username: string, password: string): Promise<UserWithoutPassword | null> {
         try {
             const user = await UserModel.findOne({username: username });
@@ -60,7 +58,7 @@ export class UserService implements I_UserService {
         }
     }
 
-    // deleteUser with error handling
+    // Method to delete a user with error handling
     public async deleteUser(username: string): Promise<boolean> {
         try {
             const result: DeleteResult = await UserModel.deleteOne({ username: username });

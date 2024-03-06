@@ -1,18 +1,15 @@
 import express, { Router, Request, Response, NextFunction } from "express";
 import { UserService } from "../service/user";
-import { User } from "../model/user";
 import { checkAuthentication } from "./userAuthentication";
-
+// Initializing UserService
 const userService = new UserService();
+// Initializing userRouter
 export const userRouter = express.Router();
-
-
+// Interface for request with specific body fields for creating a user
 interface CreateUserRequest extends Request {
     params: {},
     body: { username: string, name: string, email: string, password: string }
 }
-
-
 // Middleware for validating request body
 const validateUserFields = (req: Request, res: Response, next: NextFunction) => {
     const { username, name, email, password } = req.body;
@@ -21,7 +18,7 @@ const validateUserFields = (req: Request, res: Response, next: NextFunction) => 
     }
     next();
 };
-
+// Route to get all users
 userRouter.get("/", async (req, res) => {
     try {
         const users = await userService.getUsers();
@@ -31,7 +28,7 @@ userRouter.get("/", async (req, res) => {
         res.status(500).send("Internal server error");
     }
 });
-
+// Route for user login
 userRouter.post("/login", async (req: Request, res: Response) => {
     const { username, password } = req.body;
     try {
@@ -52,12 +49,11 @@ userRouter.post("/login", async (req: Request, res: Response) => {
         res.status(500).send(error.message);
     }
 });
-
-
+// Route to get session information
 userRouter.get('/session', checkAuthentication, (req, res) => {
     res.status(200).send(req.session);
 });
-
+// Route to create a new user
 userRouter.post("/", validateUserFields, async (req: CreateUserRequest, res: Response) => {
     const { username, name, email, password } = req.body;
     try {
@@ -69,7 +65,7 @@ userRouter.post("/", validateUserFields, async (req: CreateUserRequest, res: Res
         res.status(error.code === 11000 ? 409 : 500).send(error.code === 11000 ? "User already exists" : "Internal server error");
     }
 });
-
+// Route to delete a user by username
 userRouter.delete("/:username", async (req, res) => {
     try {
         const success = await userService.deleteUser(req.params.username);
@@ -83,8 +79,7 @@ userRouter.delete("/:username", async (req, res) => {
         res.status(500).send("Internal server error");
     }
 });
-
-
+// Route for user logout
 userRouter.get('/logout', (req, res) => {
     if (req.session && req.session.username) {
         req.session.destroy((err: any) => {

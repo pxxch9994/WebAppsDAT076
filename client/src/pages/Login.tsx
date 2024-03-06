@@ -4,7 +4,6 @@ import LoginRegisterSwitch from "../components/LoginRegisterSwitch";
 import LoginField from "../components/LoginField";
 import NavBar from "../components/CustomNavbar";
 
-
 const Login: React.FC = () => {
     return (
         <>
@@ -13,5 +12,4 @@ const Login: React.FC = () => {
         </>
     );
 }
-
 export default Login;

@@ -7,14 +7,11 @@ import Simon from "../images/simon.jpeg"
 import Persian from "../images/persian-cat.png"
 import berner from "../images/berner-sennen.png"
 import koa from "../images/Koa.jpg"
-
 const Home: React.FC = () => {
   return (
       <>
         <NavBar/>
-
         <br/>
-
         <div className="animate-header container mx-auto p-md-5 text-white bg-dark rounded">
           <div className="row">
             <div className="col-md-8">

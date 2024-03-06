@@ -4,12 +4,8 @@ import NavBar from "../components/CustomNavbar";
 import React, {useState} from "react";
 import UserList from "../components/UserList";
 import PetList from "../components/PetList";
-
-
-
-// TODO This page should be removed after the development phase
+// Page for development testing purposes
 const DevTest: React.FC= () => {
-
     return(
         <>
             <NavBar />
@@ -21,5 +17,4 @@ const DevTest: React.FC= () => {
         </>
     );
 }
-
 export default DevTest;

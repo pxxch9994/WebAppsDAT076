@@ -1,13 +1,9 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import "../style/LoginField.css";
 import axios from 'axios';
-import {useNavigate} from 'react-router-dom';
-
-
 interface LoginProps {
     toggleLogin: () => void;
 }
-
 const RegisterField: React.FC<LoginProps> = ({toggleLogin}) => {
     // State variables to store username and password
     const [username, setUsername] = useState<string>('');
@@ -16,10 +12,10 @@ const RegisterField: React.FC<LoginProps> = ({toggleLogin}) => {
     const [password, setPassword] = useState<string>('');
     const [coPassword, setCoPassword] = useState<string>('');
     const [error, setError] = useState<string>('');
-
+    // State variables for password visibility toggles
     const [passwordVisibility, setPasswordVisibility] = useState(false);
     const [coPasswordVisibility, setCoPasswordVisibility] = useState(false);
-
+    // Function to handle form submission
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault(); // Prevent the default form submission behavior
         try {
@@ -42,9 +38,7 @@ const RegisterField: React.FC<LoginProps> = ({toggleLogin}) => {
             setError('Register failed');
         }
     };
-
-
-    // TODO not important but we could take a look at this section with repetitive code if we could find a cleaner way to do this
+    // Function to toggle password visibility
     const togglePassword: React.MouseEventHandler<HTMLButtonElement> = (event) => {
         const button = event.currentTarget; // CurrentTarget is the button that triggered the event
         button.classList.toggle("showing");
@@ -56,7 +50,7 @@ const RegisterField: React.FC<LoginProps> = ({toggleLogin}) => {
             input.focus();
         }
     };
-
+    // Function to toggle confirm password visibility
     const toggleCoPassword: React.MouseEventHandler<HTMLButtonElement> = (event) => {
         const button = event.currentTarget; // CurrentTarget is the button that triggered the event
         button.classList.toggle("showing");
@@ -69,7 +63,7 @@ const RegisterField: React.FC<LoginProps> = ({toggleLogin}) => {
             input.focus();
         }
     };
-
+    // Component for confirm password visibility icon
     function ToggleVisibilityIcon() {
             if (passwordVisibility) {
                 return (

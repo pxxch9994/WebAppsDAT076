@@ -29,9 +29,6 @@ const petSchema = new Schema<IPet>({
 }, {
     timestamps: true,
 });
-
-
-
+// Model for the Pet schema
 const PetModel = mongoose.model<IPet>('Pet', petSchema);
-
 export { PetModel };

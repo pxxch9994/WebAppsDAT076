@@ -3,11 +3,11 @@ import { PetService } from "../service/pet";
 import {Pet, PetUpdate} from "../model/pet";
 import {checkAuthentication} from "./userAuthentication";
 import session from "express-session";
-
+// Initializing PetService
 const petService : PetService = new PetService();
-
+// Initializing petRouter
 export const petRouter : Router = express.Router();
-
+// Interface for request with specific body fields for creating a pet
 interface CreatePetRequest extends Request {
     params : {},
     body: {
@@ -22,7 +22,7 @@ interface CreatePetRequest extends Request {
         description: string
     }
 }
-
+// Middleware to validate pet fields
 const validatePetFields = (req: Request, res: Response, next: NextFunction) => {
     const { owner, ownerEmail, name, image, kind, breed, birthday, status, description } = req.body;
     if (typeof owner !== "string" || typeof ownerEmail !== "string" || typeof name !== "string" || typeof image !== "string" || typeof kind !== "string" || typeof breed !== "string" || typeof birthday !== "number" || typeof status !== "string" || typeof description !== "string") {
@@ -31,6 +31,7 @@ const validatePetFields = (req: Request, res: Response, next: NextFunction) => {
     next();
 };
 
+// Route to get all pets
 petRouter.get("/", async (
     req : Request<{},Pet[],{}>, res : Response<Pet[]>
 ) => {
@@ -38,6 +39,7 @@ petRouter.get("/", async (
     res.status(200).send(pets);
 })
 
+// Route to get profile pets for authenticated users
 petRouter.get("/profile", checkAuthentication, async (
     req: Request<{}, Pet[], {}>, res: Response<Pet[]>
 ) => {
@@ -51,6 +53,7 @@ petRouter.get("/profile", checkAuthentication, async (
         }
     }
 });
+// Route to create a new pet
 petRouter.post("/", validatePetFields, checkAuthentication, async (
     req: CreatePetRequest , res : Response<string>
 ) => {
@@ -68,7 +71,7 @@ petRouter.post("/", validatePetFields, checkAuthentication, async (
     }
 })
 
-
+// Route to update attributes of a pet
 petRouter.patch("/:id", checkAuthentication, async (
     req: Request<{ id: string }, {}, Partial<PetUpdate>>,
     res: Response<string>
@@ -86,7 +89,7 @@ petRouter.patch("/:id", checkAuthentication, async (
         res.status(400).send(error.message);
     }
 });
-
+// Route to delete a pet by its ID
 petRouter.delete("/:id", checkAuthentication, async (
     req: Request<{id: string}, {}, {}>,
     res: Response<string>
@@ -103,7 +106,7 @@ petRouter.delete("/:id", checkAuthentication, async (
         res.status(400).send(error.message);
     }
 });
-
+// Route to delete all pets belonging to a specific owner
 petRouter.delete("/all/:owner", checkAuthentication, async (
     req: Request<{owner: string}, {}, {}>,
     res: Response<string>

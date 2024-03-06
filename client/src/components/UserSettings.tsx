@@ -6,11 +6,12 @@ import "../style/UserSettings.css"
 import {ISessionData} from "../interfaces/ISessionData";
 import {useNavigate} from 'react-router-dom';
 import {LogoutUser} from "./Logout";
-
+/**
+ * Component for user settings, including the option to delete the user account.
+ */
 function UserSettings() {
-
     const [error, setError] = useState<string>('');
-
+    // Function to delete pets associated with the user
     const deletePets = async (username: string) => {
         try {
             // @ts-ignore
@@ -20,12 +21,9 @@ function UserSettings() {
             throw error;
         }
     };
-
     const navigate = useNavigate(); // This uses the navigate function from React Router v6
-
+    // Function to delete the user account
     const DeleteUser = async () =>{
-
-
         console.log("DELETE");
         try {
             const session:ISessionData = await axios.get(`http://localhost:8080/user/session`, { withCredentials: true });
@@ -39,7 +37,6 @@ function UserSettings() {
             await LogoutUser(navigate);
             console.log(response + "The account has been deleted successfully");
             console.log(response + "All pets for this user have been deleted successfully");
-
         }catch (error) {
             console.error("The account could not be deleted",error);
             setError('Account could not be deleted');
@@ -54,5 +51,4 @@ function UserSettings() {
     );
 
 }
-
 export default UserSettings;

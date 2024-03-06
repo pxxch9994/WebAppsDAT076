@@ -6,7 +6,6 @@ interface IUser extends Document {
     email: string;
     password: string;
 }
-
 // Definition of the User schema
 const userSchema = new Schema<IUser>({
     username: { type: String, required: true, unique: true },
@@ -16,10 +15,8 @@ const userSchema = new Schema<IUser>({
 }, {
     timestamps: true,
 });
-
-
+// Model for the User schema
 const UserModel = mongoose.model<IUser>('User', userSchema);
-
 export { UserModel };
 
 

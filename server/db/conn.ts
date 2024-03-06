@@ -1,7 +1,6 @@
 import mongoose from 'mongoose';
-
+// MongoDB connection URL
 const url = "mongodb+srv://dev_user:kyUb62C6mSYoVyEn@cluster0.fgaca4g.mongodb.net/";
-
 // Connects to MongoDB
 export async function connectToDatabase() {
     try {
