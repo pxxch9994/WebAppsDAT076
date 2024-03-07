@@ -24,7 +24,7 @@ function UserSettings() {
     const navigate = useNavigate(); // This uses the navigate function from React Router v6
     // Function to delete the user account
     const DeleteUser = async () =>{
-        console.log("DELETE");
+
         try {
             const session:ISessionData = await axios.get(`http://localhost:8080/user/session`, { withCredentials: true });
             // @ts-ignore
@@ -45,7 +45,12 @@ function UserSettings() {
 
     return (
         <ButtonGroup vertical>
-            <Button onClick={DeleteUser} className={"button-49"}>Delete Account</Button>
+            <div style={{marginLeft:"50px"}}>
+                <h1>Settings:</h1>
+                <div style={{border: "5px solid lightgray", width:"auto", height:"auto", padding:"10px", minHeight:"500px"}}>
+                    <Button onClick={DeleteUser} className={"button-49"} style={{width:"auto"}}><p> DeleteAccount </p></Button>
+                </div>
+            </div>
             {error && <p className="error">{error}</p>}
         </ButtonGroup>
     );

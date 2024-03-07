@@ -6,7 +6,7 @@
     color: #E0E0E0;
     padding: 15px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    width: auto;
+    width: 400px;
     gap: 70px;
 }
 
@@ -26,6 +26,21 @@
     text-align: center;
     gap: 30px;
 }
+
+@media (width <= 500px) {
+    .dark-pet-card {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        background: #121212;
+        color: #E0E0E0;
+        padding: 15px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        width: 250px;
+        gap: 25px;
+    }
+}
+
 
 .dark-name {
     font-size: 20px;

@@ -5,8 +5,6 @@ import "../style/ProfilePetList.css"
 import ProfilePetCard from "./ProfilePetCard";
 import {IPet} from "../interfaces/IPet"
 
-// TODO This component might be overkill, we might figure a more clean way to merge this code into the Profile.tsx
-
 /**
  * ProfilePetList component to display a list of pets on the user's profile.
  * Fetches pet data from the server and renders ProfilePetCard components for each pet.
